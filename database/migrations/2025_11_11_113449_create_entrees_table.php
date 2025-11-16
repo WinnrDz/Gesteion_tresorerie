@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('entrees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('periode_id')->unique()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            
             $table->float("total_client");
             $table->float('autres');
+
+            $table->date("date")->unique();
+            $table->enum("periode_type",["date","semaine"]);
+            
             $table->timestamps();
         });
     }

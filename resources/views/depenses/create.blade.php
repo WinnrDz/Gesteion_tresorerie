@@ -41,6 +41,12 @@
         <label>date</label>
         <input type="date" name="date">
 
+        <label>periode type</label>
+        <select name="periode_type">
+            <option>date</option>
+            <option>semaine</option>
+        </select> 
+
 
         <label>fixes</label>
         <input type="text" placeholder="salaire_net" name="salaire_net">
@@ -52,7 +58,7 @@
         <label>variables</label>
         <input type="text" placeholder="g50_tap" name="g50_tap">
         <input type="text" placeholder="g50_tva" name="g50_tva">
-        <input type="text" placeholder="g50_acompt_ibs" name="g50_acompt_ibs">
+        <input type="text" placeholder="g50_acompte_ibs" name="g50_acompte_ibs">
         <input type="text" placeholder="achats_materiels" name="achats_materiels">
         <input type="text" placeholder="autres" name="autres">
 

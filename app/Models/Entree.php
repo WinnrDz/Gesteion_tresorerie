@@ -13,10 +13,6 @@ class Entree extends Model
         return $this->hasMany(Client::class);
     }
 
-    public function periode():HasOne
-    {
-        return $this->hasOne(Periode::class);
-    }
 
     protected $guarded = [];
 }

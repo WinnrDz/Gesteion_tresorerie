@@ -8,6 +8,7 @@ use App\Models\Fixes;
 use App\Models\Mois;
 use App\Models\Periode;
 use App\Models\Variables;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,9 +36,8 @@ class DepenseController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "annee" => "required",
-            "mois" => "required",
-            "periode" => "required",
+            "date" => '',
+            "periode_type" => '',
 
             "salaire_net" => '',
             "irg" => '',
@@ -51,29 +51,36 @@ class DepenseController extends Controller
             "achats_materiels" => '',
             "autres" => ''            
         ]);
+
+
+        $depenses = Depense::all();
+
+        foreach ($depenses as $depense) {
+
+            // check if in same week
+            if ($depense->periode_type == "semaine"){
+                $reqdate = $validated["date"];
+    
+                $reqdateCarbon = Carbon::parse($reqdate);
+    
+                    $depenseDate = Carbon::parse($depense->date);
+    
+                    if (
+                        $reqdateCarbon->month == $depenseDate->month &&     
+                        $reqdateCarbon->year == $depenseDate->year &&        
+                        $reqdateCarbon->weekOfMonth == $depenseDate->weekOfMonth  
+                    ) {
+                        dd("This week is already created");
+                    }
+                }
+
+        }
         
         DB::transaction(function() use ($validated) 
         {
-            
-        $annee = Annee::create([
-            'annee' => $validated["annee"],
-            'total_depense_annee' => null,
-            'total_entree_annee' => null
-        ]);
-
-        $mois = Mois::create([
-            'mois' => $validated["mois"],
-            'annee_id' => $annee->id,
-            'total_depense_mois' => null,
-            'total_entree_mois' => null
-        ]);
-
-        $periode = Periode::create([
-            "periode" => $validated["periode"],
-            "mois_id" => $mois->id,
-            'total_depense_periode' => null,
-            'total_entree_periode' => null
-        ]);
+        $date = $validated["date"];
+        
+        
 
         $fixes = Fixes::create([
             "salaire_net" => $validated["salaire_net"],
@@ -94,18 +101,9 @@ class DepenseController extends Controller
         Depense::create([
             "fixes_id" => $fixes->id,
             "variables_id" => $variables->id,
-            "periode_id" => $periode->id
+            "date" => $validated["date"],
+            "periode_type" => $validated["periode_type"]
         ]);
-
-        //calculer les total
-
-        $totalDepense = $fixes->salaire_net + $fixes->irg + $fixes->secu_35 + $fixes->abon_tel + $fixes->loyer
-                + $variables->g50_tap + $variables->g50_tva + $variables->g50_acompte_ibs
-                + $variables->achats_materiels + $variables->autres;
-
-        Depense::where('periode_id', $periode->id)->update(['total_depense' => $totalDepense]);
-
-
         });
 
         

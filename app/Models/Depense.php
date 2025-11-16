@@ -7,10 +7,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Depense extends Model
 {
-    public function periode():HasOne
-    {
-        return $this->hasOne(Periode::class);
-    }
 
     public function fixes():HasOne
     {

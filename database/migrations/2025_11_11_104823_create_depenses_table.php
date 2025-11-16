@@ -15,11 +15,12 @@ return new class extends Migration
         Schema::create('depenses', function (Blueprint $table) {
             $table->id();
             
-            $table->foreignId('periode_id')->unique()->constrained()->onDelete('cascade')->onUpdate('cascade');
-
             $table->foreignId('fixes_id')->unique()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('variables_id')->unique()->constrained()->onDelete('cascade')->onUpdate('cascade');
             
+            $table->date("date")->unique();
+            $table->enum("periode_type",["date","semaine"]);
+
             $table->timestamps();
         });
     }
