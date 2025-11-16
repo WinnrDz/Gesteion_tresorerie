@@ -14,11 +14,11 @@ return new class extends Migration
     {
         Schema::create('depenses', function (Blueprint $table) {
             $table->id();
-            $table->date('date_debut');
-            $table->date('date_fin');
-                
-            $table->foreignId('fixes_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('variables_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            
+            $table->foreignId('periode_id')->unique()->constrained()->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreignId('fixes_id')->unique()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('variables_id')->unique()->constrained()->onDelete('cascade')->onUpdate('cascade');
             
             $table->timestamps();
         });

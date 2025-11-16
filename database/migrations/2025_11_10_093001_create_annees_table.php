@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fixes', function (Blueprint $table) {
+        Schema::create('annees', function (Blueprint $table) {
             $table->id();
-            $table->float('salaire_net');
-            $table->float('irg');
-            $table->float('secu_35');
-            $table->float('abon_tel');
-            $table->float('loyer');
+
+            $table->string("annee");
+            $table->float("total_depense_annee")->nullable();
+            $table->float("total_entree_annee")->nullable();
+            
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fixes');
+        Schema::dropIfExists('annees');
     }
 };

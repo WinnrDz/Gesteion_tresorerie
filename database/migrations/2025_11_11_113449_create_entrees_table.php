@@ -13,12 +13,8 @@ return new class extends Migration
     {
         Schema::create('entrees', function (Blueprint $table) {
             $table->id();
-            $table->date('date_debut');
-            $table->date('date_fin');
-
-            $table->foreignId('client_id')->constrained()->onDelete('cascade')->onUpdate('cascade');;
-
-            $table->float('encaissement_client');
+            $table->foreignId('periode_id')->unique()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->float("total_client");
             $table->float('autres');
             $table->timestamps();
         });

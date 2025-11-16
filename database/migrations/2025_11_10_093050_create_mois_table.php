@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fixes', function (Blueprint $table) {
+        Schema::create('mois', function (Blueprint $table) {
             $table->id();
-            $table->float('salaire_net');
-            $table->float('irg');
-            $table->float('secu_35');
-            $table->float('abon_tel');
-            $table->float('loyer');
+
+            $table->string("mois");
+            $table->foreignId('annee_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            
+            $table->float("total_depense_mois")->nullable();
+            $table->float("total_entree_mois")->nullable();
+
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fixes');
+        Schema::dropIfExists('mois');
     }
 };
