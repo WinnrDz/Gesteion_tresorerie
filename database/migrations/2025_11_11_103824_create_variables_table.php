@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('variables', function (Blueprint $table) {
             $table->id();
-            $table->float('g50_tap');
-            $table->float('g50_tva');
-            $table->float('g50_acompte_ibs');
-            $table->float('achats_materiels');
-            $table->float('autres');
+            $table->string("nom");
+            $table->float('valeur');
+
+            $table->foreignId('depense_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

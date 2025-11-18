@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('fixes', function (Blueprint $table) {
             $table->id();
-            $table->float('salaire_net');
-            $table->float('irg');
-            $table->float('secu_35');
-            $table->float('abon_tel');
-            $table->float('loyer');
+            $table->string("nom");
+            $table->float('valeur');
+
+            $table->foreignId('depense_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

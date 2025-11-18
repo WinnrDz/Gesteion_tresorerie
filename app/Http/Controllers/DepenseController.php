@@ -35,21 +35,15 @@ class DepenseController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+
+
+        // validate the date
+        
+
+        $validatedDate = $request->validate([
             "date" => '',
             "periode_type" => '',
-
-            "salaire_net" => '',
-            "irg" => '',
-            "secu_35" => '',
-            "abon_tel" => '',
-            "loyer" => '',
-
-            "g50_tap" => '',
-            "g50_tva" => '',
-            "g50_acompte_ibs" => '',
-            "achats_materiels" => '',
-            "autres" => ''            
+       
         ]);
 
 
@@ -59,7 +53,7 @@ class DepenseController extends Controller
 
             // check if in same week
             if ($depense->periode_type == "semaine"){
-                $reqdate = $validated["date"];
+                $reqdate = $validatedDate["date"];
     
                 $reqdateCarbon = Carbon::parse($reqdate);
     
@@ -75,36 +69,26 @@ class DepenseController extends Controller
                 }
 
         }
-        
-        DB::transaction(function() use ($validated) 
-        {
-        $date = $validated["date"];
-        
-        
 
-        $fixes = Fixes::create([
-            "salaire_net" => $validated["salaire_net"],
-            "irg" => $validated["irg"],
-            "secu_35" => $validated["secu_35"],
-            "abon_tel" => $validated["abon_tel"],
-            "loyer" => $validated["loyer"],
-        ]);
 
-        $variables = Variables::create([
-            "g50_tap" => $validated["g50_tap"],
-            "g50_tva" => $validated["g50_tva"],
-            "g50_acompte_ibs" => $validated["g50_acompte_ibs"],
-            "achats_materiels" => $validated["achats_materiels"],
-            "autres" => $validated["autres"]
-        ]);
+        // validate the fixes and variables
+        
+        //dd($request->all());
 
-        Depense::create([
-            "fixes_id" => $fixes->id,
-            "variables_id" => $variables->id,
-            "date" => $validated["date"],
-            "periode_type" => $validated["periode_type"]
-        ]);
-        });
+        $reqarray = $request->all();
+
+        $array_keys = array_keys($reqarray);
+
+        for ($i = 3; $i < count($array_keys); $i++) {
+            //dd($array_keys[$i]);
+            
+        }
+
+
+
+        foreach ($request->all() as $key => $value) {
+            
+        };
 
         
 

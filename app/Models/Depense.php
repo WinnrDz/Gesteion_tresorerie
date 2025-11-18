@@ -3,20 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Depense extends Model
 {
-
-    public function fixes():HasOne
+    public function fixes():HasMany 
     {
-        return $this->hasOne(Fixes::class);
+        return $this->hasMany(Fixe::class);
     }
 
-    public function variables():HasOne
+    public function variables():HasMany 
     {
-        return $this->hasOne(Variables::class);
+        return $this->hasMany(Variable::class);
     }
+    
 
     protected $guarded = [];
 }
