@@ -17,7 +17,7 @@ return new class extends Migration
             $table->float("valeur");
             $table->date("date");
 
-            $table->foreignId('depense_nom_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('depensenom_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();   
         });

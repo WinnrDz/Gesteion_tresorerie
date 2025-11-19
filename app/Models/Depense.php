@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Depense extends Model
 {
-    public function depense_nom():BelongsTo
+    public function depenseNom():BelongsTo
     {
-        return $this->belongsTo(Depense_nom::class);
+        return $this->belongsTo(DepenseNom::class);
     }
     
 

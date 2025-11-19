@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\depense_nom;
+use App\Models\depensenom;
 use Illuminate\Http\Request;
 
-class DepenseNomController extends Controller
+class DepensenomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,10 @@ class DepenseNomController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+   public function create()
     {
-        //
+        
+        return view("depensesNoms.create");
     }
 
     /**
@@ -28,13 +29,18 @@ class DepenseNomController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+
+        $validated = $request->validate([
+            "nom" => "required",
+            "type" => "required"
+        ]);
+        DepenseNom::create($validated);
+    }   
 
     /**
      * Display the specified resource.
      */
-    public function show(depense_nom $depense_nom)
+    public function show(depensenom $depensenom)
     {
         //
     }
@@ -42,7 +48,7 @@ class DepenseNomController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(depense_nom $depense_nom)
+    public function edit(depensenom $depensenom)
     {
         //
     }
@@ -50,7 +56,7 @@ class DepenseNomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, depense_nom $depense_nom)
+    public function update(Request $request, depensenom $depensenom)
     {
         //
     }
@@ -58,7 +64,7 @@ class DepenseNomController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(depense_nom $depense_nom)
+    public function destroy(depensenom $depensenom)
     {
         //
     }

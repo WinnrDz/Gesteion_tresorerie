@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Annee;
 use App\Models\Depense;
+use App\Models\depensenom;
 use App\Models\Fixes;
 use App\Models\Mois;
 use App\Models\Periode;
@@ -19,7 +20,24 @@ class DepenseController extends Controller
      */
     public function index()
     {
-        //
+
+        $depenses = Depense::all()->toArray();
+
+
+        // add name to depenses (N+1 PROBLEM)
+        
+        function getNomFromId($id){
+            return depensenom::find($id)->toArray()["nom"];
+        };
+        foreach ($depenses as $key => $value) {
+            $value["nom"] = getNomFromId($value["depensenom_id"]);
+            $depenseWithNom[] = $value;
+        }
+
+
+        
+
+        return view("depenses.index",compact("depenseWithNom"));
     }
 
     /**
@@ -27,7 +45,8 @@ class DepenseController extends Controller
      */
     public function create()
     {
-        return view('depenses.create');
+        $depensenoms = depensenom::all();
+        return view('depenses.create',compact("depensenoms"));
     }
 
     /**
@@ -35,7 +54,15 @@ class DepenseController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //dd($request->all());
+
+        $validated = $request->validate([
+            "valeur" => "required",
+            "date" => "required",
+            "depensenom_id" => "required"
+        ]) ;
+
+        Depense::create($validated);
     }
 
     /**

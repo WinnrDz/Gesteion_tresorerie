@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Depense_nom extends Model
+class depensenom extends Model
 {
     public function depenses():HasMany
     {
