@@ -2,17 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Annee;
-use App\Models\Depense;
-use App\Models\Fixes;
-use App\Models\Mois;
-use App\Models\Periode;
-use App\Models\Variables;
-use Carbon\Carbon;
+use App\Models\depense_nom;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class DepenseController extends Controller
+class DepenseNomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +20,7 @@ class DepenseController extends Controller
      */
     public function create()
     {
-        return view('depenses.create');
+        //
     }
 
     /**
@@ -35,13 +28,13 @@ class DepenseController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Depense $depense)
+    public function show(depense_nom $depense_nom)
     {
         //
     }
@@ -49,7 +42,7 @@ class DepenseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Depense $depense)
+    public function edit(depense_nom $depense_nom)
     {
         //
     }
@@ -57,7 +50,7 @@ class DepenseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Depense $depense)
+    public function update(Request $request, depense_nom $depense_nom)
     {
         //
     }
@@ -65,7 +58,7 @@ class DepenseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Depense $depense)
+    public function destroy(depense_nom $depense_nom)
     {
         //
     }

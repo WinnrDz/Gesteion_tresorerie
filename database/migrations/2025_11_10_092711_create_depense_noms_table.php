@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('variables', function (Blueprint $table) {
+        Schema::create('depense_noms', function (Blueprint $table) {
             $table->id();
             $table->string("nom");
-            $table->float('valeur');
-
-            $table->foreignId('depense_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-
+            $table->enum("type",["fix","variable"]);
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('variables');
+        Schema::dropIfExists('depense_noms');
     }
 };

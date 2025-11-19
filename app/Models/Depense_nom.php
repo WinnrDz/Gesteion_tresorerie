@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Client extends Model
+class Depense_nom extends Model
 {
-    public function entrees():HasMany
+    public function depenses():HasMany
     {
-        return $this->hasMany(Entree::class);
+        return $this->hasMany(Depense::class);
     }
 
     protected $guarded = [];
-}   
+}

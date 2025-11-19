@@ -14,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('depenses', function (Blueprint $table) {
             $table->id();
+            $table->float("valeur");
+            $table->date("date");
 
-            $table->date("date")->unique();
-            $table->enum("periode_type",["date","semaine"]);
+            $table->foreignId('depense_nom_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
 
-            $table->timestamps();
+            $table->timestamps();   
         });
     }
 

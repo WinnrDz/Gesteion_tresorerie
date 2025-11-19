@@ -10,7 +10,7 @@
     function addFix() {
         console.log("pressed")
         let inputValue = document.getElementById("fixInput").value;
-        document.getElementById("fixesContainer").innerHTML += `<input type='text' placeholder='${inputValue}' name='${inputValue}'>`;
+        document.getElementById("fixesContainer").innerHTML += `<input type='text' placeholder='${inputValue}' name="fixes[]">`;
     }
 
     function addVariable() {

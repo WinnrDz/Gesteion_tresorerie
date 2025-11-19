@@ -3,18 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Depense extends Model
 {
-    public function fixes():HasMany 
+    public function depense_nom():BelongsTo
     {
-        return $this->hasMany(Fixe::class);
-    }
-
-    public function variables():HasMany 
-    {
-        return $this->hasMany(Variable::class);
+        return $this->belongsTo(Depense_nom::class);
     }
     
 

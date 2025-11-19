@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Entree extends Model
 {
-    public function clients():HasMany
+    public function client():BelongsTo
     {
-        return $this->hasMany(Client::class);
+        return $this->belongsTo(Client::class);
     }
 
 
