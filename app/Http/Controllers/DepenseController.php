@@ -21,23 +21,9 @@ class DepenseController extends Controller
     public function index()
     {
 
-        $depenses = Depense::all()->toArray();
+        $depenses = Depense::with("depenseNom")->get();
 
-
-        // add name to depenses (N+1 PROBLEM)
-        
-        function getNomFromId($id){
-            return depensenom::find($id)->toArray()["nom"];
-        };
-        foreach ($depenses as $key => $value) {
-            $value["nom"] = getNomFromId($value["depensenom_id"]);
-            $depenseWithNom[] = $value;
-        }
-
-
-        
-
-        return view("depenses.index",compact("depenseWithNom"));
+        return view("depenses.index",compact("depenses"));
     }
 
     /**
