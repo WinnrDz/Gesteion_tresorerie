@@ -35,6 +35,9 @@ class DepensenomController extends Controller
             "type" => "required"
         ]);
         DepenseNom::create($validated);
+
+        return redirect()->route('depenses.create')->with('success', 'depensenom created successfully!');
+    
     }   
 
     /**

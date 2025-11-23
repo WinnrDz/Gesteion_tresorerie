@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Depense;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
+use function Symfony\Component\Clock\now;
 
 class DashboardController extends Controller
 {
@@ -12,7 +16,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('Dashboard');
+        $totaldepenseToday = Depense::whereDate('date', now())->sum('valeur');
+
+        $yesterday = Carbon::yesterday();
+        $totaldepenseYesterday = Depense::whereDate('date', $yesterday)->sum('valeur');
+
+        if ($totaldepenseYesterday == 0) {
+            $percentageDepense = 0; 
+        } else {
+            $percentageDepense = round((($totaldepenseToday - $totaldepenseYesterday) * 100) / $totaldepenseYesterday, 2); 
+        }
+
+
+        $totaldepenseYesterday;
+        return view('Dashboard', compact("totaldepenseToday", "percentageDepense"));
     }
 
     /**

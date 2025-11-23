@@ -1,35 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
+  @extends('layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<script>
-</script>
+  @section('content')
+      <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+          <div class="container-fluid py-2">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="card my-4">
+                          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                              <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                                  <h6 class="text-white text-capitalize ps-3">Crée une dépense</h6>
+                              </div>
+                          </div>
+                          <div class="card-body px-0 pb-2">
+                              <div class="table-responsive p-0">
+                                  <form action="{{ route('depenses.store') }}" method="POST">
+                                      @csrf
+                                      <table class="table align-items-center mb-0">
+                                          <thead>
+                                              <tr>
+                                                  <th
+                                                      class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                      Nom
+                                                  </th>
+                                                  <th
+                                                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                      Décaissements</th>
+                                                  <th
+                                                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                      date
+                                                  </th>
+                                                  <th class="text-secondary opacity-7"></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr>
+                                                  <td class="align-middle">
+                                                      <div class="input-group input-group-outline">
+                                                          <select name="depensenom_id" class="form-control">
+                                                              <option value="" disabled selected>Choisir un nom
+                                                                  déepense
+                                                              </option>
+                                                              @foreach ($depensenoms as $depensenom)
+                                                                  <option value="{{ $depensenom->id }}">
+                                                                      {{ $depensenom->nom }}</option>
+                                                              @endforeach
+                                                          </select>
 
-<body>
-    <form action="{{ route('depenses.store') }}" method="POST">
-        @csrf
+                                                          <div class="align-middle" style="align-self: center; padding-left: 10px"><a
+                                                                  href="{{ route('depensesNoms.create') }}"
+                                                                  class=" text-secondary font-weight-bold text-xs"> Ajouter
+                                                                  un nom
+                                                                  Dépense</a></div>
+                                                      </div>
+                                                  </td>
 
-        <label>nom</label>
-        <select name="depensenom_id">
-            @foreach($depensenoms as $depensenom)
-            <option value="{{ $depensenom->id }}">{{ $depensenom->nom }}</option>
-            @endforeach
-        </select>
+                                                  <td class="align-middle text-center">
+                                                      <input type="text" name="valeur" class="form-control text-center"
+                                                          placeholder="Valeur">
+                                                  </td>
 
-        <label>valeur</label>
-        <input type="text" name="valeur">
+                                                  <td class="align-middle text-center">
+                                                      <input type="date" name="date" class="form-control text-center">
+                                                  </td>
 
-        <label>date</label>
-        <input type="date" name="date">
-
-
-
-        <button type="submit">submit</button>
-    </form>
-</body>
-
-</html>
+                                                  <td class="align-middle text-center">
+                                                      <button type="submit" class="text-secondary font-weight-bold text-xs"
+                                                          style="border: none; background: none">
+                                                          Créer
+                                                      </button>
+                                                  </td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </main>
+  @endsection

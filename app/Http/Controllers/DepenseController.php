@@ -49,6 +49,9 @@ class DepenseController extends Controller
         ]) ;
 
         Depense::create($validated);
+
+        return redirect()->route('depenses.index')->with('success', 'Depense created successfully!');
+    
     }
 
     /**
