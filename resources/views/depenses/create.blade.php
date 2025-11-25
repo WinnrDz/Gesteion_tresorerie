@@ -6,6 +6,7 @@
               <div class="row">
                   <div class="col-12">
                       <div class="card my-4">
+                          <form action="{{ route('depenses.store') }}" method="POST">
                           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
                                   <h6 class="text-white text-capitalize ps-3">Crée une dépense</h6>
@@ -13,7 +14,6 @@
                           </div>
                           <div class="card-body px-0 pb-2">
                               <div class="table-responsive p-0">
-                                  <form action="{{ route('depenses.store') }}" method="POST">
                                       @csrf
                                       <table class="table align-items-center mb-0">
                                           <thead>
@@ -42,7 +42,7 @@
                                                               </option>
                                                               @foreach ($depensenoms as $depensenom)
                                                                   <option value="{{ $depensenom->id }}">
-                                                                      {{ $depensenom->nom }}</option>
+                                                                      {{ $depensenom->nom }} ({{$depensenom->type}})</option>
                                                               @endforeach
                                                           </select>
 
@@ -63,19 +63,15 @@
                                                       <input type="date" name="date" class="form-control text-center">
                                                   </td>
 
-                                                  <td class="align-middle text-center">
-                                                      <button type="submit" class="text-secondary font-weight-bold text-xs"
-                                                          style="border: none; background: none">
-                                                          Créer
-                                                      </button>
-                                                  </td>
+                                                
                                               </tr>
                                           </tbody>
                                       </table>
-                                  </form>
-                              </div>
-                          </div>
-                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn bg-gradient-dark mb-0" type="submit"><i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;Crée</button>
+</form>
                   </div>
               </div>
           </div>

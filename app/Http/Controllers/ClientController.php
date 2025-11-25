@@ -12,7 +12,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::all();
+
+        return view("clients.index", compact("clients"));
     }
 
     /**
@@ -20,7 +22,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view("clients.create");
     }
 
     /**
@@ -28,7 +30,13 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "nom" => "required"
+        ]);
+
+        Client::create($validated);
+
+        return redirect()->route('clients.index')->with('success', 'client created successfully!');
     }
 
     /**

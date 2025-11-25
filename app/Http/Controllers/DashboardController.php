@@ -6,6 +6,7 @@ use App\Models\Depense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Models\Entree;
 
 use function Symfony\Component\Clock\now;
 
@@ -16,20 +17,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $totaldepenseToday = Depense::whereDate('date', now())->sum('valeur');
+        $totalentreeToday = Entree::whereDate('date', now())->sum('valeur');
 
         $yesterday = Carbon::yesterday();
-        $totaldepenseYesterday = Depense::whereDate('date', $yesterday)->sum('valeur');
+        $totalentreeYesterday = Entree::whereDate('date', $yesterday)->sum('valeur');
 
-        if ($totaldepenseYesterday == 0) {
-            $percentageDepense = 0; 
+        if ($totalentreeYesterday == 0) {
+            $percentageentree = 100; 
         } else {
-            $percentageDepense = round((($totaldepenseToday - $totaldepenseYesterday) * 100) / $totaldepenseYesterday, 2); 
+            $percentageentree = round((($totalentreeToday - $totalentreeYesterday) * 100) / $totalentreeYesterday, 2); 
         }
 
-
-        $totaldepenseYesterday;
-        return view('Dashboard', compact("totaldepenseToday", "percentageDepense"));
+        if ($percentageentree > 0 ) { $percentageentree = "+" . $percentageentree;} 
+        
+        return view('Dashboard', compact("totalentreeToday", "percentageentree"));
     }
 
     /**

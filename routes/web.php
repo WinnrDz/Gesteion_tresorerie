@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\DepenseNomController;
@@ -18,3 +19,5 @@ Route::resource('depenses',DepenseController::class);
 Route::resource('depensesNoms',DepenseNomController::class);
 
 Route::resource('entrees',EntreeController::class);
+
+Route::resource('clients',ClientController::class);

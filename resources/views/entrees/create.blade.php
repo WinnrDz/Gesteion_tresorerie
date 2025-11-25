@@ -5,56 +5,78 @@
           <div class="container-fluid py-2">
               <div class="row">
                   <div class="col-12">
+                      <form action="{{ route('entrees.store') }}" method="POST">
                       <div class="card my-4">
                           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                  <h6 class="text-white text-capitalize ps-3">créer un nom de dépense</h6>
+                                  <h6 class="text-white text-capitalize ps-3">Crée une Entrée</h6>
                               </div>
                           </div>
                           <div class="card-body px-0 pb-2">
                               <div class="table-responsive p-0">
-                                  <form action="{{ route('depensesNoms.store') }}" method="POST">
                                       @csrf
                                       <table class="table align-items-center mb-0">
                                           <thead>
                                               <tr>
-                                                  <th
-                                                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                      Nom
+                                                  <th 
+                                                      class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                      Type
+                                                  </th>
+                                                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" id="clientth">
+                                                        Client
                                                   </th>
                                                   <th
                                                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                      Type</th>
+                                                      Entree</th>
+                                                  <th
+                                                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                      date
+                                                  </th>
                                                   <th class="text-secondary opacity-7"></th>
                                               </tr>
                                           </thead>
                                           <tbody>
                                               <tr>
-                                                  <td class="align-middle">
-                                                      <input type="text" name="nom" class="form-control text-center"
-                                                          placeholder="....">
+                                                  <td class="align-middle" id="typetd">
+                                                      <div class="input-group input-group-outline">
+                                                          <select name="type" class="form-control" onchange="toggleClientDropdown(this.value)">
+                                                              <option value="client">Client</option>
+                                                              <option value="autre">Autre</option>
+                                                          </select>
+                                                      </div>
                                                   </td>
-
-                                                  <td class="input-group input-group-outline">
-                                                      <select name="type" class="form-control">
-                                                              <option value="fix">Fix</option>
-                                                              <option value="variable">Variable</option>
-                                                        </select>
+                                                  
+                                                  <td class="align-middle" id="clienttd">
+                                                      <div class="input-group input-group-outline">
+                                                          <select name="client_id" class="form-control">
+                                                              @foreach ($clients as $client)
+                                                                  <option value="{{ $client->id }}">
+                                                                      {{ $client->nom }}</option>
+                                                              @endforeach
+                                                          </select>
+                                                          <div class="align-middle" style="align-self: center; padding-left: 10px"><a
+                                                                  href="{{ route('clients.create') }}"
+                                                                  class=" text-secondary font-weight-bold text-xs"> Ajouter
+                                                                  un client</a></div>
+                                                      </div>
                                                   </td>
 
                                                   <td class="align-middle text-center">
-                                                      <button type="submit" class="text-secondary font-weight-bold text-xs"
-                                                          style="border: none; background: none">
-                                                          Créer
-                                                      </button>
+                                                      <input type="text" name="valeur" class="form-control text-center"
+                                                          placeholder="Valeur">
+                                                  </td>
+
+                                                  <td class="align-middle text-center">
+                                                      <input type="date" name="date" class="form-control text-center">
                                                   </td>
                                               </tr>
                                           </tbody>
-                                      </table>
-                                  </form>
-                              </div>
-                          </div>
-                      </div>
+                                      </table>                     
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn bg-gradient-dark mb-0" type="submit"><i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;Crée</button>
+                        </form>
                   </div>
               </div>
           </div>

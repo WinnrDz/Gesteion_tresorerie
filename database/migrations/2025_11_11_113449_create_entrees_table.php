@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date("date");
             $table->enum("type",["client","autre"]);
 
-            $table->foreignId('client_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('client_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             
             $table->timestamps();
         });
