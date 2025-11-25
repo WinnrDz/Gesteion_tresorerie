@@ -38,7 +38,7 @@ class EntreeController extends Controller
         //dd($request->all());
         $Entree = $request->all();
         
-        if ($Entree["type"] = "client") {
+        if ($Entree["type"] == "client") {
             $validated = $request->validate([
                 "type" => "required",
                 "client_id" => "required",
@@ -46,13 +46,15 @@ class EntreeController extends Controller
                 "date" => "required"
             ]);
         } 
-        if ($Entree["type"] = "autre") {
+        if ($Entree["type"] == "autre") {    
             $validated = $request->validate([
                 "type" => "required",
                 "valeur" => "required",
                 "date" => "required"
             ]);
         }
+
+        //dd($validated);
 
         Entree::create($validated);
 
