@@ -43,6 +43,7 @@ class EntreeController extends Controller
                 "type" => "required",
                 "client_id" => "required",
                 "valeur" => "required",
+                "attachment" => "",
                 "date" => "required"
             ]);
         } 
@@ -50,11 +51,19 @@ class EntreeController extends Controller
             $validated = $request->validate([
                 "type" => "required",
                 "valeur" => "required",
+                "attachment" => "",
                 "date" => "required"
             ]);
         }
 
-        //dd($validated);
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $validated['attachment'] = file_get_contents($file->getRealPath());
+            $validated['attachment_name'] = $file->getClientOriginalName();
+        } else {
+            $validated['attachment'] = null;
+        }
+
 
         Entree::create($validated);
 
@@ -92,5 +101,21 @@ class EntreeController extends Controller
     public function destroy(Entree $entree)
     {
         //
+    }
+
+    public function download($id) {
+
+        $entree = Entree::find($id);
+
+        if (!$entree->attachment || !$entree->attachment_name) {
+            return redirect()->back()->with('error', 'No attachment found.');
+        }
+
+        $filename = $entree->attachment_name;
+
+        return response($entree->attachment)
+        ->header('Content-Type','application/octet-stream')
+        ->header('Content-Disposition', 'attachment; filename="' . $filename);
+
     }
 }

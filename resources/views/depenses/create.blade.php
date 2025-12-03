@@ -6,7 +6,7 @@
               <div class="row">
                   <div class="col-12">
                       <div class="card my-4">
-                          <form action="{{ route('depenses.store') }}" method="POST">
+                          <form action="{{ route('depenses.store') }}" method="POST" enctype="multipart/form-data">
                           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
                                   <h6 class="text-white text-capitalize ps-3">Crée une dépense</h6>
@@ -25,11 +25,14 @@
                                                   <th
                                                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                       Décaissements</th>
+                                                      <th
+                                                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                      note</th>
                                                   <th
                                                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                       date
                                                   </th>
-                                                  <th class="text-secondary opacity-7"></th>
+                                                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">attachment</th>
                                               </tr>
                                           </thead>
                                           <tbody>
@@ -56,14 +59,21 @@
 
                                                   <td class="align-middle text-center">
                                                       <input type="text" name="valeur" class="form-control text-center"
-                                                          placeholder="Valeur">
+                                                          placeholder="...">
+                                                  </td>
+
+                                                  <td class="align-middle text-center">
+                                                      <input type="text" name="note" class="form-control text-center"
+                                                          placeholder="...">
                                                   </td>
 
                                                   <td class="align-middle text-center">
                                                       <input type="date" name="date" class="form-control text-center">
                                                   </td>
 
-                                                
+                                                  <td class="align-middle text-center">
+                                                      <input type="file" name="attachment">
+                                                  </td>
                                               </tr>
                                           </tbody>
                                       </table>

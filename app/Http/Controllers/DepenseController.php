@@ -20,10 +20,10 @@ class DepenseController extends Controller
      */
     public function index()
     {
-
+    
         $depenses = Depense::with("depenseNom")->get();
-
-        return view("depenses.index",compact("depenses"));
+    
+        return view("depenses.index", compact("depenses"));
     }
 
     /**
@@ -32,7 +32,7 @@ class DepenseController extends Controller
     public function create()
     {
         $depensenoms = depensenom::all();
-        return view('depenses.create',compact("depensenoms"));
+        return view('depenses.create', compact("depensenoms"));
     }
 
     /**
@@ -45,13 +45,24 @@ class DepenseController extends Controller
         $validated = $request->validate([
             "valeur" => "required",
             "date" => "required",
+            "note" => "",
+            "attachment" => "",
             "depensenom_id" => "required"
-        ]) ;
+        ]);
+
+
+        
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $validated['attachment'] = file_get_contents($file->getRealPath());
+            $validated['attachment_name'] = $file->getClientOriginalName();
+        } else {
+            $validated['attachment'] = null;
+        }
 
         Depense::create($validated);
 
         return redirect()->route('depenses.index')->with('success', 'Depense created successfully!');
-    
     }
 
     /**
@@ -84,5 +95,21 @@ class DepenseController extends Controller
     public function destroy(Depense $depense)
     {
         //
+    }
+    
+    public function download($id) {
+
+        $depense = Depense::find($id);
+
+        if (!$depense->attachment || !$depense->attachment_name) {
+            return redirect()->back()->with('error', 'No attachment found.');
+        }
+
+        $filename = $depense->attachment_name;
+
+        return response($depense->attachment)
+        ->header('Content-Type','application/octet-stream')
+        ->header('Content-Disposition', 'attachment; filename="' . $filename);
+
     }
 }

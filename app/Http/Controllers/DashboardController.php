@@ -29,8 +29,23 @@ class DashboardController extends Controller
         }
 
         if ($percentageentree > 0 ) { $percentageentree = "+" . $percentageentree;} 
+
+        //
+
+        $totaldepenseToday = Depense::whereDate('date', now())->sum('valeur');
+
+        $yesterday = Carbon::yesterday();
+        $totaldepenseYesterday = Depense::whereDate('date', $yesterday)->sum('valeur');
+
+        if ($totaldepenseYesterday == 0) {
+            $percentagedepense = 100; 
+        } else {
+            $percentagedepense = round((($totaldepenseToday - $totaldepenseYesterday) * 100) / $totaldepenseYesterday, 2); 
+        }
+
+        if ($percentagedepense > 0 ) { $percentagedepense = "+" . $percentagedepense;} 
         
-        return view('Dashboard', compact("totalentreeToday", "percentageentree"));
+        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense"));
     }
 
     /**

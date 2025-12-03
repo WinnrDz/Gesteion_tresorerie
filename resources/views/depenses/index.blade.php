@@ -25,8 +25,15 @@
                                                   Décaissements</th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  note</th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   date
                                               </th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  attachment</th>
+
                                           </tr>
                                       </thead>
                                       <tbody>
@@ -37,14 +44,37 @@
                                                       </h6>
                                                   </td>
                                                   <td class="align-middle text-center text-sm">
-                                                      <span class="badge badge-sm bg-gradient-secondary">{{ $depense->valeur }} DA</span>
+                                                      <span
+                                                          class="badge badge-sm bg-gradient-secondary">{{ $depense->valeur }}
+                                                          DA</span>
                                                   </td>
-                                                  
+
+                                                  <td class="align-middle text-center">
+                                                      <span
+                                                          class="text-secondary text-xs font-weight-bold">{{ $depense->note ?? 'no note' }}
+                                                      </span>
+                                                  </td>
+
                                                   <td class="align-middle text-center">
                                                       <span
                                                           class="text-secondary text-xs font-weight-bold">{{ $depense->date }}
                                                       </span>
                                                   </td>
+                                                  @if ($depense->attachment)
+                                                  <td class="align-middle text-center">
+                                                      <a href="{{ route("depenses.download" , $depense->id )}}" class="text-secondary font-weight-bold text-xs">
+                                                          download
+                                                      </a>
+                                                  </td>
+                                                      
+                                                  @else
+                                                    <td class="align-middle text-center">
+                                                      <span class="text-secondary font-weight-bold text-xs">
+                                                          no piece joint
+                                                      </span>
+                                                    </td>
+                                                  @endif
+                                                  
                                                   
                                               </tr>
                                           @endforeach
@@ -52,8 +82,9 @@
                                   </table>
                               </div>
                           </div>
-                        </div>
-                        <a class="btn bg-gradient-dark mb-0" href="{{ route("depenses.create")}}"><i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;Crée une depense</a>
+                      </div>
+                      <a class="btn bg-gradient-dark mb-0" href="{{ route('depenses.create') }}"><i
+                              class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;Crée une depense</a>
                   </div>
               </div>
           </div>

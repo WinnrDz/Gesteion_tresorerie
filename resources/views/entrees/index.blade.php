@@ -29,25 +29,37 @@
                                                   Encaissements</th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  note</th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   date
                                               </th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  attachment</th>
                                           </tr>
                                       </thead>
                                       <tbody>
                                           @foreach ($entrees as $entree)
                                               <tr>
                                                   <td>
-                                                    <h6 class="mb-0 text-sm">{{ $entree->type }}
+                                                      <h6 class="mb-0 text-sm">{{ $entree->type }}
                                                       </h6>
                                                   </td>
                                                   <td>
-                                                      <h6 class="align-middle text-center text-sm">{{ $entree->client->nom ?? 'null' }}
+                                                      <h6 class="align-middle text-center text-sm">
+                                                          {{ $entree->client->nom ?? 'null' }}
                                                       </h6>
                                                   </td>
                                                   <td class="align-middle text-center text-sm">
-                                                      <span
-                                                          class="badge badge-sm bg-gradient-success">{{ $entree->valeur }}
+                                                      <span class="badge badge-sm bg-gradient-success">{{ $entree->valeur }}
                                                           DA</span>
+                                                  </td>
+
+                                                  <td class="align-middle text-center">
+                                                      <span
+                                                          class="text-secondary text-xs font-weight-bold">{{ $entree->note ?? 'no note' }}
+                                                      </span>
                                                   </td>
 
                                                   <td class="align-middle text-center">
@@ -55,7 +67,20 @@
                                                           class="text-secondary text-xs font-weight-bold">{{ $entree->date }}
                                                       </span>
                                                   </td>
-
+                                                  @if ($entree->attachment)
+                                                  <td class="align-middle text-center">
+                                                      <a href="{{ route("entrees.download" , $entree->id )}}" class="text-secondary font-weight-bold text-xs">
+                                                          download
+                                                      </a>
+                                                  </td>
+                                                      
+                                                  @else
+                                                    <td class="align-middle text-center">
+                                                      <span class="text-secondary font-weight-bold text-xs">
+                                                          no piece joint
+                                                      </span>
+                                                    </td>
+                                                  @endif    
                                               </tr>
                                           @endforeach
                                       </tbody>

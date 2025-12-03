@@ -15,9 +15,11 @@ Route::get('/', function () {
 Route::resource('dashboard',DashboardController::class);
 
 Route::resource('depenses',DepenseController::class);
+Route::get('/depenses/{id}/download',[DepenseController::class, 'download'])->name("depenses.download");
 
 Route::resource('depensesNoms',DepenseNomController::class);
 
 Route::resource('entrees',EntreeController::class);
+Route::get('/entrees/{id}/download',[EntreeController::class, 'download'])->name("entrees.download");
 
 Route::resource('clients',ClientController::class);

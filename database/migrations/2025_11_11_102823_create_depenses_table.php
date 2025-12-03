@@ -16,6 +16,9 @@ return new class extends Migration
             $table->id();
             $table->float("valeur");
             $table->date("date");
+            $table->string("note")->nullable();
+            $table->binary("attachment")->nullable();
+            $table->string("attachment_name")->nullable();
 
             $table->foreignId('depensenom_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
 
