@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Client extends Model
 {
-    public function entrees():HasMany
+    public function projects():HasMany
     {
-        return $this->hasMany(Entree::class);
+        return $this->hasMany(Project::class);
     }
 
     protected $guarded = [];

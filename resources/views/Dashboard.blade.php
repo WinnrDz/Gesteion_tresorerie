@@ -3,6 +3,8 @@
   @section('content')
       <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
           <div class="container-fluid py-2">
+
+
               <div class="row">
                   <div class="ms-3">
                       <h3 class="mb-0 h4 font-weight-bolder">Dashboard</h3>
@@ -28,9 +30,9 @@
                           <div class="card-footer p-2 ps-3">
                               <p class="mb-0 text-sm">
                                   @if ($percentageentree > 0)
-                                    <span class="text-success font-weight-bolder">{{ $percentageentree }}% </span>
+                                      <span class="text-success font-weight-bolder">{{ $percentageentree }}% </span>
                                   @else
-                                    <span class="text font-weight-bolder">{{ $percentageentree }}% </span>
+                                      <span class="text font-weight-bolder">{{ $percentageentree }}% </span>
                                   @endif
                                   than yesterday
                               </p>
@@ -54,8 +56,8 @@
                           </div>
                           <hr class="dark horizontal my-0">
                           <div class="card-footer p-2 ps-3">
-                              <p class="mb-0 text-sm">  
-                                    <span class="text font-weight-bolder">{{ $percentagedepense }}% </span>
+                              <p class="mb-0 text-sm">
+                                  <span class="text font-weight-bolder">{{ $percentagedepense }}% </span>
                                   than yesterday
                               </p>
                           </div>
@@ -66,7 +68,108 @@
 
               </div>
 
+              <div class="row mb-4" style="padding-top: 20px">
 
+                  <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+                      <div class="card">
+                          <div class="card-header pb-0">
+                              <div class="row">
+                                  <div class="col-lg-6 col-7">
+                                      <h6>Projects</h6>
+                                      <p class="text-sm mb-0">
+                                          <i class="fa fa-check text-info" aria-hidden="true"></i>
+                                          <span class="font-weight-bold ms-1">30 done</span> this month
+                                      </p>
+                                  </div>
+                                  <div class="col-lg-6 col-5 my-auto text-end">
+                                      <div class="dropdown float-lg-end pe-4">
+                                          <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
+                                              aria-expanded="false">
+                                              <i class="fa fa-ellipsis-v text-secondary"></i>
+                                          </a>
+                                          <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5"
+                                              aria-labelledby="dropdownTable">
+                                              <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a>
+                                              </li>
+                                              <li><a class="dropdown-item border-radius-md" href="javascript:;">Another
+                                                      action</a></li>
+                                              <li><a class="dropdown-item border-radius-md" href="javascript:;">Something
+                                                      else here</a></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="card-body px-0 pb-2">
+                              <div class="table-responsive">
+                                  <table class="table align-items-center mb-0">
+                                      <thead>
+                                          <tr>
+                                              <th
+                                                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  Projects</th>
+                                              <th
+                                                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                  Clients</th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  Montant</th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  Completion</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          @foreach ($projects as $project)
+                                              <tr>
+                                                  <td>
+                                                      <div class="d-flex px-2 py-1">
+                                                          <div>
+                                                              <img src="../assets/img/small-logos/logo-xd.svg"
+                                                                  class="avatar avatar-sm me-3" alt="xd">
+                                                          </div>
+                                                          <div class="d-flex flex-column justify-content-center">
+                                                              <h6 class="mb-0 text-sm">{{ $project->nom }}</h6>
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      <div class="avatar-group mt-2">
+                                                          <h6 class="mb-0 text-sm">{{ $project->client->nom }}</h6>
+                                                      </div>
+                                                  </td>
+                                                  <td class="align-middle text-center text-sm">
+                                                      <span class="text-xs font-weight-bold"> {{ $project->montant }}
+                                                          DA</span>
+                                                  </td>
+                                                  <td class="align-middle">
+                                                      <div class="progress-wrapper w-75 mx-auto">
+                                                          <div class="progress-info">
+                                                              <div class="progress-percentage">
+                                                                  <span
+                                                                      class="text-xs font-weight-bold">{{ $project->percentage }}%</span>
+                                                              </div>
+                                                          </div>
+                                                          <div class="progress">
+                                                              <div class="progress-bar bg-gradient-info" role="progressbar"
+                                                                  aria-valuenow="{{ $project->percentage }}"
+                                                                  aria-valuemin="0" aria-valuemax="100"
+                                                                  style="width: {{ $project->percentage }}%;">
+                                                              </div>
+
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                          @endforeach
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
               <footer class="footer py-4  ">
                   <div class="container-fluid">
                       <div class="row align-items-center justify-content-lg-between">

@@ -24,7 +24,7 @@
                                                   </th>
                                                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                                       id="clientth">
-                                                      Client
+                                                      Project
                                                   </th>
                                                   <th
                                                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -48,7 +48,7 @@
                                                       <div class="input-group input-group-outline">
                                                           <select name="type" class="form-control"
                                                               onchange="toggleClientDropdown(this.value)">
-                                                              <option value="client">Client</option>
+                                                              <option value="project">Project</option>
                                                               <option value="autre">Autre</option>
                                                           </select>
                                                       </div>
@@ -56,17 +56,17 @@
 
                                                   <td class="align-middle" id="clienttd">
                                                       <div class="input-group input-group-outline">
-                                                          <select name="client_id" class="form-control">
-                                                              @foreach ($clients as $client)
-                                                                  <option value="{{ $client->id }}">
-                                                                      {{ $client->nom }}</option>
+                                                          <select name="project_id" class="form-control">
+                                                              @foreach ($projects as $project)
+                                                                  <option value="{{ $project->id }}">
+                                                                      {{ $project->nom }}</option>
                                                               @endforeach
                                                           </select>
                                                           <div class="align-middle"
                                                               style="align-self: center; padding-left: 10px"><a
-                                                                  href="{{ route('clients.create') }}"
+                                                                  href="{{ route('projects.create') }}"
                                                                   class=" text-secondary font-weight-bold text-xs"> Ajouter
-                                                                  un client</a></div>
+                                                                  un project</a></div>
                                                       </div>
                                                   </td>
 
@@ -84,7 +84,8 @@
                                                   </td>
 
                                                   <td class="align-middle text-center">
-                                                      <input type="file" name="attachment">
+                                                      <input type="file" name="attachment"
+                                                          placeholder="...">
                                                   </td>
                                               </tr>
                                           </tbody>

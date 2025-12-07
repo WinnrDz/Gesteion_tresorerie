@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\DepenseNomController;
 use App\Http\Controllers\EntreeController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,3 +24,5 @@ Route::resource('entrees',EntreeController::class);
 Route::get('/entrees/{id}/download',[EntreeController::class, 'download'])->name("entrees.download");
 
 Route::resource('clients',ClientController::class);
+
+Route::resource('projects',ProjectController::class);

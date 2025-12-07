@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Models\Entree;
+use App\Models\Project;
 
 use function Symfony\Component\Clock\now;
 
@@ -44,8 +45,10 @@ class DashboardController extends Controller
         }
 
         if ($percentagedepense > 0 ) { $percentagedepense = "+" . $percentagedepense;} 
+
+        $projects = Project::with("client")->get();
         
-        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense"));
+        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects"));
     }
 
     /**

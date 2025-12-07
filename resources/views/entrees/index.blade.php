@@ -22,7 +22,7 @@
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  Client
+                                                  project
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -48,7 +48,7 @@
                                                   </td>
                                                   <td>
                                                       <h6 class="align-middle text-center text-sm">
-                                                          {{ $entree->client->nom ?? 'null' }}
+                                                          {{ $entree->project->nom ?? 'null' }}
                                                       </h6>
                                                   </td>
                                                   <td class="align-middle text-center text-sm">

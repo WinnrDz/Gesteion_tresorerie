@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Entree extends Model
 {
-    public function client():BelongsTo
+    public function project():BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Project::class);
     }
 
 

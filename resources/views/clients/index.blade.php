@@ -20,16 +20,26 @@
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   Nom
                                               </th>
+                                              <th
+                                                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  Projects
+                                              </th>
                                           </tr>
                                       </thead>
                                       <tbody>
                                           @foreach ($clients as $client)
                                               <tr>
                                                   <td>
-                                                    <h6 class="mb-0 text-sm">{{ $client->nom }}
+                                                      <h6 class="mb-0 text-sm">{{ $client->nom }}
                                                       </h6>
                                                   </td>
-                                              </tr>
+                                                  <td>
+                                                      @foreach ($client->projects as $project)
+                                                      <h6 class="mb-0 text-sm">{{ $project->nom }}
+                                                      </h6>
+                                                    @endforeach
+                                                </td>
+                                          </tr>
                                           @endforeach
                                       </tbody>
                                   </table>

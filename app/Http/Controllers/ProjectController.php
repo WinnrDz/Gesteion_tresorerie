@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $clients = Client::with("projects")->get();
+        $projects = Project::with("entrees")->get();
 
-        return view("clients.index", compact("clients"));
+        return view("projects.index",compact("projects"));
     }
 
     /**
@@ -22,7 +23,9 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view("clients.create");
+        $clients = Client::all();
+
+        return view('projects.create',compact("clients"));
     }
 
     /**
@@ -31,18 +34,20 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "nom" => "required"
+        "nom" => "required",
+        "montant" => "required",
+        "client_id" => "required"
         ]);
 
-        Client::create($validated);
+        Project::create($validated);
 
-        return redirect()->route('clients.index')->with('success', 'client created successfully!');
+        return redirect()->route('projects.index')->with('success', 'project created successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Client $client)
+    public function show(Project $project)
     {
         //
     }
@@ -50,7 +55,7 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Client $client)
+    public function edit(Project $project)
     {
         //
     }
@@ -58,7 +63,7 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Project $project)
     {
         //
     }
@@ -66,7 +71,7 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Client $client)
+    public function destroy(Project $project)
     {
         //
     }

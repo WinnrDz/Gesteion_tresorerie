@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Entree;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 use function PHPSTORM_META\type;
@@ -15,7 +16,7 @@ class EntreeController extends Controller
      */
     public function index()
     {
-        $entrees = Entree::with("client")->get();
+        $entrees = Entree::with("project")->get();
 
         return view("entrees.index",compact("entrees"));
     }
@@ -25,9 +26,9 @@ class EntreeController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
+        $projects = Project::all();
 
-        return view("entrees.create" , compact("clients"));
+        return view("entrees.create" , compact("projects"));
     }
 
     /**
@@ -38,12 +39,13 @@ class EntreeController extends Controller
         //dd($request->all());
         $Entree = $request->all();
         
-        if ($Entree["type"] == "client") {
+        if ($Entree["type"] == "project") {
             $validated = $request->validate([
                 "type" => "required",
-                "client_id" => "required",
+                "project_id" => "required",
                 "valeur" => "required",
-                "attachment" => "",
+                "attachment" => "nullable",
+                "attachment_name" => "nullable",
                 "date" => "required"
             ]);
         } 
@@ -51,7 +53,8 @@ class EntreeController extends Controller
             $validated = $request->validate([
                 "type" => "required",
                 "valeur" => "required",
-                "attachment" => "",
+                "attachment" => "nullable",
+                "attachment_name" => "nullable",
                 "date" => "required"
             ]);
         }
@@ -62,6 +65,7 @@ class EntreeController extends Controller
             $validated['attachment_name'] = $file->getClientOriginalName();
         } else {
             $validated['attachment'] = null;
+            $validated['attachment_name'] = null;
         }
 
 

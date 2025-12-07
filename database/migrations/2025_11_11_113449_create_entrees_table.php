@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->float("valeur");
             $table->date("date");
-            $table->enum("type",["client","autre"]);
+            $table->enum("type",["project","autre"]);
             $table->string("note")->nullable();
             $table->binary("attachment")->nullable();
             $table->string("attachment_name")->nullable();
             
-            $table->foreignId('client_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('project_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             
             $table->timestamps();
         });
