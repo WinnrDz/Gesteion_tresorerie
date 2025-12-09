@@ -41,6 +41,11 @@
                                                               <option value="variable">Variable</option>
                                                         </select>
                                                   </td>
+                                                  
+                                                  @if(url()->previous() == route('depenses.create'))
+                                                    <input type="hidden" name="redirect_to" value="{{ url()->previous() }}">
+                                                @endif
+
 
                                                   <td class="align-middle text-center">
                                                       <button type="submit" class="text-secondary font-weight-bold text-xs"

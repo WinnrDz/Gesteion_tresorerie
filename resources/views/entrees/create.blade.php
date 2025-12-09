@@ -84,9 +84,13 @@
                                                   </td>
 
                                                   <td class="align-middle text-center">
-                                                      <input type="file" name="attachment"
-                                                          placeholder="...">
+                                                      <input type="file" name="attachment" placeholder="...">
                                                   </td>
+                                                  @if (url()->previous() == route('projects.index'))
+                                                      <input type="hidden" name="redirect_to"
+                                                          value="{{ url()->previous() }}">
+                                                  @endif
+
                                               </tr>
                                           </tbody>
                                       </table>

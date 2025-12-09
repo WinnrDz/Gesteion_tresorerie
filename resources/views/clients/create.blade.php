@@ -33,6 +33,11 @@
                                                           placeholder="nom" style="outline: none;">
                                                   </td>
                                               </tr>
+                                              @if(url()->previous() == route('projects.create'))
+                                                <input type="hidden" name="redirect_to" value="{{ url()->previous() }}">
+                                            @endif
+
+
                                           </tbody>
                                       </table>
 

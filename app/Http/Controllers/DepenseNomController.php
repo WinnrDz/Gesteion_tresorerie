@@ -18,9 +18,9 @@ class DepensenomController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-   public function create()
+    public function create()
     {
-        
+
         return view("depensesNoms.create");
     }
 
@@ -36,9 +36,14 @@ class DepensenomController extends Controller
         ]);
         DepenseNom::create($validated);
 
-        return redirect()->route('depenses.create')->with('success', 'depensenom created successfully!');
-    
-    }   
+       if($request->filled('redirect_to')) {
+        return redirect($request->input('redirect_to'));
+    }
+
+    return redirect()->route('depenses.index'); // default behavior
+
+
+    }
 
     /**
      * Display the specified resource.

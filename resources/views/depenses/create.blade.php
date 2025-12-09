@@ -74,6 +74,8 @@
                                                   <td class="align-middle text-center">
                                                       <input type="file" name="attachment">
                                                   </td>
+                                                  <input type="hidden" name="redirect_to" value="{{ url()->previous() }}">
+
                                               </tr>
                                           </tbody>
                                       </table>

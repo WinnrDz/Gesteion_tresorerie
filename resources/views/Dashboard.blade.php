@@ -116,7 +116,7 @@
                                                   Montant</th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  Completion</th>
+                                                  achèvement</th>
                                           </tr>
                                       </thead>
                                       <tbody>

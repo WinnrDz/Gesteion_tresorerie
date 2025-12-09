@@ -18,7 +18,7 @@ class EntreeController extends Controller
     {
         $entrees = Entree::with("project")->get();
 
-        return view("entrees.index",compact("entrees"));
+        return view("entrees.index", compact("entrees"));
     }
 
     /**
@@ -28,7 +28,7 @@ class EntreeController extends Controller
     {
         $projects = Project::all();
 
-        return view("entrees.create" , compact("projects"));
+        return view("entrees.create", compact("projects"));
     }
 
     /**
@@ -38,7 +38,7 @@ class EntreeController extends Controller
     {
         //dd($request->all());
         $Entree = $request->all();
-        
+
         if ($Entree["type"] == "project") {
             $validated = $request->validate([
                 "type" => "required",
@@ -48,8 +48,8 @@ class EntreeController extends Controller
                 "attachment_name" => "nullable",
                 "date" => "required"
             ]);
-        } 
-        if ($Entree["type"] == "autre") {    
+        }
+        if ($Entree["type"] == "autre") {
             $validated = $request->validate([
                 "type" => "required",
                 "valeur" => "required",
@@ -71,7 +71,13 @@ class EntreeController extends Controller
 
         Entree::create($validated);
 
-        return redirect()->route('entrees.index')->with('success', 'entree created successfully!');
+        if ($request->filled('redirect_to')) {
+            return redirect($request->input('redirect_to'));
+        }
+
+        return redirect()->route('entrees.index'); // default behavior
+
+
 
     }
 
@@ -107,7 +113,8 @@ class EntreeController extends Controller
         //
     }
 
-    public function download($id) {
+    public function download($id)
+    {
 
         $entree = Entree::find($id);
 
@@ -118,8 +125,7 @@ class EntreeController extends Controller
         $filename = $entree->attachment_name;
 
         return response($entree->attachment)
-        ->header('Content-Type','application/octet-stream')
-        ->header('Content-Disposition', 'attachment; filename="' . $filename);
-
+            ->header('Content-Type', 'application/octet-stream')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename);
     }
 }

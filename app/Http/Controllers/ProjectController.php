@@ -41,7 +41,12 @@ class ProjectController extends Controller
 
         Project::create($validated);
 
-        return redirect()->route('projects.index')->with('success', 'project created successfully!');
+        if ($request->filled('redirect_to')) {
+            return redirect($request->input('redirect_to'));
+        }
+
+        return redirect()->route('projects.index'); // default behavior
+
     }
 
     /**

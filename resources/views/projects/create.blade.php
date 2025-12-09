@@ -57,6 +57,11 @@
                                                       <input type="text" name="montant" class="form-control text-center"
                                                           placeholder="....">
                                                   </td>
+                                                  @if(url()->previous() == route('entrees.create'))
+                                                    <input type="hidden" name="redirect_to" value="{{ url()->previous() }}">
+                                                @endif
+
+
                                               </tr>
                                           </tbody>
                                       </table>
