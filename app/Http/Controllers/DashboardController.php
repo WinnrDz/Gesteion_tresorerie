@@ -69,13 +69,14 @@ class DashboardController extends Controller
 
         $finale = Entree::sum('valeur') - Depense::sum('valeur');
 
-        if ($totalentreeYesterday - $totaldepenseYesterday != 0) {  
-        $percentageFinale = round($finale / ($totalentreeYesterday - $totaldepenseYesterday) * 100);
+        if ($initial != 0) {  
+        $percentageFinale = round(($finale - $initial) / ($initial) * 100);
         } else {
             $percentageFinale = 0;
         }
         if ($percentageFinale > 0 ) { $percentageFinale = "+" . $percentageFinale;} 
 
+        
         return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects","initial","finale","percentageFinale"));
     }
 

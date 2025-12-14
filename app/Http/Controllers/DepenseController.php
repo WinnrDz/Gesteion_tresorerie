@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Annee;
 use App\Models\Depense;
-use App\Models\depensenom;
+use App\Models\Depensenom;
 use App\Models\Fixes;
 use App\Models\Mois;
 use App\Models\Periode;
@@ -21,7 +21,7 @@ class DepenseController extends Controller
     public function index()
     {
     
-        $depenses = Depense::with("depenseNom")->get();
+        $depenses = Depense::with("DepenseNom")->get();
     
         return view("depenses.index", compact("depenses"));
     }
@@ -31,7 +31,7 @@ class DepenseController extends Controller
      */
     public function create()
     {
-        $depensenoms = depensenom::all();
+        $depensenoms = Depensenom::all();
         return view('depenses.create', compact("depensenoms"));
     }
 

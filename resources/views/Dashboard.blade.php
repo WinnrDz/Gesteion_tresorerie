@@ -207,7 +207,7 @@
                                                           <div class="progress-info">
                                                               <div class="progress-percentage">
                                                                   <span
-                                                                      class="text-xs font-weight-bold">{{ $project->percentage }}%</span>
+                                                                      class="text-xs font-weight-bold">{{ round( $project->percentage) }}%</span>
                                                               </div>
                                                           </div>
                                                           <div class="progress">
