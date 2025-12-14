@@ -4,7 +4,6 @@
       <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
           <div class="container-fluid py-2">
 
-
               <div class="row">
                   <div class="ms-3">
                       <h3 class="mb-0 h4 font-weight-bolder">Dashboard</h3>
@@ -16,8 +15,44 @@
                       <div class="card">
                           <div class="card-header p-2 ps-3">
                               <div class="d-flex justify-content-between">
+                                  @if ($initial == null)
+                                      <div>
+                                          <p class="text-sm mb-0 text-capitalize"> Trésorerie initiale</p>
+                                          <form id="tresorerieForm" action="{{ route('entrees.store') }}" method="POST">
+                                              @csrf
+                                              <input type="text" name="valeur" class="form-control mb-0"
+                                                  placeholder="................................"> Enter montant initial
+                                              <input type="hidden" name="initial" value="0">
+                                      </div>
+                                      <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg"
+                                          style="cursor:pointer;"
+                                          onclick="document.getElementById('tresorerieForm').submit();">
+                                          <i class="material-symbols-rounded opacity-10">add</i>
+                                      </div>
+                                      </form>
+                                  @else
+                                      <div>
+                                          <p class="text-sm mb-0 text-capitalize"> Trésorerie initiale</p>
+                                          <h4 class="mb-0">{{ $initial }} DA</h4>
+                                      </div>
+                                      <div
+                                          class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                          <i class="material-symbols-rounded opacity-10">fertile</i>
+                                      </div>
+                                  @endif
+                              </div>
+                          </div>
+                          <hr class="dark horizontal my-0">
+                      </div>
+                  </div>
+              </div>
+              <div class="row" style="padding-top: 20px">
+                  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                      <div class="card">
+                          <div class="card-header p-2 ps-3">
+                              <div class="d-flex justify-content-between">
                                   <div>
-                                      <p class="text-sm mb-0 text-capitalize">Entrées d'aujourd'hui</p>
+                                      <p class="text-sm mb-0 text-capitalize">Total Entrées d'aujourd'hui</p>
                                       <h4 class="mb-0">{{ $totalentreeToday }} DA</h4>
                                   </div>
                                   <div
@@ -45,7 +80,7 @@
                           <div class="card-header p-2 ps-3">
                               <div class="d-flex justify-content-between">
                                   <div>
-                                      <p class="text-sm mb-0 text-capitalize">Dépenses d'aujourd'hui</p>
+                                      <p class="text-sm mb-0 text-capitalize">Total Dépenses d'aujourd'hui</p>
                                       <h4 class="mb-0">{{ $totaldepenseToday }} DA</h4>
                                   </div>
                                   <div
@@ -64,8 +99,33 @@
                       </div>
                   </div>
 
-
-
+                  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                      <div class="card">
+                          <div class="card-header p-2 ps-3">
+                              <div class="d-flex justify-content-between">
+                                  <div>
+                                      <p class="text-sm mb-0 text-capitalize">Trésorerie finale</p>
+                                      <h4 class="mb-0">{{ $finale }} DA</h4>
+                                  </div>
+                                  <div
+                                      class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                      <i class="material-symbols-rounded opacity-10">weekend</i>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr class="dark horizontal my-0">
+                          <div class="card-footer p-2 ps-3">
+                              <p class="mb-0 text-sm">
+                                  @if ($percentageFinale > 0)
+                                      <span class="text-success font-weight-bolder">{{ $percentageFinale }}% </span>
+                                  @else
+                                      <span class="text font-weight-bolder">{{ $percentageFinale }}% </span>
+                                  @endif
+                                  than yesterday
+                              </p>
+                          </div>
+                      </div>
+                  </div>
               </div>
 
               <div class="row mb-4" style="padding-top: 20px">
@@ -151,7 +211,8 @@
                                                               </div>
                                                           </div>
                                                           <div class="progress">
-                                                              <div class="progress-bar bg-gradient-info" role="progressbar"
+                                                              <div class="progress-bar bg-gradient-info"
+                                                                  role="progressbar"
                                                                   aria-valuenow="{{ $project->percentage }}"
                                                                   aria-valuemin="0" aria-valuemax="100"
                                                                   style="width: {{ $project->percentage }}%;">
@@ -180,7 +241,8 @@
                                       document.write(new Date().getFullYear())
                                   </script>,
                                   made with <i class="fa fa-heart"></i> by
-                                  <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative
+                                  <a href="https://www.creative-tim.com" class="font-weight-bold"
+                                      target="_blank">Creative
                                       Tim</a>
                                   for a better web.
                               </div>

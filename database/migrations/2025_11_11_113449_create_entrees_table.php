@@ -16,7 +16,7 @@ return new class extends Migration
             $table->float("valeur");
             $table->date("date");
             $table->enum("type",["project","autre"]);
-            $table->string("note")->nullable();
+            $table->string("note")->nullable()->unique();
             $table->binary("attachment")->nullable();
             $table->string("attachment_name")->nullable();
             

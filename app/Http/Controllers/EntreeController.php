@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Entree;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Nette\Utils\Type;
 
 use function PHPSTORM_META\type;
 
@@ -38,6 +39,21 @@ class EntreeController extends Controller
     {
         //dd($request->all());
         $Entree = $request->all();
+        
+//----------------------------------------------------------------------------------------------------------------------------
+
+        if ($request->has('initial')) {
+            Entree::create([
+                "type" => 'autre',
+                'valeur' => $request->input('valeur'),
+                'date' => now(),
+                'note' => 'initial',
+            ]); 
+
+            return redirect()->route('dashboard.index');
+        }
+        
+//----------------------------------------------------------------------------------------------------------------------------
 
         if ($Entree["type"] == "project") {
             $validated = $request->validate([

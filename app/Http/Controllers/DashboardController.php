@@ -31,7 +31,8 @@ class DashboardController extends Controller
 
         if ($percentageentree > 0 ) { $percentageentree = "+" . $percentageentree;} 
 
-        //
+        //-------------------------------------------------------------------------------------------------------------------------------
+
 
         $totaldepenseToday = Depense::whereDate('date', now())->sum('valeur');
 
@@ -46,9 +47,36 @@ class DashboardController extends Controller
 
         if ($percentagedepense > 0 ) { $percentagedepense = "+" . $percentagedepense;} 
 
+        //-------------------------------------------------------------------------------------------------------------------------------
+
         $projects = Project::with("client")->get();
+
+        //-------------------------------------------------------------------------------------------------------------------------------
+        $yesterday = Carbon::yesterday()->toDateString();
+
+        if (Entree::exists()) {
+            $initial = Entree::whereDate('date', '<=', $yesterday)->sum('valeur') - Depense::whereDate('date', '<=', $yesterday)->sum('valeur');
+            //dd($initial);
+        } else {
+            $initial = null;
+        }
+
+        if (Entree::count() === 1 && Entree::first()->note === "initial") {
+            $initial = Entree::first()->valeur;
+        }
         
-        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects"));
+        //-------------------------------------------------------------------------------------------------------------------------------
+
+        $finale = Entree::sum('valeur') - Depense::sum('valeur');
+
+        if ($totalentreeYesterday - $totaldepenseYesterday != 0) {  
+        $percentageFinale = round($finale / ($totalentreeYesterday - $totaldepenseYesterday) * 100);
+        } else {
+            $percentageFinale = 0;
+        }
+        if ($percentageFinale > 0 ) { $percentageFinale = "+" . $percentageFinale;} 
+
+        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects","initial","finale","percentageFinale"));
     }
 
     /**
