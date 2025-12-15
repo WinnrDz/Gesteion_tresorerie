@@ -1,6 +1,8 @@
   @extends('layout')
 
   @section('content')
+
+
       <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
           <div class="container-fluid py-2">
 
@@ -64,16 +66,22 @@
                           <hr class="dark horizontal my-0">
                           <div class="card-footer p-2 ps-3">
                               <p class="mb-0 text-sm">
-                                  @if ($percentageentree > 0)
-                                      <span class="text-success font-weight-bolder">{{ $percentageentree }}% </span>
+                                  @if ($percentageentree)
+                                      @if ($percentageentree > 0)
+                                          <span class="text-success font-weight-bolder">{{ $percentageentree }}% </span>
+                                      @else
+                                          <span class="text font-weight-bolder">{{ $percentageentree }}% </span>
+                                      @endif
+                                      than yesterday
                                   @else
-                                      <span class="text font-weight-bolder">{{ $percentageentree }}% </span>
+                                      no records from yesterday
                                   @endif
-                                  than yesterday
                               </p>
                           </div>
                       </div>
                   </div>
+
+
 
                   <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                       <div class="card">
@@ -92,13 +100,48 @@
                           <hr class="dark horizontal my-0">
                           <div class="card-footer p-2 ps-3">
                               <p class="mb-0 text-sm">
-                                  <span class="text font-weight-bolder">{{ $percentagedepense }}% </span>
-                                  than yesterday
+                                  @if ($percentagedepense)
+                                      <span class="text font-weight-bolder">{{ $percentagedepense }}% </span>
+                                      than yesterday
+                                  @else
+                                      no records from yesterday
+                                  @endif
                               </p>
                           </div>
                       </div>
                   </div>
 
+                  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                      <div class="card">
+                          <div class="card-header p-2 ps-3">
+                              <div class="d-flex justify-content-between">
+                                  <div>
+                                      <p class="text-sm mb-0 text-capitalize">Solde d'aujourd'hui</p>
+                                      <h4 class="mb-0">{{ $solde }} DA</h4>
+                                  </div>
+                                  <div
+                                      class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                      <i class="material-symbols-rounded opacity-10">weekend</i>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr class="dark horizontal my-0">
+                          <div class="card-footer p-2 ps-3">
+                              <p class="mb-0 text-sm">
+                                  @if ($percentageSolde)
+                                      @if ($percentageSolde > 0)
+                                          <span class="text-success font-weight-bolder">{{ $percentageSolde }}% </span>
+                                      @else
+                                          <span class="text font-weight-bolder">{{ $percentageSolde }}% </span>
+                                      @endif
+                                      than yesterday
+                                  @else
+                                      no records from yesterday
+                                  @endif
+                              </p>
+                          </div>
+                      </div>
+                  </div>
                   <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                       <div class="card">
                           <div class="card-header p-2 ps-3">
@@ -116,20 +159,88 @@
                           <hr class="dark horizontal my-0">
                           <div class="card-footer p-2 ps-3">
                               <p class="mb-0 text-sm">
-                                  @if ($percentageFinale > 0)
-                                      <span class="text-success font-weight-bolder">{{ $percentageFinale }}% </span>
+                                  @if ($percentageFinale)
+                                      @if ($percentageFinale > 0)
+                                          <span class="text-success font-weight-bolder">{{ $percentageFinale }}% </span>
+                                      @else
+                                          <span class="text font-weight-bolder">{{ $percentageFinale }}% </span>
+                                      @endif
+                                      than yesterday
                                   @else
-                                      <span class="text font-weight-bolder">{{ $percentageFinale }}% </span>
+                                      no records from yesterday
                                   @endif
-                                  than yesterday
                               </p>
                           </div>
                       </div>
                   </div>
               </div>
-
-              <div class="row mb-4" style="padding-top: 20px">
-
+              <div class="row mb-4">
+                  <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h6 class="mb-0 ">Entrées de la semaine</h6>
+                              <p class="text-sm ">Last Campaign Performance</p>
+                              <div class="pe-2">
+                                  <div class="chart">
+                                      <canvas id="chart-bars" class="chart-canvas" height="212" width="454"
+                                          style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
+                                      <script>
+                                          window.dashboardData = {
+                                              entrees: @json($entreeValeurWeek),
+                                              labels: @json($last7Days),
+                                          };
+                                      </script>
+                                  </div>
+                              </div>
+                              <hr class="dark horizontal">
+                              <div class="d-flex ">
+                                  <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
+                                  <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                      <div class="card ">
+                          <div class="card-body">
+                              <h6 class="mb-0 "> Daily Sales </h6>
+                              <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales.
+                              </p>
+                              <div class="pe-2">
+                                  <div class="chart">
+                                      <canvas id="chart-line" class="chart-canvas" height="212" width="454"
+                                          style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
+                                  </div>
+                              </div>
+                              <hr class="dark horizontal">
+                              <div class="d-flex ">
+                                  <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
+                                  <p class="mb-0 text-sm"> updated 4 min ago </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 mt-4 mb-3">
+                      <div class="card">
+                          <div class="card-body">
+                              <h6 class="mb-0 ">Completed Tasks</h6>
+                              <p class="text-sm ">Last Campaign Performance</p>
+                              <div class="pe-2">
+                                  <div class="chart">
+                                      <canvas id="chart-line-tasks" class="chart-canvas" height="212" width="454"
+                                          style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
+                                  </div>
+                              </div>
+                              <hr class="dark horizontal">
+                              <div class="d-flex ">
+                                  <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
+                                  <p class="mb-0 text-sm">just updated</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row mb-4">
                   <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
                       <div class="card">
                           <div class="card-header pb-0">
@@ -207,7 +318,7 @@
                                                           <div class="progress-info">
                                                               <div class="progress-percentage">
                                                                   <span
-                                                                      class="text-xs font-weight-bold">{{ round( $project->percentage) }}%</span>
+                                                                      class="text-xs font-weight-bold">{{ round($project->percentage) }}%</span>
                                                               </div>
                                                           </div>
                                                           <div class="progress">

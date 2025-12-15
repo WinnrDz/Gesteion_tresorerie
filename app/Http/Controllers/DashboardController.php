@@ -24,12 +24,14 @@ class DashboardController extends Controller
         $totalentreeYesterday = Entree::whereDate('date', $yesterday)->sum('valeur');
 
         if ($totalentreeYesterday == 0) {
-            $percentageentree = 100; 
+            $percentageentree = null;
         } else {
-            $percentageentree = round((($totalentreeToday - $totalentreeYesterday) * 100) / $totalentreeYesterday, 2); 
+            $percentageentree = round((($totalentreeToday - $totalentreeYesterday) * 100) / $totalentreeYesterday, 2);
         }
 
-        if ($percentageentree > 0 ) { $percentageentree = "+" . $percentageentree;} 
+        if ($percentageentree > 0) {
+            $percentageentree = "+" . $percentageentree;
+        }
 
         //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -40,12 +42,14 @@ class DashboardController extends Controller
         $totaldepenseYesterday = Depense::whereDate('date', $yesterday)->sum('valeur');
 
         if ($totaldepenseYesterday == 0) {
-            $percentagedepense = 100; 
+            $percentagedepense = null;
         } else {
-            $percentagedepense = round((($totaldepenseToday - $totaldepenseYesterday) * 100) / $totaldepenseYesterday, 2); 
+            $percentagedepense = round((($totaldepenseToday - $totaldepenseYesterday) * 100) / $totaldepenseYesterday, 2);
         }
 
-        if ($percentagedepense > 0 ) { $percentagedepense = "+" . $percentagedepense;} 
+        if ($percentagedepense > 0) {
+            $percentagedepense = "+" . $percentagedepense;
+        }
 
         //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -64,20 +68,68 @@ class DashboardController extends Controller
         if (Entree::count() === 1 && Entree::first()->note === "initial") {
             $initial = Entree::first()->valeur;
         }
-        
+
         //-------------------------------------------------------------------------------------------------------------------------------
 
         $finale = Entree::sum('valeur') - Depense::sum('valeur');
 
-        if ($initial != 0) {  
-        $percentageFinale = round(($finale - $initial) / ($initial) * 100);
+        if ($initial != 0) {
+            $percentageFinale = round(($finale - $initial) / ($initial) * 100);
         } else {
-            $percentageFinale = 0;
+            $percentageFinale = null;
         }
-        if ($percentageFinale > 0 ) { $percentageFinale = "+" . $percentageFinale;} 
+        if ($percentageFinale > 0) {
+            $percentageFinale = "+" . $percentageFinale;
+        }
 
-        
-        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects","initial","finale","percentageFinale"));
+        //-------------------------------------------------------------------------------------------------------------------------------
+
+        $solde = $totalentreeToday - $totaldepenseToday;
+
+        $soldeYesterday = $totalentreeYesterday - $totaldepenseYesterday;
+
+        if ($soldeYesterday != 0) {
+            $percentageSolde = ($solde - $soldeYesterday) / $soldeYesterday * 100;
+        } else {
+            $percentageSolde = null;
+        }
+
+        if ($percentageSolde > 0) {
+            $percentageSolde = "+" . $percentageSolde;
+        }
+
+        //-------------------------------------------------------------------------------------------------------------------------------
+
+        $entreeDateValeurWeek = Entree::where('date', '>=', Carbon::now()->subDays(7))
+            ->get(['date', 'valeur']) 
+            ->mapWithKeys(function ($item) {
+                $dayName = Carbon::parse($item->date)->format('l'); 
+                return [$dayName => $item->valeur];
+            })
+            ->toArray();
+
+
+        $last7Days = [];
+
+        for ($i = 6; $i >= 0; $i--) {
+            $last7Days[] = Carbon::now()->subDays($i)->format('l');
+        }
+
+        $entreeValeurWeek = [0,0,0,0,0,0,0];
+
+        foreach ($last7Days as $key => $v) {
+            if (isset($entreeDateValeurWeek[$v])) $entreeValeurWeek[$key] = $entreeDateValeurWeek[$v];
+        }
+
+        //dd($entreeValeurWeek);
+        //dd($Last7Days);
+
+        $last7Days = array_map(fn($last7Days) => $last7Days[0], $last7Days);
+
+        //-------------------------------------------------------------------------------------------------------------------------------
+
+
+        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects", "initial", "finale", "percentageFinale", "solde", "percentageSolde","entreeValeurWeek","last7Days"));
     }
 
     /**

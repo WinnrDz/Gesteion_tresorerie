@@ -373,15 +373,15 @@
         new Chart(ctx, {
             type: "bar",
             data: {
-                labels: ["M", "T", "W", "T", "F", "S", "S"],
+                labels: window.dashboardData.labels,
                 datasets: [{
-                    label: "Views",
+                    label: "Entrée en DA",
                     tension: 0.4,
                     borderWidth: 0,
                     borderRadius: 4,
                     borderSkipped: false,
                     backgroundColor: "#43A047",
-                    data: [50, 45, 22, 28, 50, 60, 76],
+                    data: window.dashboardData.entrees,
                     barThickness: 'flex'
                 }, ],
             },
