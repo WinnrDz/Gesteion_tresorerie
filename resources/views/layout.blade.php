@@ -433,7 +433,7 @@
                             padding: 10,
                             font: {
                                 size: 14,
-                                lineHeight: 2
+                                lineHeight: 1
                             },
                         }
                     },
@@ -442,26 +442,22 @@
         });
 
 
-        var ctx2 = document.getElementById("chart-line").getContext("2d");
+        var ctx2 = document.getElementById("chart-bars-2").getContext("2d");
 
-        new Chart(ctx2, {
-            type: "line",
+         new Chart(ctx2, {
+            type: "bar",
             data: {
-                labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
+                labels: window.dashboardData.labels,
                 datasets: [{
-                    label: "Sales",
-                    tension: 0,
-                    borderWidth: 2,
-                    pointRadius: 3,
-                    pointBackgroundColor: "#43A047",
-                    pointBorderColor: "transparent",
-                    borderColor: "#43A047",
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: [120, 230, 130, 440, 250, 360, 270, 180, 90, 300, 310, 220],
-                    maxBarThickness: 6
-
-                }],
+                    label: "Entrée en DA",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: "#808080",
+                    data: window.dashboardData.depenses,
+                    barThickness: 'flex'
+                }, ],
             },
             options: {
                 responsive: true,
@@ -469,16 +465,6 @@
                 plugins: {
                     legend: {
                         display: false,
-                    },
-                    tooltip: {
-                        callbacks: {
-                            title: function(context) {
-                                const fullMonths = ["January", "February", "March", "April", "May", "June",
-                                    "July", "August", "September", "October", "November", "December"
-                                ];
-                                return fullMonths[context[0].dataIndex];
-                            }
-                        }
                     }
                 },
                 interaction: {
@@ -492,18 +478,20 @@
                             display: true,
                             drawOnChartArea: true,
                             drawTicks: false,
-                            borderDash: [4, 4],
+                            borderDash: [5, 5],
                             color: '#e5e5e5'
                         },
                         ticks: {
-                            display: true,
-                            color: '#737373',
+                            suggestedMin: 0,
+                            suggestedMax: 500,
+                            beginAtZero: true,
                             padding: 10,
                             font: {
-                                size: 12,
-                                lineHeight: 2
+                                size: 14,
+                                lineHeight: 1
                             },
-                        }
+                            color: "#737373"
+                        },
                     },
                     x: {
                         grid: {
@@ -518,7 +506,7 @@
                             color: '#737373',
                             padding: 10,
                             font: {
-                                size: 12,
+                                size: 14,
                                 lineHeight: 2
                             },
                         }
@@ -532,7 +520,7 @@
         new Chart(ctx3, {
             type: "line",
             data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: window.dashboardData.labels,
                 datasets: [{
                     label: "Tasks",
                     tension: 0,
@@ -543,7 +531,7 @@
                     borderColor: "#43A047",
                     backgroundColor: "transparent",
                     fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                    data: window.dashboardData.tresoreries,
                     maxBarThickness: 6
 
                 }],

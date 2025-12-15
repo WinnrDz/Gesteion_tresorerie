@@ -128,16 +128,7 @@
                           <hr class="dark horizontal my-0">
                           <div class="card-footer p-2 ps-3">
                               <p class="mb-0 text-sm">
-                                  @if ($percentageSolde)
-                                      @if ($percentageSolde > 0)
-                                          <span class="text-success font-weight-bolder">{{ $percentageSolde }}% </span>
-                                      @else
-                                          <span class="text font-weight-bolder">{{ $percentageSolde }}% </span>
-                                      @endif
-                                      than yesterday
-                                  @else
-                                      no records from yesterday
-                                  @endif
+                                  Solde des Entrées et Dépenses
                               </p>
                           </div>
                       </div>
@@ -179,7 +170,7 @@
                       <div class="card">
                           <div class="card-body">
                               <h6 class="mb-0 ">Entrées de la semaine</h6>
-                              <p class="text-sm ">Last Campaign Performance</p>
+                              <p class="text-sm ">Graphique qui affiche les Entrées par temps</p>
                               <div class="pe-2">
                                   <div class="chart">
                                       <canvas id="chart-bars" class="chart-canvas" height="212" width="454"
@@ -187,6 +178,8 @@
                                       <script>
                                           window.dashboardData = {
                                               entrees: @json($entreeValeurWeek),
+                                              depenses: @json($depenseValeurWeek),
+                                              tresoreries: @json($tresorerieValuerWeek),
                                               labels: @json($last7Days),
                                           };
                                       </script>
@@ -200,31 +193,32 @@
                           </div>
                       </div>
                   </div>
+
                   <div class="col-lg-4 col-md-6 mt-4 mb-4">
-                      <div class="card ">
+                      <div class="card">
                           <div class="card-body">
-                              <h6 class="mb-0 "> Daily Sales </h6>
-                              <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales.
-                              </p>
+                              <h6 class="mb-0 ">Depenses de la semaine</h6>
+                              <p class="text-sm ">Graphique qui affiche les Dépenses par temps</p>
                               <div class="pe-2">
                                   <div class="chart">
-                                      <canvas id="chart-line" class="chart-canvas" height="212" width="454"
+                                      <canvas id="chart-bars-2" class="chart-canvas" height="212" width="454"
                                           style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
                                   </div>
                               </div>
                               <hr class="dark horizontal">
                               <div class="d-flex ">
                                   <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
-                                  <p class="mb-0 text-sm"> updated 4 min ago </p>
+                                  <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
                               </div>
                           </div>
                       </div>
                   </div>
+                  
                   <div class="col-lg-4 mt-4 mb-3">
                       <div class="card">
                           <div class="card-body">
-                              <h6 class="mb-0 ">Completed Tasks</h6>
-                              <p class="text-sm ">Last Campaign Performance</p>
+                              <h6 class="mb-0 ">Tresorerie</h6>
+                              <p class="text-sm ">Graphique qui affiche la trésorerie par temps</p>
                               <div class="pe-2">
                                   <div class="chart">
                                       <canvas id="chart-line-tasks" class="chart-canvas" height="212" width="454"

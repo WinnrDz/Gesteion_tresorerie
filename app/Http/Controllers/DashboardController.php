@@ -18,6 +18,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        Carbon::setLocale('fr');
+
         $totalentreeToday = Entree::whereDate('date', now())->sum('valeur');
 
         $yesterday = Carbon::yesterday();
@@ -100,36 +102,68 @@ class DashboardController extends Controller
 
         //-------------------------------------------------------------------------------------------------------------------------------
 
+        function tresorerieDay($day)
+        {
+            return Entree::whereDate('date', '<=', $day)->sum('valeur') - Depense::whereDate('date', '<=', $day)->sum('valeur');
+        }
+
+        //dd(tresorerieDay("2025-12-14"));
+
+        //-------------------------------------------------------------------------------------------------------------------------------
         $entreeDateValeurWeek = Entree::where('date', '>=', Carbon::now()->subDays(7))
-            ->get(['date', 'valeur']) 
+            ->get(['date', 'valeur'])
             ->mapWithKeys(function ($item) {
-                $dayName = Carbon::parse($item->date)->format('l'); 
+                $dayName = Carbon::parse($item->date)->translatedFormat('l');
+                return [$dayName => $item->valeur];
+            })
+            ->toArray();
+
+        $depenseDateValeurWeek = Depense::where('date', '>=', Carbon::now()->subDays(7))
+            ->get(['date', 'valeur'])
+            ->mapWithKeys(function ($item) {
+                $dayName = Carbon::parse($item->date)->translatedFormat('l');
                 return [$dayName => $item->valeur];
             })
             ->toArray();
 
 
         $last7Days = [];
+        $last7Dates = [];
 
         for ($i = 6; $i >= 0; $i--) {
-            $last7Days[] = Carbon::now()->subDays($i)->format('l');
+            $last7Days[] = Carbon::now()->subDays($i)->translatedFormat('l');
+            $last7Dates[] = Carbon::now()->subDays($i)->toDateString();
         }
 
-        $entreeValeurWeek = [0,0,0,0,0,0,0];
+        //dd($last7Dates);
+
+        $entreeValeurWeek = [0, 0, 0, 0, 0, 0, 0];
+        $depenseValeurWeek = [0, 0, 0, 0, 0, 0, 0];
+        $tresorerieValuerWeek = [0, 0, 0, 0, 0, 0, 0];
 
         foreach ($last7Days as $key => $v) {
             if (isset($entreeDateValeurWeek[$v])) $entreeValeurWeek[$key] = $entreeDateValeurWeek[$v];
+            if (isset($depenseDateValeurWeek[$v])) $depenseValeurWeek[$key] = $depenseDateValeurWeek[$v];
         }
 
-        //dd($entreeValeurWeek);
-        //dd($Last7Days);
+        foreach($last7Dates as $key => $v) {
+            $tresorerieValuerWeek[$key] = tresorerieDay($v);
+        }
 
-        $last7Days = array_map(fn($last7Days) => $last7Days[0], $last7Days);
+
+        //$last7Days = array_map(fn($last7Days) => $last7Days[0], $last7Days); from Dimanche to D
+
+        //dd($entreeValeurWeek);
+        //dd($depenseValeurWeek);
+        //dd($tresorerieValuerWeek)
+        //dd($last7Days);
 
         //-------------------------------------------------------------------------------------------------------------------------------
 
 
-        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects", "initial", "finale", "percentageFinale", "solde", "percentageSolde","entreeValeurWeek","last7Days"));
+
+
+        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects", "initial", "finale", "percentageFinale", "solde", "percentageSolde", "entreeValeurWeek", "last7Days", "depenseValeurWeek","tresorerieValuerWeek"));
     }
 
     /**
