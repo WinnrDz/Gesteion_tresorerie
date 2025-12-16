@@ -20,7 +20,7 @@ return new class extends Migration
             $table->binary("attachment")->nullable();
             $table->string("attachment_name")->nullable();
 
-            $table->foreignId('depensenom_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('depense_noms_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();   
         });
