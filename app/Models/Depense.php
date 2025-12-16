@@ -12,7 +12,7 @@ class Depense extends Model
 
     public function depenseNom():BelongsTo
     {
-        return $this->belongsTo(DepenseNom::class,'depensenom_id');
+        return $this->belongsTo(DepenseNom::class,'depense_noms_id');
     }
     
 

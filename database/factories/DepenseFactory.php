@@ -22,7 +22,7 @@ class DepenseFactory extends Factory
             "valeur" => fake()->numberBetween(100,5000),
             'date' => fake()->dateTimeBetween('-1 year', 'now'),
             'note' => fake()->sentence(),
-            'depensenom_id' => DepenseNom::inRandomOrder()->first()->id,
+            'depense_noms_id' => DepenseNom::inRandomOrder()->first()->id,
         ];
     }
 }

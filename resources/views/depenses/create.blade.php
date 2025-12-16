@@ -39,7 +39,7 @@
                                               <tr>
                                                   <td class="align-middle">
                                                       <div class="input-group input-group-outline">
-                                                          <select name="depensenom_id" class="form-control">
+                                                          <select name="depense_noms_id" class="form-control">
                                                               <option value="" disabled selected>Choisir un nom
                                                                   déepense
                                                               </option>

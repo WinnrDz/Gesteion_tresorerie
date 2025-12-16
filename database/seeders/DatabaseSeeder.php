@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Client;
-use App\Models\Depensenom;
+use App\Models\DepenseNom;
 use App\Models\Project;
 use App\Models\Entree;
 use App\Models\Depense;

@@ -47,7 +47,7 @@ class DepenseController extends Controller
             "date" => "required",
             "note" => "",
             "attachment" => "",
-            "depensenom_id" => "required"
+            "depense_noms_id" => "required"
         ]);
 
 
