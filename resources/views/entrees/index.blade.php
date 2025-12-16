@@ -87,6 +87,18 @@
                                   </table>
                               </div>
                           </div>
+                          @if ($entrees->hasPages())
+                              <nav aria-label="Page navigation example">
+                                  <ul class="pagination pagination-secondary justify-content-center">
+                                      @foreach ($entrees->links()->elements[0] as $page => $url)
+                                          <li class="page-item {{ $entrees->currentPage() == $page ? 'active ' : '' }}">
+                                              <a href="{{ $url }}"
+                                                  class="page-link {{ $entrees->currentPage() == $page ? 'text-white bg-indigo-600' : '' }}">{{ $page }}</a>
+                                          </li>
+                                      @endforeach
+                                  </ul>
+                              </nav>
+                          @endif
                       </div>
                       <a class="btn bg-gradient-dark mb-0" href="{{ route('entrees.create') }}"><i
                               class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;Crée une Entrées</a>

@@ -213,7 +213,7 @@
                           </div>
                       </div>
                   </div>
-                  
+
                   <div class="col-lg-4 mt-4 mb-3">
                       <div class="card">
                           <div class="card-body">
@@ -235,7 +235,7 @@
                   </div>
               </div>
               <div class="row mb-4">
-                  <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+                  <div class="col-lg-10 col-md-6 mb-md-0 mb-4">
                       <div class="card">
                           <div class="card-header pb-0">
                               <div class="row">
@@ -330,9 +330,24 @@
                                           @endforeach
                                       </tbody>
                                   </table>
+
+
                               </div>
                           </div>
+                          @if ($projects->hasPages())
+                              <nav aria-label="Page navigation example">
+                                  <ul class="pagination pagination-secondary justify-content-center">
+                                      @foreach ($projects->links()->elements[0] as $page => $url)
+                                          <li class="page-item {{ $projects->currentPage() == $page ? 'active ' : '' }}">
+                                              <a href="{{ $url }}"
+                                                  class="page-link {{ $projects->currentPage() == $page ? 'text-white bg-indigo-600' : '' }}">{{ $page }}</a>
+                                          </li>
+                                      @endforeach
+                                  </ul>
+                              </nav>
+                          @endif
                       </div>
+
                   </div>
 
               </div>

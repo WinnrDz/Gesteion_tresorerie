@@ -45,6 +45,18 @@
                                   </table>
                               </div>
                           </div>
+                          @if ($clients->hasPages())
+                              <nav aria-label="Page navigation example">
+                                  <ul class="pagination pagination-secondary justify-content-center">
+                                      @foreach ($clients->links()->elements[0] as $page => $url)
+                                          <li class="page-item {{ $clients->currentPage() == $page ? 'active ' : '' }}">
+                                              <a href="{{ $url }}"
+                                                  class="page-link {{ $clients->currentPage() == $page ? 'text-white bg-indigo-600' : '' }}">{{ $page }}</a>
+                                          </li>
+                                      @endforeach
+                                  </ul>
+                              </nav>
+                          @endif
                       </div>
                       <a class="btn bg-gradient-dark mb-0" href="{{ route('clients.create') }}"><i
                               class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;Crée un Client</a>

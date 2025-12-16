@@ -17,7 +17,7 @@ class EntreeController extends Controller
      */
     public function index()
     {
-        $entrees = Entree::with("project")->get();
+        $entrees = Entree::with("project")->paginate(10);
 
         return view("entrees.index", compact("entrees"));
     }

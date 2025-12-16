@@ -151,6 +151,18 @@
                                   </table>
                               </div>
                           </div>
+                          @if ($projects->hasPages())
+                              <nav aria-label="Page navigation example">
+                                  <ul class="pagination pagination-secondary justify-content-center">
+                                      @foreach ($projects->links()->elements[0] as $page => $url)
+                                          <li class="page-item {{ $projects->currentPage() == $page ? 'active ' : '' }}">
+                                              <a href="{{ $url }}"
+                                                  class="page-link {{ $projects->currentPage() == $page ? 'text-white bg-indigo-600' : '' }}">{{ $page }}</a>
+                                          </li>
+                                      @endforeach
+                                  </ul>
+                              </nav>
+                          @endif
                       </div>
                       <a class="btn bg-gradient-dark mb-0" href="{{ route('projects.create') }}"><i
                               class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;Crée un Project</a>

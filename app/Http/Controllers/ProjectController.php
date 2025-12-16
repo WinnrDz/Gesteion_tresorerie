@@ -13,7 +13,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with("entrees")->get();
+        $projects = Project::with("entrees")->paginate(10);
 
         return view("projects.index",compact("projects"));
     }

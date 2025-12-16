@@ -21,7 +21,7 @@ class DepenseController extends Controller
     public function index()
     {
     
-        $depenses = Depense::with("DepenseNom")->get();
+        $depenses = Depense::with("DepenseNom")->paginate(10);
     
         return view("depenses.index", compact("depenses"));
     }

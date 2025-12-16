@@ -55,7 +55,7 @@ class DashboardController extends Controller
 
         //-------------------------------------------------------------------------------------------------------------------------------
 
-        $projects = Project::with("client")->get();
+        $projects = Project::with("client")->paginate(5);
 
         //-------------------------------------------------------------------------------------------------------------------------------
         $yesterday = Carbon::yesterday()->toDateString();
