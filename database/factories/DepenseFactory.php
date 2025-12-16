@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Depensenom;
-use App\Models\Depensenom as ModelsDepensenom;
+use App\Models\DepenseNom;
+use App\Models\DepenseNom as ModelsDepenseNom;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +22,7 @@ class DepenseFactory extends Factory
             "valeur" => fake()->numberBetween(100,5000),
             'date' => fake()->dateTimeBetween('-1 year', 'now'),
             'note' => fake()->sentence(),
-            'depensenom_id' => Depensenom::inRandomOrder()->first()->id,
+            'depensenom_id' => DepenseNom::inRandomOrder()->first()->id,
         ];
     }
 }

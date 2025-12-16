@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Depensenom;
+use App\Models\DepenseNom;
 use Illuminate\Http\Request;
 
 class DepensenomController extends Controller
@@ -48,7 +48,7 @@ class DepensenomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Depensenom $depensenom)
+    public function show(DepenseNom $depensenom)
     {
         //
     }
@@ -56,7 +56,7 @@ class DepensenomController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Depensenom $depensenom)
+    public function edit(DepenseNom $depensenom)
     {
         //
     }
@@ -64,7 +64,7 @@ class DepensenomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Depensenom $depensenom)
+    public function update(Request $request, DepenseNom $depensenom)
     {
         //
     }
@@ -72,7 +72,7 @@ class DepensenomController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Depensenom $depensenom)
+    public function destroy(DepenseNom $depensenom)
     {
         //
     }

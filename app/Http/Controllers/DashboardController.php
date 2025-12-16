@@ -112,17 +112,21 @@ class DashboardController extends Controller
         //-------------------------------------------------------------------------------------------------------------------------------
         $entreeDateValeurWeek = Entree::where('date', '>=', Carbon::now()->subDays(7))
             ->get(['date', 'valeur'])
-            ->mapWithKeys(function ($item) {
-                $dayName = Carbon::parse($item->date)->translatedFormat('l');
-                return [$dayName => $item->valeur];
+            ->groupBy(function ($item) {
+                return Carbon::parse($item->date)->translatedFormat('l');
+            })
+            ->map(function ($items, $dayName) {
+                return $items->sum('valeur');
             })
             ->toArray();
 
         $depenseDateValeurWeek = Depense::where('date', '>=', Carbon::now()->subDays(7))
             ->get(['date', 'valeur'])
-            ->mapWithKeys(function ($item) {
-                $dayName = Carbon::parse($item->date)->translatedFormat('l');
-                return [$dayName => $item->valeur];
+            ->groupBy(function ($item) {
+                return Carbon::parse($item->date)->translatedFormat('l');
+            })
+            ->map(function ($items, $dayName) {
+                return $items->sum('valeur');
             })
             ->toArray();
 
@@ -146,7 +150,7 @@ class DashboardController extends Controller
             if (isset($depenseDateValeurWeek[$v])) $depenseValeurWeek[$key] = $depenseDateValeurWeek[$v];
         }
 
-        foreach($last7Dates as $key => $v) {
+        foreach ($last7Dates as $key => $v) {
             $tresorerieValuerWeek[$key] = tresorerieDay($v);
         }
 
@@ -163,7 +167,7 @@ class DashboardController extends Controller
 
 
 
-        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects", "initial", "finale", "percentageFinale", "solde", "percentageSolde", "entreeValeurWeek", "last7Days", "depenseValeurWeek","tresorerieValuerWeek"));
+        return view('Dashboard', compact("totalentreeToday", "percentageentree", "totaldepenseToday", "percentagedepense", "projects", "initial", "finale", "percentageFinale", "solde", "percentageSolde", "entreeValeurWeek", "last7Days", "depenseValeurWeek", "tresorerieValuerWeek"));
     }
 
     /**
