@@ -15,13 +15,28 @@ class EntreeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $entrees = Entree::with("project")->paginate(10);
+        $sortDate = $request->get('sort', 'desc');
+        $sortProject = $request->get('sortProject');
+        $sortEnca  = $request->get('sortEnca');
 
-        return view("entrees.index", compact("entrees"));
+        $query = Entree::with('project');
+
+        if ($sortProject) {
+            $query->join('projects', 'entrees.project_id', '=', 'projects.id')
+                ->orderBy('projects.nom', $sortProject)
+                ->select('entrees.*'); 
+        } elseif ($sortEnca) {
+            $query->orderBy('valeur', $sortEnca);
+        } else {
+            $query->orderBy('date', $sortDate);
+        }
+
+        $entrees = $query->paginate(10)->withQueryString();
+
+        return view('entrees.index', compact('entrees'));
     }
-
     /**
      * Show the form for creating a new resource.
      */

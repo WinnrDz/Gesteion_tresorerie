@@ -10,11 +10,18 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clients = Client::with("projects")->paginate(10);
+        $sortNom = $request->get('sortNom','asc');
 
-        return view("clients.index", compact("clients"));
+        $query = Client::with('projects');
+        
+        $query->orderBy('nom', $sortNom);
+
+
+        $clients = $query->paginate(10)->withQueryString();
+
+        return view('clients.index', compact('clients'));
     }
 
     /**

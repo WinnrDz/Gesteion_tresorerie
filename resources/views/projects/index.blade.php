@@ -18,15 +18,24 @@
                                           <tr>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  Nom
+                                                   <a
+                                                      href="{{ request('sortNom') == 'asc' ? '?sortNom=desc' : '?sortNom=asc' }}">Nom
+                                                      {{ request('sortNom') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sortNom') == 'desc' ? '▼' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  Client
+                                                   <a
+                                                      href="{{ request('sortClientNom') == 'asc' ? '?sortClientNom=desc' : '?sortClientNom=asc' }}">Client
+                                                      {{ request('sortClientNom') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sortClientNom') == 'desc' ? '▼' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  Montant</th>
+                                                  <a
+                                                      href="{{ request('sortMontant') == 'asc' ? '?sortMontant=desc' : '?sortMontant=asc' }}">Montant
+                                                      {{ request('sortMontant') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sortMontant') == 'desc' ? '▼' : '' }}</a></th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   Montant Tva</th>

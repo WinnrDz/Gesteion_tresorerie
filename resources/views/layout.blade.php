@@ -449,7 +449,7 @@
             data: {
                 labels: window.dashboardData.labels,
                 datasets: [{
-                    label: "Entrée en DA",
+                    label: "Dépense en DA",
                     tension: 0.4,
                     borderWidth: 0,
                     borderRadius: 4,
@@ -522,7 +522,7 @@
             data: {
                 labels: window.dashboardData.labels,
                 datasets: [{
-                    label: "Tasks",
+                    label: "DA",
                     tension: 0,
                     borderWidth: 2,
                     pointRadius: 3,

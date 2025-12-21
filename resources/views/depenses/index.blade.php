@@ -18,17 +18,26 @@
                                           <tr>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  nom
+                                                  <a
+                                                      href="{{ request('sortNom') == 'asc' ? '?sortNom=desc' : '?sortNom=asc' }}">nom
+                                                      {{ request('sortNom') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sortNom') == 'desc' ? '▼' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  Décaissements</th>
+                                                  <a
+                                                      href="{{ request('sortDeca') == 'asc' ? '?sortDeca=desc' : '?sortDeca=asc' }}">Décaissements
+                                                      {{ request('sortDeca') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sortDeca') == 'desc' ? '▼' : '' }}</a>
+                                              </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   note</th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  date
+                                                  <a href="{{ request('sort') == 'asc' ? '?sort=desc' : '?sort=asc' }}">date
+                                                      {{ request('sort') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sort') == 'desc' ? '▼' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -61,21 +70,21 @@
                                                       </span>
                                                   </td>
                                                   @if ($depense->attachment)
-                                                  <td class="align-middle text-center">
-                                                      <a href="{{ route("depenses.download" , $depense->id )}}" class="text-secondary font-weight-bold text-xs">
-                                                          download
-                                                      </a>
-                                                  </td>
-                                                      
+                                                      <td class="align-middle text-center">
+                                                          <a href="{{ route('depenses.download', $depense->id) }}"
+                                                              class="text-secondary font-weight-bold text-xs">
+                                                              download
+                                                          </a>
+                                                      </td>
                                                   @else
-                                                    <td class="align-middle text-center">
-                                                      <span class="text-secondary font-weight-bold text-xs">
-                                                          no piece joint
-                                                      </span>
-                                                    </td>
+                                                      <td class="align-middle text-center">
+                                                          <span class="text-secondary font-weight-bold text-xs">
+                                                              no piece joint
+                                                          </span>
+                                                      </td>
                                                   @endif
-                                                  
-                                                  
+
+
                                               </tr>
                                           @endforeach
                                       </tbody>

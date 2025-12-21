@@ -22,17 +22,25 @@
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  project
+                                                  <a
+                                                      href="{{ request('sortProject') == 'asc' ? '?sortProject=desc' : '?sortProject=asc' }}">Project
+                                                      {{ request('sortProject') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sortProject') == 'desc' ? '▼' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  Encaissements</th>
+                                                  <a
+                                                      href="{{ request('sortEnca') == 'asc' ? '?sortEnca=desc' : '?sortEnca=asc' }}">Encaissements
+                                                      {{ request('sortEnca') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sortEnca') == 'desc' ? '▼' : '' }}</a></th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   note</th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  date
+                                                  <a href="{{ request('sort') == 'asc' ? '?sort=desc' : '?sort=asc' }}">date
+                                                      {{ request('sort') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sort') == 'desc' ? '▼' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">

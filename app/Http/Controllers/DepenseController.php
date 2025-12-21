@@ -18,13 +18,29 @@ class DepenseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-    
-        $depenses = Depense::with("DepenseNom")->paginate(10);
-    
-        return view("depenses.index", compact("depenses"));
+        $sortDate = $request->get('sort', 'desc');
+        $sortNom  = $request->get('sortNom');
+        $sortDeca  = $request->get('sortDeca');
+
+        $query = Depense::with('DepenseNom');
+
+        if ($sortNom) {
+            $query->join('depense_noms', 'depenses.depense_noms_id', '=', 'depense_noms.id')
+                ->orderBy('depense_noms.nom', $sortNom)
+                ->select('depenses.*'); 
+        } elseif ($sortDeca) {
+            $query->orderBy('valeur', $sortDeca);
+        } else {
+            $query->orderBy('date', $sortDate);
+        }
+
+        $depenses = $query->paginate(10)->withQueryString();
+
+        return view('depenses.index', compact('depenses'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,7 +67,7 @@ class DepenseController extends Controller
         ]);
 
 
-        
+
         if ($request->hasFile('attachment')) {
             $file = $request->file('attachment');
             $validated['attachment'] = file_get_contents($file->getRealPath());
@@ -63,8 +79,6 @@ class DepenseController extends Controller
         Depense::create($validated);
 
         return redirect()->route('depenses.index')->with('success', 'Depense created successfully!');
-
-
     }
 
     /**
@@ -98,8 +112,9 @@ class DepenseController extends Controller
     {
         //
     }
-    
-    public function download($id) {
+
+    public function download($id)
+    {
 
         $depense = Depense::find($id);
 
@@ -110,8 +125,7 @@ class DepenseController extends Controller
         $filename = $depense->attachment_name;
 
         return response($depense->attachment)
-        ->header('Content-Type','application/octet-stream')
-        ->header('Content-Disposition', 'attachment; filename="' . $filename);
-
+            ->header('Content-Type', 'application/octet-stream')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename);
     }
 }

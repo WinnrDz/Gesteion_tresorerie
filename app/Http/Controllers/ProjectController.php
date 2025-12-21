@@ -11,11 +11,29 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::with("entrees")->paginate(10);
+        $sortMontant = $request->get('sortMontant');
+        $sortClientNom = $request->get('sortClientNom');
+        $sortNom = $request->get('sortNom');
+        //$sortRest = $request->get('sortRest');
 
-        return view("projects.index",compact("projects"));
+        $query = Project::with('entrees');
+
+        if ($sortClientNom) {
+            $query->join('clients', 'clients.id', '=', 'projects.client_id')
+                ->orderBy('clients.nom', $sortClientNom)
+                ->select('projects.*'); 
+        } elseif($sortMontant) {
+            $query->orderBy('montant',$sortMontant);
+        } elseif($sortNom) {
+            $query->orderBy('nom',$sortNom);
+        } 
+
+        $projects = $query->paginate(10)->withQueryString();
+
+        //dd($projects);
+        return view('projects.index', compact('projects'));
     }
 
     /**
