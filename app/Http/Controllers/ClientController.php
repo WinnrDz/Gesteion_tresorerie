@@ -13,10 +13,19 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $sortNom = $request->get('sortNom','asc');
+        $search = $request->get('search');
 
         $query = Client::with('projects');
-        
-        $query->orderBy('nom', $sortNom);
+
+        if ($search) {
+            $query->where('nom','like',"%$search%")
+                ->orWhereHas('projects',function ($q) use ($search) {
+                    $q->where('nom','like',"%$search%");
+                });
+        } else {
+            $query->orderBy('nom', $sortNom);
+        } 
+
 
 
         $clients = $query->paginate(10)->withQueryString();

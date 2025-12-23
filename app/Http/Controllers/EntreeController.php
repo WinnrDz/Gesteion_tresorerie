@@ -20,6 +20,7 @@ class EntreeController extends Controller
         $sortDate = $request->get('sort', 'desc');
         $sortProject = $request->get('sortProject');
         $sortEnca  = $request->get('sortEnca');
+        $search = $request->get('search');
 
         $query = Entree::with('project');
 
@@ -29,7 +30,14 @@ class EntreeController extends Controller
                 ->select('entrees.*'); 
         } elseif ($sortEnca) {
             $query->orderBy('valeur', $sortEnca);
-        } else {
+        } elseif ($search) {
+            $query->where('note','like',"%$search%")
+                  ->orWhere('valeur','like',"%$search%")
+                  ->orWhere('type','like',"%$search%")
+                  ->orWhereHas('project',function ($q) use ($search){
+                    $q->where('nom','like',"%$search%");
+                  });
+        }else {
             $query->orderBy('date', $sortDate);
         }
 
@@ -77,6 +85,7 @@ class EntreeController extends Controller
                 "valeur" => "required",
                 "attachment" => "nullable",
                 "attachment_name" => "nullable",
+                "note" => "nullable",
                 "date" => "required"
             ]);
         }
@@ -86,6 +95,7 @@ class EntreeController extends Controller
                 "valeur" => "required",
                 "attachment" => "nullable",
                 "attachment_name" => "nullable",
+                "note" => "nullable",
                 "date" => "required"
             ]);
         }

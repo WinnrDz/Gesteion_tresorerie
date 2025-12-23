@@ -16,7 +16,7 @@ class ProjectController extends Controller
         $sortMontant = $request->get('sortMontant');
         $sortClientNom = $request->get('sortClientNom');
         $sortNom = $request->get('sortNom');
-        //$sortRest = $request->get('sortRest');
+        $search = $request->get('search');
 
         $query = Project::with('entrees');
 
@@ -28,7 +28,16 @@ class ProjectController extends Controller
             $query->orderBy('montant',$sortMontant);
         } elseif($sortNom) {
             $query->orderBy('nom',$sortNom);
-        } 
+        } elseif($search) {
+            $query->where('nom','like',"%$search%")
+                ->orWhere('montant','like',"%$search%")
+                ->orWhereHas('client',function ($q) use ($search) {
+                    $q->where('nom','like',"%$search%");
+                })
+                ->orWhereHas('entrees',function ($q) use ($search) {
+                    $q->where('valeur','like',"%$search%");
+                });
+        }
 
         $projects = $query->paginate(10)->withQueryString();
 

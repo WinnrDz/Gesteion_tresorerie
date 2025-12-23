@@ -24,8 +24,8 @@
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   <a
                                                       href="{{ request('sortProject') == 'asc' ? '?sortProject=desc' : '?sortProject=asc' }}">Project
-                                                      {{ request('sortProject') == 'asc' ? '▲' : '' }}
-                                                      {{ request('sortProject') == 'desc' ? '▼' : '' }}</a>
+                                                      {{ request('sortProject') == 'asc' ? '▼' : '' }}
+                                                      {{ request('sortProject') == 'desc' ? '▲' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">

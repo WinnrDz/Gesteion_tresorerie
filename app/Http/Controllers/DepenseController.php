@@ -23,6 +23,7 @@ class DepenseController extends Controller
         $sortDate = $request->get('sort', 'desc');
         $sortNom  = $request->get('sortNom');
         $sortDeca  = $request->get('sortDeca');
+        $search = $request->get('search');
 
         $query = Depense::with('DepenseNom');
 
@@ -32,9 +33,15 @@ class DepenseController extends Controller
                 ->select('depenses.*'); 
         } elseif ($sortDeca) {
             $query->orderBy('valeur', $sortDeca);
+        }elseif ($search) {
+            $query->where('note','like',"%$search%")
+                  ->orWhere('valeur','like',"%$search%")
+                  ->orWhereHas('depensenom',function ($q) use ($search) {
+                    $q->where('nom','like',"%$search%");
+                  });
         } else {
             $query->orderBy('date', $sortDate);
-        }
+        } 
 
         $depenses = $query->paginate(10)->withQueryString();
 

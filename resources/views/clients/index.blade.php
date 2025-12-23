@@ -20,8 +20,8 @@
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   <a
                                                       href="{{ request('sortNom') == 'desc' ? '?sortNom=asc' : '?sortNom=desc' }}">nom
-                                                      {{ request('sortNom') == 'asc' ? '▲' : '' }}
-                                                      {{ request('sortNom') == 'desc' ? '▼' : '' }}</a>
+                                                      {{ request('sortNom') == 'asc' ? '▼' : '' }}
+                                                      {{ request('sortNom') == 'desc' ? '▲' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
