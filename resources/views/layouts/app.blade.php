@@ -101,7 +101,7 @@
                     </h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="{{ route('profile.edit') }}">
+                    <a class="{{ request()->routeIs('profile.edit   ') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}" href="{{ route('profile.edit') }}">
                         <i class="material-symbols-rounded opacity-5">person</i>
                         <span class="nav-link-text ms-1">Profile</span>
                     </a>
