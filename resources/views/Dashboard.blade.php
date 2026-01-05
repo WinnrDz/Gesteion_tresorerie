@@ -185,11 +185,6 @@
                                       </script>
                                   </div>
                               </div>
-                              <hr class="dark horizontal">
-                              <div class="d-flex ">
-                                  <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
-                                  <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
-                              </div>
                           </div>
                       </div>
                   </div>
@@ -205,11 +200,6 @@
                                           style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
                                   </div>
                               </div>
-                              <hr class="dark horizontal">
-                              <div class="d-flex ">
-                                  <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
-                                  <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
-                              </div>
                           </div>
                       </div>
                   </div>
@@ -224,11 +214,6 @@
                                       <canvas id="chart-line-tasks" class="chart-canvas" height="212" width="454"
                                           style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
                                   </div>
-                              </div>
-                              <hr class="dark horizontal">
-                              <div class="d-flex ">
-                                  <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
-                                  <p class="mb-0 text-sm">just updated</p>
                               </div>
                           </div>
                       </div>

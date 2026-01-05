@@ -48,8 +48,7 @@
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
-            <a class="navbar-brand px-4 py-3 m-0"
-                href="{{route('dashboard.index')}}">
+            <a class="navbar-brand px-4 py-3 m-0" href="{{ route('dashboard.index') }}">
                 <span class="ms-1 text-sm text-dark">GESTION TRESORERIE</span>
             </a>
         </div>
@@ -101,7 +100,8 @@
                     </h6>
                 </li>
                 <li class="nav-item">
-                    <a class="{{ request()->routeIs('profile.edit   ') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}" href="{{ route('profile.edit') }}">
+                    <a class="{{ request()->routeIs('profile.edit') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
+                        href="{{ route('profile.edit') }}">
                         <i class="material-symbols-rounded opacity-5">person</i>
                         <span class="nav-link-text ms-1">Profile</span>
                     </a>
@@ -128,13 +128,26 @@
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        @php
+                            $segments = request()->segments();
+
+                        @endphp
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
-                                href="javascript:;">Pages</a>
+                                href="{{ route('dashboard.index') }}">Home</a>
                         </li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">
+                            @foreach ($segments as $segment)
+                                @if ($loop->iteration === 2)
+                                    /
+                                @endif
+                                {{ $segment }}
+                            @endforeach
+                        </li>
+
+
                     </ol>
                 </nav>
-                <form>
+                <form style="{{ request()->routeIs('dashboard.index') ? 'display: none;' : '' }}">
                     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                             <div class="input-group input-group-outline">
@@ -148,7 +161,7 @@
                                 <button class="btn btn-outline-primary btn-sm mb-0 me-3"
                                     type="submit">Search</button>
                             </li>
-                            
+
                             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                                 <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                                     <div class="sidenav-toggler-inner">
