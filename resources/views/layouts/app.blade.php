@@ -433,6 +433,25 @@
                 clienttd.style.display = "none";
             }
         }
+
+
+        function toggleEntreeTypeDropdown(value) {
+            const projectth = document.getElementById("projectth");
+            const projecttd = document.getElementById("projecttd");
+            
+
+
+            if (!projectth) return;
+
+            if (value === "project") {
+                projectth.style.display = "";
+                projecttd.style.display = "";
+            } else {
+                projectth.style.display = "none";
+                projecttd.style.display = "none";
+            }
+        }  
+
     </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;

@@ -23,7 +23,7 @@
                                                       Type
                                                   </th>
                                                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                                                      id="clientth">
+                                                      id="projectth">
                                                       Project
                                                   </th>
                                                   <th
@@ -47,14 +47,14 @@
                                                   <td class="align-middle" id="typetd">
                                                       <div class="input-group input-group-outline">
                                                           <select name="type" class="form-control"
-                                                              onchange="toggleClientDropdown(this.value)">
+                                                              onchange="toggleEntreeTypeDropdown(this.value)">
                                                               <option value="project">Project</option>
                                                               <option value="autre">Autre</option>
                                                           </select>
                                                       </div>
                                                   </td>
 
-                                                  <td class="align-middle" id="clienttd">
+                                                  <td class="align-middle" id="projecttd">
                                                       <div class="input-group input-group-outline">
                                                           <select name="project_id" class="form-control">
                                                               @foreach ($projects as $project)
