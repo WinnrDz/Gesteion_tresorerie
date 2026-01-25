@@ -27,7 +27,6 @@ class ClientController extends Controller
         } 
 
 
-
         $clients = $query->paginate(10)->withQueryString();
 
         return view('clients.index', compact('clients'));
