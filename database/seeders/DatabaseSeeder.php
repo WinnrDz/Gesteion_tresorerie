@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         Entree::factory()->create([
                     'type' => 'autre',
                 ]);
-        DepenseNom::factory(10)->create();
+        DepenseNom::factory(100)->create();
 
         Project::factory(100)->create();
 

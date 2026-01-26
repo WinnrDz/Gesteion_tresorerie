@@ -19,7 +19,7 @@ class DepenseFactory extends Factory
     public function definition(): array
     {
         return [
-            "valeur" => fake()->numberBetween(100,5000),
+            "valeur" => fake()->numberBetween(1,1),
             'date' => fake()->dateTimeBetween('-1 year', 'now'),
             'note' => fake()->sentence(),
             'depense_noms_id' => DepenseNom::inRandomOrder()->first()->id,
