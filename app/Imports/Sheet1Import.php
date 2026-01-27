@@ -13,8 +13,11 @@ class Sheet1Import implements ToCollection
     /**
      * @param Collection $rows
      */
+    
+
     public function collection(Collection $rows)
     {
+
         $periodesRow = null;
         $totalRow = null;
         $canStore = false;
@@ -30,7 +33,7 @@ class Sheet1Import implements ToCollection
         foreach ($rows as $row) {
 
             // Clean row cells
-            $row = $row->map(fn($cell) => is_string($cell) ? trim($cell) : $cell);
+            $row = $row->map(fn ($cell) => is_string($cell) ? trim($cell) : $cell);
 
             $isEmpty = $row->filter()->isEmpty();
 
@@ -103,5 +106,6 @@ class Sheet1Import implements ToCollection
         }
 
         //dd('done');
+    
     }
 }

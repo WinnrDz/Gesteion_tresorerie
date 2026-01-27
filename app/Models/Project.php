@@ -40,6 +40,8 @@ class Project extends Model
     public function getPercentageAttribute()
     {
         $totalEntree = $this->entrees->sum('valeur');
+        
+        if ($this->montant == 0) return 0;
         return  $totalEntree * 100 / $this->montant;
     }
 
