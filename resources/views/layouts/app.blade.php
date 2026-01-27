@@ -65,7 +65,7 @@
                 <li class="nav-item">
                     <a class="{{ request()->routeIs('depenses.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
                         href="{{ route('depenses.index') }}">
-                        <i class="material-symbols-rounded opacity-5">table_view</i>
+                        <i class="material-symbols-rounded opacity-5">money_off</i>
                         <span class="nav-link-text ms-1">Depenses</span>
                     </a>
                 </li>
@@ -73,7 +73,7 @@
                 <li class="nav-item">
                     <a class="{{ request()->routeIs('entrees.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
                         href="{{ route('entrees.index') }}">
-                        <i class="material-symbols-rounded opacity-5">table_view</i>
+                        <i class="material-symbols-rounded opacity-5">attach_money</i>
                         <span class="nav-link-text ms-1">Entrées</span>
                     </a>
                 </li>
@@ -81,7 +81,7 @@
                 <li class="nav-item">
                     <a class="{{ request()->routeIs('clients.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
                         href="{{ route('clients.index') }}">
-                        <i class="material-symbols-rounded opacity-5">table_view</i>
+                        <i class="material-symbols-rounded opacity-5">identity_platform</i>
                         <span class="nav-link-text ms-1">Clients</span>
                     </a>
                 </li>
@@ -89,8 +89,17 @@
                 <li class="nav-item">
                     <a class="{{ request()->routeIs('projects.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
                         href="{{ route('projects.index') }}">
-                        <i class="material-symbols-rounded opacity-5">table_view</i>
+                        <i class="material-symbols-rounded opacity-5">deployed_code</i>
                         <span class="nav-link-text ms-1">Projects</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="{{ request()->routeIs('excel.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
+                        href="{{ route('excel.index') }}">
+                        <i class="material-symbols-rounded opacity-5">docs</i>
+                        <span class="nav-link-text ms-1">Upload Excel</span>
                     </a>
                 </li>
 

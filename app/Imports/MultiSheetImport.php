@@ -9,12 +9,18 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 class MultiSheetImport implements WithMultipleSheets
 {
     
+    public int $year;
+
+    public function __construct(int $year)
+    {
+        $this->year = $year;
+    }
+
     public function sheets(): array
     {
-      return [
-            0 => new Sheet1Import(),
-            1 => new Sheet2Import(),
-            2 => new Sheet3Import(),
+        return [
+            new Sheet1Import($this->year),
+            new Sheet2Import($this->year),
         ];
     }
 }

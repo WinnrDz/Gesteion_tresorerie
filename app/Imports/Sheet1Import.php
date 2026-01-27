@@ -14,6 +14,14 @@ class Sheet1Import implements ToCollection
      * @param Collection $rows
      */
     
+    protected int $year;
+
+    public function __construct(int $year)
+    {
+        $this->year = $year;
+    }
+
+
 
     public function collection(Collection $rows)
     {
@@ -54,7 +62,7 @@ class Sheet1Import implements ToCollection
                         $monthName = trim($matches[1]); // clean spaces
                         $day = $matches[2]; // start day of period
                         if (isset($months[$monthName])) {
-                            $startDates[$i] = Carbon::create(2026, $months[$monthName], $day);
+                            $startDates[$i] = Carbon::create($this->year, $months[$monthName], $day);
                         } else {
                             $startDates[$i] = null;
                         }

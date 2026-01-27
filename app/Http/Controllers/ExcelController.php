@@ -19,7 +19,7 @@ class ExcelController extends Controller
             'file' => 'required|mimes:xlsx,xls',
         ]);
 
-        Excel::import(new MultiSheetImport, $request->file('file'));
+        Excel::import(new MultiSheetImport($request->year), $request->file('file'));
 
         return back()->with('success', 'File imported! Check dd() output.');
     }

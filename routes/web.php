@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('projects', ProjectController::class);
 
-        Route::get('/upload', [ExcelController::class, 'showForm']);
+        Route::get('/upload', [ExcelController::class, 'showForm'])->name('excel.index');
         Route::post('/upload', [ExcelController::class, 'import'])->name('excel.import');
     });
 });
