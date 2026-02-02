@@ -180,9 +180,47 @@
                                               entrees: @json($entreeValeurWeek),
                                               depenses: @json($depenseValeurWeek),
                                               tresoreries: @json($tresorerieValuerWeek),
-                                              labels: @json($last7Days),
+                                              entreeValeurLast4Weeks: @json($entreeValeurLast4Weeks),
+                                              depenseValeurLast4Weeks: @json($depenseValeurLast4Weeks),
+                                              tresorerieValeurLast4Weeks: @json($tresorerieValeurLast4Weeks),
+                                              last7Days: @json($last7Days),
+                                              weekLabels: @json($weekLabels),
+                                              lastMonthLabels: @json($lastMonthLabels),
+                                              entreeValeurLastMonths: @json($entreeValeurLastMonths),
+                                              depenseValeurLastMonths: @json($depenseValeurLastMonths),
+                                              tresorerieValeurLastMonths: @json($tresorerieValeurLastMonths)
                                           };
                                       </script>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h6 class="mb-0 ">Entrées de la semaine</h6>
+                              <p class="text-sm ">Graphique qui affiche les Entrées par temps</p>
+                              <div class="pe-2">
+                                  <div class="chart">
+                                      <canvas id="chart-bars-m" class="chart-canvas" height="212" width="454"
+                                          style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h6 class="mb-0 ">Entrées de la semaine</h6>
+                              <p class="text-sm ">Graphique qui affiche les Entrées par temps</p>
+                              <div class="pe-2">
+                                  <div class="chart">
+                                      <canvas id="chart-bars-y" class="chart-canvas" height="212" width="454"
+                                          style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
                                   </div>
                               </div>
                           </div>
@@ -203,6 +241,37 @@
                           </div>
                       </div>
                   </div>
+                  
+                  <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h6 class="mb-0 ">Depenses de la semaine</h6>
+                              <p class="text-sm ">Graphique qui affiche les Dépenses par temps</p>
+                              <div class="pe-2">
+                                  <div class="chart">
+                                      <canvas id="chart-bars-2-m" class="chart-canvas" height="212" width="454"
+                                          style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h6 class="mb-0 ">Depenses de la semaine</h6>
+                              <p class="text-sm ">Graphique qui affiche les Dépenses par temps</p>
+                              <div class="pe-2">
+                                  <div class="chart">
+                                      <canvas id="chart-bars-2-y" class="chart-canvas" height="212" width="454"
+                                          style="display: block; box-sizing: border-box; height: 170px; width: 363px;"></canvas>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
 
                   <div class="col-lg-4 mt-4 mb-3">
                       <div class="card">

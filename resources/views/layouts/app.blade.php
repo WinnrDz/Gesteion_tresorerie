@@ -207,7 +207,7 @@
         new Chart(ctx, {
             type: "bar",
             data: {
-                labels: window.dashboardData.labels,
+                labels: window.dashboardData.last7Days,
                 datasets: [{
                     label: "Entrée en DA",
                     tension: 0.4,
@@ -275,13 +275,161 @@
             },
         });
 
+        var ctxm = document.getElementById("chart-bars-m").getContext("2d");
+
+        new Chart(ctxm, {
+            type: "bar",
+            data: {
+                labels: window.dashboardData.weekLabels,
+                datasets: [{
+                    label: "Entrée en DA",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: "#43A047",
+                    data: window.dashboardData.entreeValeurLast4Weeks,
+                    barThickness: 'flex'
+                }, ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5],
+                            color: '#e5e5e5'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                            suggestedMax: 500,
+                            beginAtZero: true,
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                            color: "#737373"
+                        },
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 1
+                            },
+                        }
+                    },
+                },
+            },
+        });
+
+
+        var ctxy = document.getElementById("chart-bars-y").getContext("2d");
+
+        new Chart(ctxy, {
+            type: "bar",
+            data: {
+                labels: window.dashboardData.lastMonthLabels,
+                datasets: [{
+                    label: "Entrée en DA",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: "#43A047",
+                    data: window.dashboardData.entreeValeurLastMonths,
+                    barThickness: 'flex'
+                }, ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5],
+                            color: '#e5e5e5'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                            suggestedMax: 500,
+                            beginAtZero: true,
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                            color: "#737373"
+                        },
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 1
+                            },
+                        }
+                    },
+                },
+            },
+        });
+
+
 
         var ctx2 = document.getElementById("chart-bars-2").getContext("2d");
 
         new Chart(ctx2, {
             type: "bar",
             data: {
-                labels: window.dashboardData.labels,
+                labels: window.dashboardData.last7Days,
                 datasets: [{
                     label: "Dépense en DA",
                     tension: 0.4,
@@ -349,12 +497,160 @@
             },
         });
 
+
+        var ctx2m = document.getElementById("chart-bars-2-m").getContext("2d");
+
+        new Chart(ctx2m, {
+            type: "bar",
+            data: {
+                labels: window.dashboardData.weekLabels,
+                datasets: [{
+                    label: "Dépense en DA",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: "#808080",
+                    data: window.dashboardData.depenseValeurLast4Weeks,
+                    barThickness: 'flex'
+                }, ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5],
+                            color: '#e5e5e5'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                            suggestedMax: 500,
+                            beginAtZero: true,
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 1
+                            },
+                            color: "#737373"
+                        },
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
+            },
+        });
+
+
+        var ctx2y = document.getElementById("chart-bars-2-y").getContext("2d");
+
+        new Chart(ctx2y, {
+            type: "bar",
+            data: {
+                labels: window.dashboardData.lastMonthLabels,
+                datasets: [{
+                    label: "Dépense en DA",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: "#808080",
+                    data: window.dashboardData.depenseValeurLastMonths,
+                    barThickness: 'flex'
+                }, ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5],
+                            color: '#e5e5e5'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                            suggestedMax: 500,
+                            beginAtZero: true,
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 1
+                            },
+                            color: "#737373"
+                        },
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
+            },
+        });
+
         var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
 
         new Chart(ctx3, {
             type: "line",
             data: {
-                labels: window.dashboardData.labels,
+                labels: window.dashboardData.last7Days,
                 datasets: [{
                     label: "DA",
                     tension: 0,
