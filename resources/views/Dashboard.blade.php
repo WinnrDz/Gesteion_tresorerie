@@ -34,7 +34,7 @@
                                       </form>
                                   @else
                                       <div>
-                                          <p class="text-sm mb-0 text-capitalize"> Trésorerie initiale</p>
+                                          <p class="text-sm mb-0 text-capitalize"> Trésorerie initiale d’aujourd’hui</p>
                                           <h4 class="mb-0">{{ $initial }} DA</h4>
                                       </div>
                                       <div
@@ -169,7 +169,7 @@
                   <div class="col-lg-4 col-md-6 mt-4 mb-4">
                       <div class="card">
                           <div class="card-body">
-                              <h6 class="mb-0 ">Entrées de la semaine</h6>
+                              <h6 class="mb-0 ">Entrées de cette semaine</h6>
                               <p class="text-sm ">Graphique qui affiche les Entrées par temps</p>
                               <div class="pe-2">
                                   <div class="chart">
@@ -200,7 +200,7 @@
                   <div class="col-lg-4 col-md-6 mt-4 mb-4">
                       <div class="card">
                           <div class="card-body">
-                              <h6 class="mb-0 ">Entrées de la semaine</h6>
+                              <h6 class="mb-0 ">Entrées de ce mois</h6>
                               <p class="text-sm ">Graphique qui affiche les Entrées par temps</p>
                               <div class="pe-2">
                                   <div class="chart">
@@ -215,7 +215,7 @@
                   <div class="col-lg-4 col-md-6 mt-4 mb-4">
                       <div class="card">
                           <div class="card-body">
-                              <h6 class="mb-0 ">Entrées de la semaine</h6>
+                              <h6 class="mb-0 ">Entrées des mois précédents</h6>
                               <p class="text-sm ">Graphique qui affiche les Entrées par temps</p>
                               <div class="pe-2">
                                   <div class="chart">
@@ -230,7 +230,7 @@
                   <div class="col-lg-4 col-md-6 mt-4 mb-4">
                       <div class="card">
                           <div class="card-body">
-                              <h6 class="mb-0 ">Depenses de la semaine</h6>
+                              <h6 class="mb-0 ">Depenses de cette semaine</h6>
                               <p class="text-sm ">Graphique qui affiche les Dépenses par temps</p>
                               <div class="pe-2">
                                   <div class="chart">
@@ -245,7 +245,7 @@
                   <div class="col-lg-4 col-md-6 mt-4 mb-4">
                       <div class="card">
                           <div class="card-body">
-                              <h6 class="mb-0 ">Depenses de la semaine</h6>
+                              <h6 class="mb-0 ">Depenses de ce mois</h6>
                               <p class="text-sm ">Graphique qui affiche les Dépenses par temps</p>
                               <div class="pe-2">
                                   <div class="chart">
@@ -260,7 +260,7 @@
                   <div class="col-lg-4 col-md-6 mt-4 mb-4">
                       <div class="card">
                           <div class="card-body">
-                              <h6 class="mb-0 ">Depenses de la semaine</h6>
+                              <h6 class="mb-0 ">Depenses des mois précédents</h6>
                               <p class="text-sm ">Graphique qui affiche les Dépenses par temps</p>
                               <div class="pe-2">
                                   <div class="chart">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DepenseNom;
 use Illuminate\Http\Request;
 
-class DepensenomController extends Controller
+class DepenseNomController extends Controller
 {
     /**
      * Display a listing of the resource.
