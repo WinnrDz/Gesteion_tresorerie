@@ -743,7 +743,7 @@
         function toggleEntreeTypeDropdown(value) {
             const projectth = document.getElementById("projectth");
             const projecttd = document.getElementById("projecttd");
-            
+
 
 
             if (!projectth) return;
@@ -755,8 +755,15 @@
                 projectth.style.display = "none";
                 projecttd.style.display = "none";
             }
-        }  
+        }
 
+        function togglepopup() {
+            document.getElementById("popup").classList.toggle('mkhbi');
+        }
+
+/*        document.querySelector('.popup-button').addEventListener('click', function() {
+            this.querySelector('.popup').classList.toggle('mkhbi');
+        });*/
     </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;

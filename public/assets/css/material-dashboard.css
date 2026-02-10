@@ -29151,3 +29151,25 @@ pre[class*=language-] {
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */
+
+
+
+
+/*rabah part*/
+
+.popup-button {
+  
+}
+
+
+
+.popup {
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  z-index: 9999;
+}
+
+.mkhbi {
+  display: none;
+}

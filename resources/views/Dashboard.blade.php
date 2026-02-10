@@ -175,13 +175,15 @@
                                       <h6 class="mb-0 ">Entrées de cette semaine</h6>
                                       <p class="text-sm ">Graphique qui affiche les Entrées par temps</p>
                                   </div>
-                                  <div
-                                      style="position: relative; display: inline-block; font-family: sans-serif; cursor:pointer;"
-                                      onclick="let c=this.querySelector('.card'); if(!c){let card=document.createElement('div'); card.className='card'; card.style.cssText='position:absolute; bottom:100%; left:50%; transform:translateX(-50%) translateY(-10px); padding:20px 30px; background:#fff; border:1px solid #ccc; border-radius:8px; white-space:normal; box-shadow:0 4px 12px rgba(0,0,0,0.2); width:250px; text-align:center; z-index:9999;'; card.innerText='Hello! This card is now on top of the button.'; this.appendChild(card);}else{c.remove();}">
-                                      Click me
-                                  </div>
+                                  <div style="cursor: pointer;" onclick="togglepopup()" class="popup-button">
+                                    here
 
-
+                                </div>
+                                <div class="popup mkhbi p-7 border rounded bg-white" id="popup">
+                                    
+                                </div>
+                                  
+                                  
 
 
                               </div>
