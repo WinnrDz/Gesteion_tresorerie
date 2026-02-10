@@ -16,9 +16,11 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         Carbon::setLocale('fr');
+
+
 
         // ------------------------------------------------------------------
         // Dates (single source of truth)
@@ -29,15 +31,12 @@ class DashboardController extends Controller
         // ------------------------------------------------------------------
         // Entrees
         // ------------------------------------------------------------------
-        $totalentreeToday = (float) Entree::whereBetween('date', [
-            $today->startOfDay(),
-            $today->endOfDay()
-        ])->sum('valeur');
+        $totalentreeToday = (float) Entree::whereDate('date', today())->sum('valeur');
 
-        $totalentreeYesterday = (float) Entree::whereBetween('date', [
-            $yesterday->startOfDay(),
-            $yesterday->endOfDay()
-        ])->sum('valeur');
+
+        $totalentreeYesterday = (float) Entree::whereDate('date', $yesterday)
+            ->sum('valeur');
+
 
         $percentageentree = null;
         if ($totalentreeYesterday > 0) {
@@ -51,15 +50,12 @@ class DashboardController extends Controller
         // ------------------------------------------------------------------
         // Depenses
         // ------------------------------------------------------------------
-        $totaldepenseToday = (float) Depense::whereBetween('date', [
-            $today->startOfDay(),
-            $today->endOfDay()
-        ])->sum('valeur');
+        $totaldepenseToday = (float) Depense::whereDate('date', today())
+            ->sum('valeur');
 
-        $totaldepenseYesterday = (float) Depense::whereBetween('date', [
-            $yesterday->startOfDay(),
-            $yesterday->endOfDay()
-        ])->sum('valeur');
+        $totaldepenseYesterday = (float) Depense::whereDate('date', $yesterday)
+            ->sum('valeur');
+
 
         $percentagedepense = null;
         if ($totaldepenseYesterday > 0) {
@@ -109,6 +105,60 @@ class DashboardController extends Controller
             $value = round((($solde - $soldeYesterday) / $soldeYesterday) * 100, 2);
             $percentageSolde = ($value > 0 ? '+' : '') . $value;
         }
+
+        //---------------------------------------------------------
+        //set fake date
+        //---------------------------------------------------------------
+
+        if ($request->has('week')) {
+            $week = request('week');
+            [$year, $weekNumber] = explode('-W', $week);
+
+
+            $fakeNow = Carbon::now()
+                ->setISODate($year, $weekNumber)
+                ->endOfWeek();
+
+
+            Carbon::setTestNow($fakeNow);
+        }
+
+
+        if ($request->has('month')) {
+            $month = $request->month; // "2026-02"
+
+            // Split year and month
+            [$year, $monthNumber] = explode('-', $month);
+
+            // Get last day of the month
+            $lastDayOfMonth = Carbon::create($year, $monthNumber, 1)
+                ->endOfMonth();
+
+            // Trick Carbon::now() if needed
+            Carbon::setTestNow($lastDayOfMonth);
+        }
+
+
+        if ($request->has('year')) {
+            $year = $request->year ?? date('Y'); // fallback to current year if not selected
+
+            // Get last day of the year
+            $lastDayOfYear = Carbon::create($year, 1, 1)  // first day of year
+                ->endOfYear();                             // last day of year
+
+            // Trick Carbon::now()
+            Carbon::setTestNow($lastDayOfYear);
+        }
+
+        //dd(Carbon::now());
+
+
+
+
+
+
+
+
 
         // ------------------------------------------------------------------
         // Last 7 days dates
@@ -204,7 +254,7 @@ class DashboardController extends Controller
         // ------------------------------------------------------------------
         // Last N months (dynamic)
         // ------------------------------------------------------------------
-        $lastMonthsCount = 6; // change this number as needed
+        $lastMonthsCount = 12; // change this number as needed
         $lastMonths = collect(range($lastMonthsCount - 1, 0))->map(fn($i) => Carbon::now()->subMonths($i));
 
         // Labels (month names only)
@@ -248,6 +298,7 @@ class DashboardController extends Controller
                 (float) Entree::where('date', '<=', $monthEnd)->sum('valeur')
                 - (float) Depense::where('date', '<=', $monthEnd)->sum('valeur');
         }
+
 
 
 

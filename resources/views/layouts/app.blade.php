@@ -720,6 +720,155 @@
             },
         });
 
+        var ctx3m = document.getElementById("chart-line-m").getContext("2d");
+
+        new Chart(ctx3m, {
+            type: "line",
+            data: {
+                labels: window.dashboardData.weekLabels,
+                datasets: [{
+                    label: "DA",
+                    tension: 0,
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    pointBackgroundColor: "#43A047",
+                    pointBorderColor: "transparent",
+                    borderColor: "#43A047",
+                    backgroundColor: "transparent",
+                    fill: true,
+                    data: window.dashboardData.tresorerieValeurLast4Weeks,
+                    maxBarThickness: 6
+
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [4, 4],
+                            color: '#e5e5e5'
+                        },
+                        ticks: {
+                            display: true,
+                            padding: 10,
+                            color: '#737373',
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [4, 4]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
+            },
+        });
+
+        var ctx3y = document.getElementById("chart-line-y").getContext("2d");
+
+        new Chart(ctx3y, {
+            type: "line",
+            data: {
+                labels: window.dashboardData.lastMonthLabels,
+                datasets: [{
+                    label: "DA",
+                    tension: 0,
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    pointBackgroundColor: "#43A047",
+                    pointBorderColor: "transparent",
+                    borderColor: "#43A047",
+                    backgroundColor: "transparent",
+                    fill: true,
+                    data: window.dashboardData.tresorerieValeurLastMonths,
+                    maxBarThickness: 6
+
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [4, 4],
+                            color: '#e5e5e5'
+                        },
+                        ticks: {
+                            display: true,
+                            padding: 10,
+                            color: '#737373',
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [4, 4]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
+            },
+        });
 
 
         function toggleClientDropdown(value) {
@@ -757,11 +906,33 @@
             }
         }
 
-        function togglepopup() {
+        document.getElementById("week").addEventListener("change", function() {
+            const week = this.value; // e.g. 2026-W06
+            window.location.href = `?week=${week}`;
+        });
+
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const scrollY = sessionStorage.getItem('scrollY');
+            if (scrollY) {
+                window.scrollTo(0, scrollY);
+                sessionStorage.removeItem('scrollY');
+            }
+        });
+
+
+
+
+
+
+
+
+
+        /*function togglepopup() {
             document.getElementById("popup").classList.toggle('mkhbi');
         }
 
-/*        document.querySelector('.popup-button').addEventListener('click', function() {
+        document.querySelector('.popup-button').addEventListener('click', function() {
             this.querySelector('.popup').classList.toggle('mkhbi');
         });*/
     </script>

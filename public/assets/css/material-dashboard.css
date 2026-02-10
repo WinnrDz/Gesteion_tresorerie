@@ -29154,22 +29154,15 @@ pre[class*=language-] {
 
 
 
+/*rabah*/
 
-/*rabah part*/
 
-.popup-button {
-  
+.week-selector,.month-selector {
+  color: transparent;
+  width: 20px;
+  font-size: large;
 }
 
-
-
-.popup {
-  position: absolute;
-  top: -200px;
-  right: -200px;
-  z-index: 9999;
-}
-
-.mkhbi {
-  display: none;
+.year-selector {
+  width: 100px;
 }
