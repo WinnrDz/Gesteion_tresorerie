@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelImportController;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\MultiSheetImport;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ExcelController;
 
 Route::get('/', function () {
@@ -41,10 +42,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/upload', [ExcelController::class, 'showForm'])->name('excel.index');
         Route::post('/upload', [ExcelController::class, 'import'])->name('excel.import');
 
-        Route::get('/export', function () {
-            $export = new ExcelReport();
+        Route::post('/export', function (Request $request) {
+            $request->validate([
+                'year' => 'required|digits:4|integer',
+            ]);
+
+            $year = (int) $request->year;
+
+            $export = new ExcelReport($year);
+
             return $export->download();
-        });
+        })->name('excel.export');
     });
 });
 

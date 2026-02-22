@@ -3,41 +3,43 @@
 namespace App\Exports;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use App\Models\User;
 use App\Models\Depense;
+use App\Models\Entree;
 use Carbon\Carbon;
 
 class ExcelReport
 {
+    protected $year;
+
+    public function __construct($year)
+    {
+        $this->year = $year; // store user-provided year
+    }
+
     public function download()
     {
         $templatePath = storage_path('app/excel/template.xlsx');
         $spreadsheet = IOFactory::load($templatePath);
 
-        // --- Sheet 1: Users ---
-        $depenseSheet = $spreadsheet->getSheetByName('Prévisions Dépenses-Décaiss'); // Sheet name must match exactly
-        $depenses = Depense::whereYear('date', Carbon::now()->year)->get();
-
+        // --- Sheet 1: Dépenses ---
+        $depenseSheet = $spreadsheet->getSheetByName('Prévisions Dépenses-Décaiss');
 
         $startRow = 26;
-        $endRow   = 200; // or large enough to cover all tables
+        $endRow   = 200;
         $startCol = 'C';
-        $currentHeaderRow = 25; // default starting header
+        $currentHeaderRow = 25;
 
         for ($row = $startRow; $row <= $endRow; $row++) {
             $depenseName = $depenseSheet->getCell('B' . $row)->getValue();
 
-            // Check if this row is a new header row (column C contains a day-range like 1-7)
             $firstPeriodCell = $depenseSheet->getCell($startCol . $row)->getValue();
             if (!empty($firstPeriodCell) && preg_match('/\d+-\d+/', $firstPeriodCell)) {
                 $currentHeaderRow = $row;
-                continue; // skip the header row itself
+                continue;
             }
 
-            // Skip rows without a depense name
             if (empty($depenseName)) continue;
 
-            // Loop through columns of the current table
             $highestCol = $depenseSheet->getHighestColumn();
             for ($col = $startCol; $col <= $highestCol; $col++) {
                 $dateHeader = $depenseSheet->getCell($col . $currentHeaderRow)->getValue();
@@ -47,20 +49,11 @@ class ExcelReport
                     $startDay = (int)$matches[1];
                     $endDay   = (int)$matches[2];
 
-                    // Map French month
                     $months = [
-                        'Janvier' => 1,
-                        'Fevrier' => 2,
-                        'Mars' => 3,
-                        'Avril' => 4,
-                        'Mai' => 5,
-                        'Juin' => 6,
-                        'Juillet' => 7,
-                        'Aout' => 8,
-                        'Septembre' => 9,
-                        'Octobre' => 10,
-                        'Novembre' => 11,
-                        'Decembre' => 12
+                        'Janvier' => 1, 'Fevrier' => 2, 'Mars' => 3,
+                        'Avril' => 4, 'Mai' => 5, 'Juin' => 6,
+                        'Juillet' => 7, 'Aout' => 8, 'Septembre' => 9,
+                        'Octobre' => 10, 'Novembre' => 11, 'Decembre' => 12
                     ];
 
                     foreach ($months as $name => $num) {
@@ -70,10 +63,8 @@ class ExcelReport
                         }
                     }
 
-                    $year = Carbon::now()->year;
-
-                    $startDate = Carbon::create($year, $monthNum, $startDay)->startOfDay();
-                    $endDate   = Carbon::create($year, $monthNum, $endDay)->endOfDay();
+                    $startDate = Carbon::create($this->year, $monthNum, $startDay)->startOfDay();
+                    $endDate   = Carbon::create($this->year, $monthNum, $endDay)->endOfDay();
 
                     $total = Depense::whereHas('depenseNom', function ($query) use ($depenseName) {
                         $query->where('nom', $depenseName);
@@ -86,8 +77,65 @@ class ExcelReport
             }
         }
 
+        // --- Sheet 2: Entrées ---
+        $entreeSheet = $spreadsheet->getSheetByName('Prévisions Entrées-Encaiss');
 
-        // Save to temporary file and return download
+        $startRow = 20;
+        $endRow   = 90;
+        $startCol = 'C';
+        $currentHeaderRow = 25;
+
+        for ($row = $startRow; $row <= $endRow; $row++) {
+
+            $clientName = $entreeSheet->getCell('B' . $row)->getValue();
+            $firstPeriodCell = $entreeSheet->getCell($startCol . $row)->getValue();
+
+            if (!empty($firstPeriodCell) && preg_match('/\d+-\d+/', $firstPeriodCell)) {
+                $currentHeaderRow = $row;
+                continue;
+            }
+
+            if (empty($clientName)) continue;
+
+            $highestCol = $entreeSheet->getHighestColumn();
+
+            for ($col = $startCol; $col <= $highestCol; $col++) {
+                $dateHeader = $entreeSheet->getCell($col . $currentHeaderRow)->getValue();
+                if (empty($dateHeader)) continue;
+
+                if (preg_match('/(\d+)-(\d+)/', $dateHeader, $matches)) {
+                    $startDay = (int)$matches[1];
+                    $endDay   = (int)$matches[2];
+
+                    $months = [
+                        'Janvier' => 1, 'Fevrier' => 2, 'Mars' => 3,
+                        'Avril' => 4, 'Mai' => 5, 'Juin' => 6,
+                        'Juillet' => 7, 'Aout' => 8, 'Septembre' => 9,
+                        'Octobre' => 10, 'Novembre' => 11, 'Decembre' => 12
+                    ];
+
+                    foreach ($months as $name => $num) {
+                        if (str_contains($dateHeader, $name)) {
+                            $monthNum = $num;
+                            break;
+                        }
+                    }
+
+                    $startDate = Carbon::create($this->year, $monthNum, $startDay)->startOfDay();
+                    $endDate   = Carbon::create($this->year, $monthNum, $endDay)->endOfDay();
+
+                    $total = Entree::whereHas('project.client', function ($query) use ($clientName) {
+                        $query->where('nom', $clientName);
+                    })
+                        ->whereBetween('date', [$startDate, $endDate])
+                        ->sum('valeur');
+
+                    $entreeSheet->setCellValue($col . $row, $total);
+                }
+            }
+        }
+
+        // Save and download
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $fileName = 'report.xlsx';
         $temp_file = tempnam(sys_get_temp_dir(), $fileName);
