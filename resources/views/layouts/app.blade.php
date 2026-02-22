@@ -99,7 +99,7 @@
                     <a class="{{ request()->routeIs('excel.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
                         href="{{ route('excel.index') }}">
                         <i class="material-symbols-rounded opacity-5">docs</i>
-                        <span class="nav-link-text ms-1">Upload Excel</span>
+                        <span class="nav-link-text ms-1">Import Excel</span>
                     </a>
                 </li>
 

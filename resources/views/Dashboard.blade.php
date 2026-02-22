@@ -253,7 +253,7 @@
                                       <a id="year" style="display:block; position:relative; top:-150px;"></a>
 
                                       <input type="number" id="year" class="year-selector form-control"
-                                          min="1900" max="2100" placeholder="Select year"
+                                          min="2000" max="2100" placeholder="Select year"
                                           value="{{ request('year') }}"
                                           onchange="window.location.href='?year='+this.value+'#year';">
                                   </div>

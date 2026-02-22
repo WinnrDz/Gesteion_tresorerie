@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Exports\ExcelReport;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\DepensenomController;
@@ -9,7 +10,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelImportController;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\MultiSheetImport;
 use App\Http\Controllers\ExcelController;
 
@@ -39,6 +40,11 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/upload', [ExcelController::class, 'showForm'])->name('excel.index');
         Route::post('/upload', [ExcelController::class, 'import'])->name('excel.import');
+
+        Route::get('/export', function () {
+            $export = new ExcelReport();
+            return $export->download();
+        });
     });
 });
 
