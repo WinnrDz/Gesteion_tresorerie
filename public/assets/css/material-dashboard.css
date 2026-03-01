@@ -29166,3 +29166,30 @@ pre[class*=language-] {
 .year-selector {
   width: 100px;
 }
+
+
+/* Hide the native text when empty */
+input[type="date"].date-placeholder::-webkit-datetime-edit-text,
+input[type="date"].date-placeholder::-webkit-datetime-edit-month-field,
+input[type="date"].date-placeholder::-webkit-datetime-edit-day-field,
+input[type="date"].date-placeholder::-webkit-datetime-edit-year-field {
+    color: transparent;
+}
+
+/* Show the fake placeholder when input is empty or after blur */
+input[type="date"].date-placeholder:invalid::before {
+    content: attr(data-placeholder);
+    color: #6c757d; /* gray like placeholder */
+    position: absolute;
+    left: 0.75rem;
+    top: 0.75rem;
+    pointer-events: none;
+}
+
+/* Show native date text when input has value */
+input[type="date"].date-placeholder:valid::-webkit-datetime-edit-text,
+input[type="date"].date-placeholder:valid::-webkit-datetime-edit-month-field,
+input[type="date"].date-placeholder:valid::-webkit-datetime-edit-day-field,
+input[type="date"].date-placeholder:valid::-webkit-datetime-edit-year-field {
+    color: initial;
+}

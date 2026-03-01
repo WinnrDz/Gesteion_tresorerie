@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Exports\ExcelReport;
+use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\DepensenomController;
@@ -38,6 +39,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('clients', ClientController::class);
 
         Route::resource('projects', ProjectController::class);
+
+        Route::resource('candidates', CandidateController::class);
+
+
 
         Route::get('/upload', [ExcelController::class, 'showForm'])->name('excel.index');
         Route::post('/upload', [ExcelController::class, 'import'])->name('excel.import');

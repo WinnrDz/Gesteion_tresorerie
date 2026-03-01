@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string("portfolio_url");
             $table->enum("recruitment_pipeline",["new,interview,shortlisted,offer,rejected,hired"]);
             $table->integer("notation");
-            $table->float("salaire");
+            $table->float("salary");
             $table->date("application_date");
             $table->date("interview_date");
             $table->timestamps();
