@@ -27,6 +27,7 @@ return new class extends Migration
             $table->enum("recruitment_pipeline",["new","interview","shortlisted","offer","rejected","hired"]);
             $table->integer("notation");
             $table->float("salary")->nullable();
+            $table->enum("level",["beginner","intermediate","advanced","expert"]);
             $table->date("application_date");
             $table->date("interview_date")->nullable();
             $table->timestamps();

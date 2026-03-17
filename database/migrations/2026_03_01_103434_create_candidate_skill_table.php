@@ -16,8 +16,6 @@ return new class extends Migration
             $table->foreignId("skill_id")->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId("candidate_id")->constrained()->onDelete('cascade')->onUpdate('cascade');
 
-            $table->enum("level",["beginner","intermediate","advanced","expert"]);
-
             $table->primary(['skill_id', 'candidate_id']);
             $table->timestamps();
         });

@@ -88,10 +88,85 @@
                                   </select>
                               </div>
                           </div>
+
+                          <div class="col-md-4">
+
+                              <!-- Select -->
+                              <div class="input-group input-group-outline my-3">
+                                  <select id="skill-select" class="form-control">
+                                      <option value="" disabled selected>Choisir Les compétence</option>
+                                      @foreach ($skills as $skill)
+                                        <option value="{{$skill->name}}">{{$skill->name}}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                              <!-- Tags container -->
+                              <div id="tags-container" class="d-flex flex-wrap mt-2"></div>
+
+                              <!-- Hidden input -->
+                              <input type="hidden" name="skills" id="skills-hidden">
+                              <button type="button" id="add-skill" class="btn btn-secondary btn-sm mt-2">
+                                  + Ajouter une compétence
+                              </button>
+
+                          </div>
+
+                          <script>
+                              let skills = [];
+
+                              const select = document.getElementById('skill-select');
+                              const container = document.getElementById('tags-container');
+                              const hiddenInput = document.getElementById('skills-hidden');
+
+                              select.addEventListener('change', function() {
+                                  let value = this.value;
+
+                                  if (value && !skills.includes(value)) {
+                                      skills.push(value);
+
+                                      let tag = document.createElement('span');
+                                      tag.classList.add('badge', 'bg-dark', 'me-2', 'mb-1');
+                                      tag.innerHTML = `
+                ${value} <span style="cursor:pointer; margin-left:5px;">×</span>
+            `;
+
+                                      // remove tag
+                                      tag.querySelector('span').addEventListener('click', function() {
+                                          skills = skills.filter(s => s !== value);
+                                          tag.remove();
+                                          updateHidden();
+                                      });
+
+                                      container.appendChild(tag);
+                                      updateHidden();
+                                  }
+
+                                  // reset select
+                                  this.value = "";
+                              });
+
+                              function updateHidden() {
+                                  hiddenInput.value = JSON.stringify(skills);
+                              }
+                          </script>
+
+                          <div class="col-md-4">
+                              <div class="input-group input-group-outline my-3">
+                                  <select name="level" class="form-control">
+                                      <option value="" disabled selected hidden>Niveau</option>
+                                      <option value="beginner">Débutante</option>
+                                      <option value="intermediate">Intermédiaire</option>
+                                      <option value="advanced">Avancée</option>
+                                      <option value="expert">Expert</option>
+                                  </select>
+                              </div>
+                          </div>
+
                           <div class="col-md-4">
                               <div class="input-group input-group-outline my-3">
                                   <label class="form-label">Notation</label>
-                                  <input type="number" name="notation" min="0" max="10" class="form-control">
+                                  <input type="number" name="notation" min="0" max="10"
+                                      class="form-control">
                               </div>
                           </div>
                           <div class="col-md-4">
@@ -129,6 +204,9 @@
                                   wrap: false // not using data-wrap
                               });
                           </script>
+
+
+                          
 
                           @if ($errors->any())
                               <div class="alert alert-danger">

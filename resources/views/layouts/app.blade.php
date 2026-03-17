@@ -109,6 +109,7 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Gestion RH
                     </h6>
                 </li>
+
                 <li class="nav-item">
                     <a class="{{ request()->routeIs('candidates.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
                         href="{{ route('candidates.index') }}">
@@ -117,6 +118,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="{{ request()->routeIs('skills.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
+                        href="{{ route('skills.index') }}">
+                        <i class="material-symbols-rounded opacity-5">handyman</i>
+                        <span class="nav-link-text ms-1">Compétences</span>
+                    </a>
+                </li>
 
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages

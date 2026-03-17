@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
 class CandidateController extends Controller
@@ -22,7 +23,8 @@ class CandidateController extends Controller
      */
     public function create()
     {
-        return view('candidates.create');
+         $skills = Skill::all();
+        return view('candidates.create',compact("skills"));
     }
 
     /**
@@ -32,12 +34,11 @@ class CandidateController extends Controller
     {
         $path = $request->file('cv')->store('cvs', 'public');
 
-
         $validated = $request->validate([
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
         'email' => 'required|email|unique:candidates,email',
-        'phone' => 'required|numeric',
+        'phone' => 'required',
         'location' => 'nullable|string|max:255',
         'availability' => 'nullable|string|max:255',
 
@@ -60,10 +61,30 @@ class CandidateController extends Controller
 
     $validated['cv'] = $path;
 
+    
 
 
 
-    Candidate::create($validated);
+
+    $candidate = Candidate::create($validated);
+
+
+
+
+
+    // 2 Process skills
+    $skillsArray = json_decode($request->skills, true);
+
+    $skillIds = [];
+
+    foreach ($skillsArray as $skillName) {
+        // Find or create skill
+        $skill = Skill::firstOrCreate(['name' => $skillName]);
+        $skillIds[] = $skill->id;
+    }
+
+    // 3 Attach skills to candidate
+    $candidate->skills()->sync($skillIds);
 
         if ($request->filled('redirect_to')) {
                     return redirect($request->input('redirect_to'));
@@ -76,9 +97,10 @@ class CandidateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Candidate $candidate)
+    public function show($id)
     {
-        //
+        $candidate = Candidate::findOrFail($id);
+        return view('candidates.show', compact('candidate'));
     }
 
     /**

@@ -12,7 +12,9 @@ class SkillController extends Controller
      */
     public function index()
     {
-        //
+        $skills = Skill::all();
+
+        return view('skills.index',compact("skills"));
     }
 
     /**
@@ -20,7 +22,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        //
+        return view('skills.create');
     }
 
     /**
@@ -28,7 +30,17 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "name" => "required"
+        ]);
+
+        Skill::create($validated);
+
+        if ($request->filled('redirect_to')) {
+            return redirect($request->input('redirect_to'));
+        }
+
+        return redirect()->route('skills.index'); // default behavior
     }
 
     /**

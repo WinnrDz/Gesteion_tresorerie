@@ -34,7 +34,11 @@
                                               </th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  
+                                                  Compétences
+                                              </th>
+                                              <th
+                                                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+
                                               </th>
                                           </tr>
                                       </thead>
@@ -50,8 +54,9 @@
                                                       </span>
                                                   </td>
                                                   <td>
-                                                    <i class="bg-info"></i>
-                                                      <span class="text-xs font-weight-bold">{{ $candidate->recruitment_pipeline }}
+                                                      <i class="bg-info"></i>
+                                                      <span
+                                                          class="text-xs font-weight-bold">{{ $candidate->recruitment_pipeline }}
                                                       </span>
                                                   </td>
                                                   <td>
@@ -59,10 +64,17 @@
                                                       </span>
                                                   </td>
                                                   <td>
-                                                      <span class="text-xs font-weight-bold">Afficher plus
-                                                      </span>
+                                                      @foreach ($candidate->skills as $skill)
+                                                          <li>{{ $skill->name }}</li>
+                                                      @endforeach
                                                   </td>
-                                             </tr>
+
+                                                  <td>
+                                                      <a href="{{ route('candidates.show', $candidate->id) }}"
+                                                          class="text-xs font-weight-bold">Afficher plus
+                                                      </a>
+                                                  </td>
+                                              </tr>
                                           @endforeach
                                       </tbody>
                                   </table>

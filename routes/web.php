@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\MultiSheetImport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\SkillController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('projects', ProjectController::class);
 
         Route::resource('candidates', CandidateController::class);
+        Route::get('candidates/show/{id}', [CandidateController::class, 'Show'])->name("candidates.show");
+
+        Route::resource('skills', SkillController::class);
 
 
 
