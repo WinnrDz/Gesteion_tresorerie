@@ -7,7 +7,8 @@
 
               <div class="card p-3">
                   <p class="h1 text-center">Ajouter un candidate</p>
-                  <form action="{{ route('candidates.store') }}" method="POST">
+                  <form action="{{ route('candidates.store') }}" method="POST" enctype="multipart/form-data">
+                      @csrf
                       <div class="row">
                           <div class="col-md-6">
                               <div class="input-group input-group-outline my-3">
@@ -52,26 +53,26 @@
                           </div>
                           <div class="col-md-4">
                               <div class="input-group input-group-outline my-3">
-                                  <label class="form-label">CV</label>
-                                  <input type="text" class="form-control">
+                                  <input type="file" name="cv" class="form-control">
+                                  <span style="transform: translate(-120px, 8px); position: relative;">CV</span>
                               </div>
                           </div>
                           <div class="col-md-4">
                               <div class="input-group input-group-outline my-3">
                                   <label class="form-label">LinkedIn Url</label>
-                                  <input type="text" class="form-control">
+                                  <input type="text" name="linkedIn" class="form-control">
                               </div>
                           </div>
                           <div class="col-md-4">
                               <div class="input-group input-group-outline my-3">
                                   <label class="form-label">Github Url</label>
-                                  <input type="text" class="form-control">
+                                  <input type="text" name="github" class="form-control">
                               </div>
                           </div>
                           <div class="col-md-4">
                               <div class="input-group input-group-outline my-3">
                                   <label class="form-label">Portfolio Url</label>
-                                  <input type="text" class="form-control">
+                                  <input type="text" name="portfolio_url" class="form-control">
                               </div>
                           </div>
                           <div class="col-md-4">
@@ -90,31 +91,59 @@
                           <div class="col-md-4">
                               <div class="input-group input-group-outline my-3">
                                   <label class="form-label">Notation</label>
-                                  <input type="number" min="0" max="10" class="form-control">
+                                  <input type="number" name="notation" min="0" max="10" class="form-control">
                               </div>
                           </div>
                           <div class="col-md-4">
                               <div class="input-group input-group-outline my-3">
                                   <label class="form-label">Salaire</label>
-                                  <input type="text" class="form-control">
+                                  <input type="number" name="salary" class="form-control">
                               </div>
                           </div>
                           <div class="col-md-4">
                               <div class="input-group input-group-outline my-3">
                                   <label class="form-label">Date de candidature</label>
-                                  <input type="text" id="dateCandidature" class="form-control">
+                                  <input name="application_date" type="text" id="dateCandidature"
+                                      class="form-control">
                               </div>
                           </div>
-                          
+
                           <script>
                               flatpickr("#dateCandidature", {
-                                  dateFormat: "m/d/Y", // matches the placeholder
+                                  dateFormat: "Y-m-d", // matches the placeholder
                                   allowInput: true, // lets user type manually
                                   wrap: false // not using data-wrap
                               });
                           </script>
 
+                          <div class="col-md-4">
+                              <div class="input-group input-group-outline my-3">
+                                  <label class="form-label">Date d’entretien</label>
+                                  <input name="interview_date" type="text" id="dateEntretien" class="form-control">
+                              </div>
+                          </div>
+                          <script>
+                              flatpickr("#dateEntretien", {
+                                  dateFormat: "Y-m-d", // matches the placeholder
+                                  allowInput: true, // lets user type manually
+                                  wrap: false // not using data-wrap
+                              });
+                          </script>
 
+                          @if ($errors->any())
+                              <div class="alert alert-danger">
+                                  <ul>
+                                      @foreach ($errors->all() as $error)
+                                          <li>{{ $error }}</li>
+                                      @endforeach
+                                  </ul>
+                              </div>
+                          @endif
+
+
+                      </div>
+                      <div class="d-flex justify-content-center">
+                          <button class="btn bg-gradient-dark mb-0" type="submit">Ajouter</button>
                       </div>
                   </form>
               </div>

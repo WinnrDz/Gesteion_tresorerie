@@ -12,7 +12,9 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        //
+        $candidates = Candidate::all();
+
+        return view('candidates.index',compact("candidates"));
     }
 
     /**
@@ -28,7 +30,47 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $path = $request->file('cv')->store('cvs', 'public');
+
+
+        $validated = $request->validate([
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'email' => 'required|email|unique:candidates,email',
+        'phone' => 'required|numeric',
+        'location' => 'nullable|string|max:255',
+        'availability' => 'nullable|string|max:255',
+
+        'exp_years' => 'nullable|integer|min:0',
+
+        'linkedIn' => 'nullable|url',
+        'github' => 'nullable|url',
+        'portfolio_url' => 'nullable|url',
+
+        'recruitment_pipeline' => 'required|in:new,interview,shortlisted,offer,rejected,hired',
+
+        'notation' => 'required|integer|min:0|max:100',
+
+        'salary' => 'nullable|numeric|min:0',
+
+        'application_date' => 'required|date',
+
+        'interview_date' => 'nullable|date|after_or_equal:application_date'
+    ]);
+
+    $validated['cv'] = $path;
+
+
+
+
+    Candidate::create($validated);
+
+        if ($request->filled('redirect_to')) {
+                    return redirect($request->input('redirect_to'));
+        }
+
+        return redirect()->route('candidates.index'); // default behavior
+
     }
 
     /**
