@@ -130,7 +130,7 @@
                     <a class="{{ request()->routeIs('profilecvs.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
                         href="{{ route('profilecvs.index') }}">
                         <i class="material-symbols-rounded opacity-5">engineering</i>
-                        <span class="nav-link-text ms-1">Profil</span>
+                        <span class="nav-link-text ms-1">Profils</span>
                     </a>
                 </li>
 

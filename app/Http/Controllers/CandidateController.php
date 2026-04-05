@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
+use App\Models\Profilecv;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 
@@ -24,24 +25,26 @@ class CandidateController extends Controller
     public function create()
     {
          $skills = Skill::all();
-        return view('candidates.create',compact("skills"));
+         $profiles = Profilecv::all();
+        return view('candidates.create',compact("skills","profiles"));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $path = $request->file('cv')->store('cvs', 'public');
+{
+    // Upload CV
+    $path = $request->file('cv')->store('cvs', 'public');
 
-        $validated = $request->validate([
+    // Validation
+    $validated = $request->validate([
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
         'email' => 'required|email|unique:candidates,email',
         'phone' => 'required',
         'location' => 'nullable|string|max:255',
         'availability' => 'nullable|string|max:255',
-
         'exp_years' => 'nullable|integer|min:0',
 
         'linkedIn' => 'nullable|url',
@@ -49,52 +52,61 @@ class CandidateController extends Controller
         'portfolio_url' => 'nullable|url',
 
         'recruitment_pipeline' => 'required|in:new,interview,shortlisted,offer,rejected,hired',
-
         'notation' => 'required|integer|min:0|max:100',
-
         'salary' => 'nullable|numeric|min:0',
 
         'application_date' => 'required|date',
-
         'interview_date' => 'nullable|date|after_or_equal:application_date',
 
-        'skills' => 'required'
+        'skills' => ['required', 'json'],
+        'profiles' => ['required', 'json'],
     ]);
 
+    // Extract & remove from insert
+    $skillsJson = $validated['skills'];
+    $profilesJson = $validated['profiles'];
+
+    unset($validated['skills'], $validated['profiles']);
+
+    // Add CV path
     $validated['cv'] = $path;
 
-    
-
-
-
-
+    // Create candidate
     $candidate = Candidate::create($validated);
 
-
-
-
-
-    // 2 Process skills
-    $skillsArray = json_decode($request->skills, true);
-
+    // =========================
+    // SKILLS
+    // =========================
+    $skillsArray = json_decode($skillsJson, true);
     $skillIds = [];
 
     foreach ($skillsArray as $skillName) {
-        // Find or create skill
         $skill = Skill::firstOrCreate(['name' => $skillName]);
         $skillIds[] = $skill->id;
     }
 
-    // 3 Attach skills to candidate
     $candidate->skills()->sync($skillIds);
 
-        if ($request->filled('redirect_to')) {
-                    return redirect($request->input('redirect_to'));
-        }
+    // =========================
+    // PROFILES (same logic)
+    // =========================
+    $profilesArray = json_decode($profilesJson, true);
+    $profileIds = [];
 
-        return redirect()->route('candidates.index'); // default behavior
-
+    foreach ($profilesArray as $profileName) {
+        $profile = Profilecv::firstOrCreate(['name' => $profileName]);
+        $profileIds[] = $profile->id;
     }
+
+    $candidate->profilecvs()->sync($profileIds);
+
+    // Redirect
+    if ($request->filled('redirect_to')) {
+        return redirect($request->input('redirect_to'));
+    }
+
+    return redirect()->route('candidates.index');
+}
 
     /**
      * Display the specified resource.

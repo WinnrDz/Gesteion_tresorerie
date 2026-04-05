@@ -150,6 +150,71 @@
                               }
                           </script>
 
+                          
+                          <div class="col-md-4">
+
+                              <!-- Select -->
+                              <div class="input-group input-group-outline my-3">
+                                  <select id="profile-select" class="form-control">
+                                      <option value="" disabled selected>choisir un profil</option>
+                                      @foreach ($profiles as $profile)
+                                        <option value="{{$profile->name}}">{{$profile->name}}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                              <!-- Tags container -->
+                              <div id="tags-container-2" class="d-flex flex-wrap mt-2"></div>
+
+                              <!-- Hidden input -->
+                              <input type="hidden" name="profiles" id="profiles-hidden">
+                              <button type="button" id="add-profile-2" class="btn btn-secondary btn-sm mt-2">
+                                  + Ajouter un profil
+                              </button>
+
+                          </div>
+
+                          <script>
+                              let profiles = [];
+
+                              const select2 = document.getElementById('profile-select');
+                              const container2 = document.getElementById('tags-container-2');
+                              const hiddenInput2 = document.getElementById('profiles-hidden');
+
+                              select2.addEventListener('change', function() {
+                                  let value = this.value;
+
+                                  if (value && !profiles.includes(value)) {
+                                      profiles.push(value);
+
+                                      let tag = document.createElement('span');
+                                      tag.classList.add('badge', 'bg-dark', 'me-2', 'mb-1');
+                                      tag.innerHTML = `
+                ${value} <span style="cursor:pointer; margin-left:5px;">×</span>
+            `;
+
+                                      // remove tag
+                                      tag.querySelector('span').addEventListener('click', function() {
+                                          profiles = profiles.filter(s => s !== value);
+                                          tag.remove();
+                                          updateHidden2();
+                                      });
+
+                                      container2.appendChild(tag);
+                                      updateHidden2();
+                                  }
+
+                                  // reset select
+                                  this.value = "";
+                              });
+
+                              function updateHidden2() {
+                                  hiddenInput2.value = JSON.stringify(profiles);
+                              }
+                          </script>
+
+
+
+
                           <div class="col-md-4">
                               <div class="input-group input-group-outline my-3">
                                   <select name="level" class="form-control">
