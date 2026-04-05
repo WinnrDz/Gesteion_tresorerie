@@ -29,8 +29,11 @@
                                                   Pipeline
                                               </th>
                                               <th
-                                                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  Notation
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  <a
+                                                      href="{{ request('sort') == 'asc' ? '?sort=desc' : '?sort=asc' }}">Notation
+                                                      {{ request('sort') == 'asc' ? '▲' : '' }}
+                                                      {{ request('sort') == 'desc' ? '▼' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">

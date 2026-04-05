@@ -18,7 +18,6 @@ class Candidate extends Model
     {
         return $this->belongsToMany(Skill::class)
                     ->using(CandidateSkill::class)
-                    ->withPivot('level')
                     ->withTimestamps();
     }
 
@@ -26,7 +25,6 @@ class Candidate extends Model
     {
         return $this->belongsToMany(Profilecv::class)
                     ->using(CandidateProfilecv::class)
-                    ->withPivot('type')
                     ->withTimestamps();
     }
 

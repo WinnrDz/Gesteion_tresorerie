@@ -15,9 +15,7 @@ return new class extends Migration
 
             $table->foreignId("candidate_id")->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId("profilecv_id")->constrained()->onDelete('cascade')->onUpdate('cascade');
-
-            $table->enum("type",["primary","secondary"]);
-
+            
             $table->primary(['profilecv_id', 'candidate_id']);
             $table->timestamps();
         });
