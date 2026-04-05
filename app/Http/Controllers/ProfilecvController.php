@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\profilecv;
+use App\Models\Profilecv;
 use Illuminate\Http\Request;
 
 class ProfilecvController extends Controller
@@ -12,7 +12,9 @@ class ProfilecvController extends Controller
      */
     public function index()
     {
-        //
+        $profiles = Profilecv::all();
+
+        return view('profilecvs.index', compact("profiles"));
     }
 
     /**
@@ -20,7 +22,7 @@ class ProfilecvController extends Controller
      */
     public function create()
     {
-        //
+        return view('profilecvs.create');
     }
 
     /**
@@ -28,8 +30,25 @@ class ProfilecvController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $validated = $request->validate([
+            "name" => "required"
+        ]);
+
+        
+
+        Profilecv::create($validated);
+
+
+        
+        if ($request->filled('redirect_to')) {
+            return redirect($request->input('redirect_to'));
+        }
+
+        return redirect()->route('profilecvs.index'); // default behavior
     }
+
 
     /**
      * Display the specified resource.

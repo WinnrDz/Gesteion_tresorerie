@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\MultiSheetImport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\ProfilecvController;
 use App\Http\Controllers\SkillController;
 
 Route::get('/', function () {
@@ -46,7 +47,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('skills', SkillController::class);
 
-
+        Route::resource('profilecvs', ProfilecvController::class);
 
         Route::get('/upload', [ExcelController::class, 'showForm'])->name('excel.index');
         Route::post('/upload', [ExcelController::class, 'import'])->name('excel.import');

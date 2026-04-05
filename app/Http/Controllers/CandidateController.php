@@ -56,7 +56,9 @@ class CandidateController extends Controller
 
         'application_date' => 'required|date',
 
-        'interview_date' => 'nullable|date|after_or_equal:application_date'
+        'interview_date' => 'nullable|date|after_or_equal:application_date',
+
+        'skills' => 'required'
     ]);
 
     $validated['cv'] = $path;
