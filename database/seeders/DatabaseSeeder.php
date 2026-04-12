@@ -4,179 +4,263 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = \Faker\Factory::create();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        // =====================
-        // USERS
-        // =====================
-        $users = [];
-        for ($i = 1; $i <= 10; $i++) {
-            $users[] = [
-                'name' => $faker->name(),
-                'email' => $faker->unique()->safeEmail(),
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'),
-                'remember_token' => Str::random(10),
-                'role' => $faker->randomElement(['admin', 'user']),
+        DB::table('candidate_profilecv')->truncate();
+        DB::table('candidate_skill')->truncate();
+        DB::table('profilecvs')->truncate();
+        DB::table('skills')->truncate();
+        DB::table('candidates')->truncate();
+        DB::table('entrees')->truncate();
+        DB::table('projects')->truncate();
+        DB::table('clients')->truncate();
+        DB::table('depenses')->truncate();
+        DB::table('depense_noms')->truncate();
+        DB::table('users')->truncate();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        /*
+        |--------------------------------------------------------------------------
+        | USERS
+        |--------------------------------------------------------------------------
+        */
+        DB::table('users')->insert([
+            [
+                'name' => 'Admin',
+                'email' => 'admin@test.com',
+                'password' => bcrypt('password'),
+                'role' => 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ];
-        }
-        DB::table('users')->insert($users);
+            ],
+            [
+                'name' => 'User',
+                'email' => 'user@test.com',
+                'password' => bcrypt('password'),
+                'role' => 'user',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
 
-        // =====================
-        // CLIENTS
-        // =====================
+        /*
+        |--------------------------------------------------------------------------
+        | CLIENTS
+        |--------------------------------------------------------------------------
+        */
         $clients = [];
-        for ($i = 1; $i <= 8; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             $clients[] = [
-                'nom' => $faker->company(),
+                'nom' => "Client $i",
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
         DB::table('clients')->insert($clients);
-        $clientIds = DB::table('clients')->pluck('id')->toArray();
 
-        // =====================
-        // PROJECTS
-        // =====================
+        $clientIds = DB::table('clients')->pluck('id');
+
+        /*
+        |--------------------------------------------------------------------------
+        | PROJECTS
+        |--------------------------------------------------------------------------
+        */
         $projects = [];
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $projects[] = [
-                'nom' => $faker->word() . '_project_' . $i,
-                'montant' => $faker->randomFloat(2, 1000, 50000),
-                'client_id' => $faker->randomElement($clientIds),
+                'nom' => "Project $i",
+                'montant' => rand(1000, 10000),
+                'client_id' => $clientIds->random(),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
         DB::table('projects')->insert($projects);
-        $projectIds = DB::table('projects')->pluck('id')->toArray();
 
-        // =====================
-        // DEPENSE NOMS
-        // =====================
-        $depenseNoms = [];
-        for ($i = 1; $i <= 15; $i++) {
-            $depenseNoms[] = [
-                'nom' => $faker->word() . '_' . $i,
-                'type' => $faker->randomElement(['fix', 'variable']),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        }
-        DB::table('depense_noms')->insert($depenseNoms);
-        $depenseNomIds = DB::table('depense_noms')->pluck('id')->toArray();
+        $projectIds = DB::table('projects')->pluck('id');
 
-        // =====================
-        // DEPENSES
-        // =====================
+        /*
+        |--------------------------------------------------------------------------
+        | DEPENSE NOMS
+        |--------------------------------------------------------------------------
+        */
+        DB::table('depense_noms')->insert([
+            ['nom' => 'Rent', 'type' => 'fix', 'created_at' => now(), 'updated_at' => now()],
+            ['nom' => 'Salary', 'type' => 'fix', 'created_at' => now(), 'updated_at' => now()],
+            ['nom' => 'Marketing', 'type' => 'variable', 'created_at' => now(), 'updated_at' => now()],
+        ]);
+
+        $depenseNomIds = DB::table('depense_noms')->pluck('id');
+
+        /*
+        |--------------------------------------------------------------------------
+        | DEPENSES
+        |--------------------------------------------------------------------------
+        */
         $depenses = [];
-        for ($i = 1; $i <= 40; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $depenses[] = [
-                'valeur' => $faker->randomFloat(2, 10, 2000),
-                'date' => $faker->dateTimeBetween('-6 months', 'now'),
-                'note' => $faker->sentence(),
+                'valeur' => rand(100, 5000),
+                'date' => Carbon::now()->subDays(rand(1, 100)),
+                'note' => "Expense $i",
                 'attachment' => null,
                 'attachment_name' => null,
-                'depense_noms_id' => $faker->randomElement($depenseNomIds),
+                'depense_noms_id' => $depenseNomIds->random(),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
         DB::table('depenses')->insert($depenses);
 
-        // =====================
-        // ENTREES
-        // =====================
+        /*
+        |--------------------------------------------------------------------------
+        | ENTREES
+        |--------------------------------------------------------------------------
+        */
         $entrees = [];
-        for ($i = 1; $i <= 40; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $entrees[] = [
-                'valeur' => $faker->randomFloat(2, 50, 5000),
-                'date' => $faker->dateTimeBetween('-6 months', 'now'),
-                'type' => $faker->randomElement(['project', 'autre']),
-                'note' => $faker->sentence(),
+                'valeur' => rand(500, 10000),
+                'date' => Carbon::now()->subDays(rand(1, 100)),
+                'type' => rand(0, 1) ? 'project' : 'autre',
+                'note' => "Income $i",
                 'attachment' => null,
                 'attachment_name' => null,
-                'project_id' => $faker->boolean(70) ? $faker->randomElement($projectIds) : null,
+                'project_id' => $projectIds->random(),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
         DB::table('entrees')->insert($entrees);
 
-        // =====================
-        // SKILLS
-        // =====================
-        $skillsList = ['PHP', 'Laravel', 'JS', 'React', 'Vue', 'SQL', 'Python', 'Docker', 'Git', 'Linux'];
-
-        $skills = [];
-        foreach ($skillsList as $skill) {
-            $skills[] = [
+        /*
+        |--------------------------------------------------------------------------
+        | SKILLS
+        |--------------------------------------------------------------------------
+        */
+        $skills = ['Laravel', 'React', 'Vue', 'PHP', 'MySQL', 'JavaScript', 'NodeJS'];
+        foreach ($skills as $skill) {
+            DB::table('skills')->insert([
                 'name' => $skill,
                 'created_at' => now(),
                 'updated_at' => now(),
-            ];
+            ]);
         }
-        DB::table('skills')->insert($skills);
-        $skillIds = DB::table('skills')->pluck('id')->toArray();
 
-        // =====================
-        // CANDIDATES
-        // =====================
+        $skillIds = DB::table('skills')->pluck('id');
+
+        /*
+        |--------------------------------------------------------------------------
+        | PROFILE CVS (UPDATED)
+        |--------------------------------------------------------------------------
+        */
+        $profiles = [
+            'Frontend Developer',
+            'Backend Developer',
+            'Fullstack Developer',
+            'DevOps Engineer',
+            'UI/UX Designer'
+        ];
+
+        foreach ($profiles as $p) {
+            DB::table('profilecvs')->insert([
+                'name' => $p,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $profileIds = DB::table('profilecvs')->pluck('id');
+
+        /*
+        |--------------------------------------------------------------------------
+        | CANDIDATES (REAL NAMES)
+        |--------------------------------------------------------------------------
+        */
+        $realCandidates = [
+            ['first' => 'Mohamed', 'last' => 'Ali'],
+            ['first' => 'Youssef', 'last' => 'Benali'],
+            ['first' => 'Amine', 'last' => 'Kaci'],
+            ['first' => 'Rania', 'last' => 'Meziane'],
+            ['first' => 'Sara', 'last' => 'Bennani'],
+            ['first' => 'Omar', 'last' => 'Haddad'],
+            ['first' => 'Yasmine', 'last' => 'Cherif'],
+            ['first' => 'Karim', 'last' => 'Bouaziz'],
+            ['first' => 'Nassim', 'last' => 'Farhi'],
+            ['first' => 'Lina', 'last' => 'Mokhtar'],
+        ];
+
         $candidates = [];
-        for ($i = 1; $i <= 20; $i++) {
+
+        for ($i = 0; $i < 30; $i++) {
+            $name = $realCandidates[array_rand($realCandidates)];
+
             $candidates[] = [
-                'first_name' => $faker->firstName(),
-                'last_name' => $faker->lastName(),
-                'email' => $faker->unique()->safeEmail(),
-                'phone' => $faker->numerify('07########'),
-                'location' => $faker->city(),
-                'availability' => $faker->randomElement(['immediate', '1 month', '2 months']),
-                'exp_years' => $faker->numberBetween(0, 10),
-                'cv' => 'cv_' . Str::random(10) . '.pdf',
-                'linkedIn' => $faker->url(),
-                'github' => $faker->url(),
-                'portfolio_url' => $faker->url(),
-                'recruitment_pipeline' => $faker->randomElement(['new','interview','shortlisted','offer','rejected','hired']),
-                'notation' => $faker->numberBetween(1, 10),
-                'salary' => $faker->randomFloat(2, 300, 5000),
-                'level' => $faker->randomElement(['beginner','intermediate','advanced','expert']),
-                'application_date' => $faker->date(),
-                'interview_date' => $faker->optional()->date(),
+                'first_name' => $name['first'],
+                'last_name' => $name['last'],
+                'email' => strtolower($name['first'] . $i . '@test.com'),
+                'phone' => '07' . rand(10000000, 99999999),
+                'location' => 'City ' . rand(1, 10),
+                'availability' => 'immediate',
+                'exp_years' => rand(0, 10),
+                'cv' => 'cv.pdf',
+                'linkedIn' => null,
+                'github' => null,
+                'portfolio_url' => null,
+                'recruitment_pipeline' => ['new','interview','shortlisted','offer','rejected','hired'][rand(0,5)],
+                'notation' => rand(1, 10),
+                'salary' => rand(500, 5000),
+                'level' => ['beginner','intermediate','advanced','expert'][rand(0,3)],
+                'application_date' => now()->subDays(rand(1, 60)),
+                'interview_date' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
+
         DB::table('candidates')->insert($candidates);
-        $candidateIds = DB::table('candidates')->pluck('id')->toArray();
 
-        // =====================
-        // CANDIDATE_SKILL (FIXED - NO LEVEL)
-        // =====================
-        $pivot = [];
+        $candidateIds = DB::table('candidates')->pluck('id');
 
-        foreach ($candidateIds as $candidateId) {
-            $randomSkills = $faker->randomElements($skillIds, rand(2, 4));
-
-            foreach ($randomSkills as $skillId) {
-                $pivot[] = [
-                    'candidate_id' => $candidateId,
-                    'skill_id' => $skillId,
+        /*
+        |--------------------------------------------------------------------------
+        | PIVOT: candidate_skill
+        |--------------------------------------------------------------------------
+        */
+        $pivotSkills = [];
+        foreach ($candidateIds as $cid) {
+            foreach ($skillIds->random(rand(2, 4)) as $sid) {
+                $pivotSkills[] = [
+                    'candidate_id' => $cid,
+                    'skill_id' => $sid,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
             }
         }
+        DB::table('candidate_skill')->insert($pivotSkills);
 
-        DB::table('candidate_skill')->insert($pivot);
+        /*
+        |--------------------------------------------------------------------------
+        | PIVOT: candidate_profilecv
+        |--------------------------------------------------------------------------
+        */
+        $pivotProfiles = [];
+        foreach ($candidateIds as $cid) {
+            $pivotProfiles[] = [
+                'candidate_id' => $cid,
+                'profilecv_id' => $profileIds->random(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+        DB::table('candidate_profilecv')->insert($pivotProfiles);
     }
 }

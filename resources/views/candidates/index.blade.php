@@ -41,6 +41,10 @@
                                               </th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  Profils
+                                              </th>
+                                              <th
+                                                  class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
 
                                               </th>
                                           </tr>
@@ -68,9 +72,15 @@
                                                   </td>
                                                   <td>
                                                       @foreach ($candidate->skills as $skill)
-                                                          <li>{{ $skill->name }}</li>
+                                                          <li><a href="{{ route('candidates.index', ['skill' => $skill->id]) }}">{{ $skill->name }}</a></li>
                                                       @endforeach
                                                   </td>
+                                                  <td>
+                                                      @foreach ($candidate->profilecvs as $profile)
+                                                          <li><a href="{{ route('candidates.index', ['profile' => $profile->id]) }}">{{ $profile->name }}</a></li>
+                                                      @endforeach
+                                                  </td>
+
 
                                                   <td>
                                                       <a href="{{ route('candidates.show', $candidate->id) }}"

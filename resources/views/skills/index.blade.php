@@ -29,8 +29,8 @@
                                           @foreach ($skills as $skill)
                                               <tr>
                                                   <td>
-                                                      <h6 class="mb-0 text-sm">{{ $skill->name }}
-                                                      </h6>
+                                                      <a href="{{ route('candidates.index', ['skill' => $skill->id]) }}" class="mb-0 text-sm">{{ $skill->name }}
+                                                      </a>
                                                   </td>
                                                 </tr>
                                           @endforeach

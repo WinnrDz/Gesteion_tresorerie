@@ -105,7 +105,7 @@
 
                               <!-- Hidden input -->
                               <input type="hidden" name="skills" id="skills-hidden">
-                              <button type="button" id="add-skill" class="btn btn-secondary btn-sm mt-2">
+                              <button type="button" id="add-skill" class="btn btn-secondary btn-sm mt-2" onclick="window.location.href='{{ route('skills.create') }}'">
                                   + Ajouter une compétence
                               </button>
 
@@ -167,7 +167,7 @@
 
                               <!-- Hidden input -->
                               <input type="hidden" name="profiles" id="profiles-hidden">
-                              <button type="button" id="add-profile-2" class="btn btn-secondary btn-sm mt-2">
+                              <button type="button" id="add-profile-2" class="btn btn-secondary btn-sm mt-2" onclick="window.location.href='{{ route('profilecvs.create') }}'">
                                   + Ajouter un profil
                               </button>
 

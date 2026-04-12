@@ -29,8 +29,8 @@
                                           @foreach ($profiles as $profile)
                                               <tr>
                                                   <td>
-                                                      <h6 class="mb-0 text-sm">{{ $profile->name }}
-                                                      </h6>
+                                                      <a href="{{ route('candidates.index', ['profile' => $profile->id]) }}" class="mb-0 text-sm">{{ $profile->name }}
+                                                      </a>
                                                   </td>
                                                 </tr>
                                           @endforeach

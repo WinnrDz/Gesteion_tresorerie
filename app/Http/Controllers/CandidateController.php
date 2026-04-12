@@ -34,6 +34,33 @@ class CandidateController extends Controller
 
     $query->orderBy('notation', $sort);
 
+    //SKILL
+
+    if ($request->skill) {
+
+        $skillID = $request->skill;
+
+        $query->whereHas('skills', function ($q) use ($skillID) {
+            $q->where('id', $skillID);
+        });
+
+    }
+
+    $candidates = $query->get();
+
+
+    //PROFILE
+
+    if ($request->profile) {
+
+        $profileId = $request->profile;
+
+        $query->whereHas('profilecvs', function ($q) use ($profileId) {
+            $q->where('id', $profileId);
+        });
+
+    }
+
     $candidates = $query->get();
 
     return view('candidates.index', compact('candidates'));
