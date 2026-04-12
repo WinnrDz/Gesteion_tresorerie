@@ -158,7 +158,7 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | PROFILE CVS (UPDATED)
+        | PROFILE CVS
         |--------------------------------------------------------------------------
         */
         $profiles = [
@@ -181,31 +181,38 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | CANDIDATES (REAL NAMES)
+        | CANDIDATES (NO DUPLICATES)
         |--------------------------------------------------------------------------
         */
-        $realCandidates = [
-            ['first' => 'Mohamed', 'last' => 'Ali'],
-            ['first' => 'Youssef', 'last' => 'Benali'],
-            ['first' => 'Amine', 'last' => 'Kaci'],
-            ['first' => 'Rania', 'last' => 'Meziane'],
-            ['first' => 'Sara', 'last' => 'Bennani'],
-            ['first' => 'Omar', 'last' => 'Haddad'],
-            ['first' => 'Yasmine', 'last' => 'Cherif'],
-            ['first' => 'Karim', 'last' => 'Bouaziz'],
-            ['first' => 'Nassim', 'last' => 'Farhi'],
-            ['first' => 'Lina', 'last' => 'Mokhtar'],
+        $firstNames = [
+            'Mohamed','Youssef','Amine','Rania','Sara','Omar','Yasmine','Karim','Nassim','Lina',
+            'Adam','Hassan','Imane','Khalil','Amina','Bilal','Salma','Nour','Reda','Zineb',
+            'Walid','Fatima','Tarek','Asma','Ilyes','Sofiane','Chiraz','Anis','Meriem','Ayoub'
         ];
 
+        $lastNames = [
+            'Ali','Benali','Kaci','Meziane','Bennani','Haddad','Cherif','Bouaziz','Farhi','Mokhtar',
+            'Hassan','Zerrouki','Belaid','Hamdi','Saidi','Khelifi','Amrani','Boudiaf','Larbi','Djaafar',
+            'Bensaid','Touati','Rebbah','Guerfi','Mansouri','Bougherra','Derradji','Belkacem','Ouahab','Khellaf'
+        ];
+
+        $used = [];
         $candidates = [];
 
         for ($i = 0; $i < 30; $i++) {
-            $name = $realCandidates[array_rand($realCandidates)];
+
+            do {
+                $first = $firstNames[array_rand($firstNames)];
+                $last = $lastNames[array_rand($lastNames)];
+                $full = $first . ' ' . $last;
+            } while (in_array($full, $used));
+
+            $used[] = $full;
 
             $candidates[] = [
-                'first_name' => $name['first'],
-                'last_name' => $name['last'],
-                'email' => strtolower($name['first'] . $i . '@test.com'),
+                'first_name' => $first,
+                'last_name' => $last,
+                'email' => strtolower(str_replace(' ', '', $full)) . $i . '@test.com',
                 'phone' => '07' . rand(10000000, 99999999),
                 'location' => 'City ' . rand(1, 10),
                 'availability' => 'immediate',
