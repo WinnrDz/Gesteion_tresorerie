@@ -9,7 +9,7 @@
                     <div class="card z-index-0 fadeIn3 fadeInBottom">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                                <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Sign in</h4>
+                                <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Se connecter</h4>
                                 <div class="row mt-3">
                                     <!-- Session Status -->
                                     <x-auth-session-status class="text-light p-2 text-center" :status="session('status')" />
@@ -27,7 +27,7 @@
 
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
-                                    <input placeholder="Password" type="password" class="form-control" id="password"
+                                    <input placeholder="Mot de passe" type="password" class="form-control" id="password"
                                         type="password" name="password" required autocomplete="current-password">
                                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
@@ -36,24 +36,22 @@
                                 <div class="form-check form-switch d-flex align-items-center mb-3">
                                     <input class="form-check-input" type="checkbox" id="rememberMe" id="remember_me"
                                         name="remember" checked>
-                                    <label class="form-check-label mb-0 ms-3" for="rememberMe">Remember
-                                        me</label>
+                                    <label class="form-check-label mb-0 ms-3" for="rememberMe">Se souvenir de moi</label>
                                 </div>
 
                                 @if (Route::has('password.request'))
                                     <a class="mt-4 text-sm text-center" href="{{ route('password.request') }}">
-                                        Forgot your password?
+                                        Mot de passe oublié ?
                                     </a>
                                 @endif
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign
-                                        in</button>
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Se connecter </button>
                                 </div>
                                 <p class="mt-4 text-sm text-center">
-                                    Don't have an account?
+                                    Vous n’avez pas de compte ?
                                     <a href="{{ route('register') }}"
-                                        class="text-primary text-gradient font-weight-bold">Sign up</a>
+                                        class="text-primary text-gradient font-weight-bold">S’inscrire</a>
                                 </p>
                             </form>
                         </div>

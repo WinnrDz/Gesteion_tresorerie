@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
     <title>
-        @yield('title', 'gestion de tresorerie')
+        @yield('title', 'Gestion de la trésorerie')
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css"
@@ -52,7 +52,7 @@
             <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand px-4 py-3 m-0" href="{{ route('dashboard.index') }}">
-                <span class="ms-1 text-sm text-dark">GESTION TRESORERIE</span>
+                <span class="ms-1 text-sm text-dark">Gestion de la trésorerie</span>
             </a>
         </div>
         <hr class="horizontal dark mt-0 mb-2">
