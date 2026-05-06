@@ -96,7 +96,7 @@ class Sheet1Import implements ToCollection
                         $valeur = trim($row[$i] ?? '');
                         $date = $startDates[$i] ?? null;
 
-                        if (is_numeric($valeur) && $valeur !== '' && $date) {
+                        if (is_numeric($valeur) && (float)$valeur > 0 && $date) {
                             Depense::create([
                                 'depense_noms_id' => $depenseNom->id,
                                 'valeur' => $valeur,

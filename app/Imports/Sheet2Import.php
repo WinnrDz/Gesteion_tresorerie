@@ -104,7 +104,7 @@ class Sheet2Import implements ToCollection
                         $valeur = trim($row[$i] ?? '');
                         $date = $startDates[$i] ?? null;
 
-                        if (is_numeric($valeur) && $valeur !== '' && $date) {
+                        if (is_numeric($valeur) && (float)$valeur > 0 && $date) {
                             Entree::create([
                                 'project_id' => $project->id,
                                 'valeur' => $valeur,
@@ -121,7 +121,7 @@ class Sheet2Import implements ToCollection
                         $valeur = trim($row[$i] ?? '');
                         $date = $startDates[$i] ?? null;
 
-                        if (is_numeric($valeur) && $valeur !== '' && $date) {
+                        if (is_numeric($valeur) && (float)$valeur > 0 && $date) {
                             Entree::create([
                                 'valeur' => $valeur,
                                 'date' => $date,
