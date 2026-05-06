@@ -18,7 +18,11 @@ class ExcelReport
 
     public function download()
     {
-        $templatePath = public_path('assets/excel/example.xlsx');
+        $localPath = public_path('assets/excel/example.xlsx');
+        $serverPath = $_SERVER['DOCUMENT_ROOT'] . '/assets/excel/example.xlsx';
+
+        $templatePath = file_exists($localPath) ? $localPath : $serverPath;
+
         $spreadsheet = IOFactory::load($templatePath);
 
         // --- Sheet 1: Dépenses ---
