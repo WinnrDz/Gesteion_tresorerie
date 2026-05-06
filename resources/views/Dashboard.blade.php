@@ -355,7 +355,7 @@
                               <div class="col-lg-4 mt-4 mb-3">
                                   <div class="card">
                                       <div class="card-body">
-                                          <h6 class="mb-0 ">Tresorerie</h6>
+                                          <h6 class="mb-0 ">Tresorerie par semaine</h6>
                                           <p class="text-sm ">Graphique qui affiche la trésorerie par temps</p>
                                           <div class="pe-2">
                                               <div class="chart">
@@ -371,7 +371,7 @@
                               <div class="col-lg-4 mt-4 mb-3">
                                   <div class="card">
                                       <div class="card-body">
-                                          <h6 class="mb-0 ">Tresorerie</h6>
+                                          <h6 class="mb-0 ">Tresorerie par mois</h6>
                                           <p class="text-sm ">Graphique qui affiche la trésorerie par temps</p>
                                           <div class="pe-2">
                                               <div class="chart">
@@ -387,7 +387,7 @@
                               <div class="col-lg-4 mt-4 mb-3">
                                   <div class="card">
                                       <div class="card-body">
-                                          <h6 class="mb-0 ">Tresorerie</h6>
+                                          <h6 class="mb-0 ">Tresorerie par année</h6>
                                           <p class="text-sm ">Graphique qui affiche la trésorerie par temps</p>
                                           <div class="pe-2">
                                               <div class="chart">

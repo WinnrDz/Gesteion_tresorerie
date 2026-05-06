@@ -56,8 +56,16 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
         $companyNames = [
-            'Sonatrach','Djezzy','Ooredoo','Condor','Cevital',
-            'Air Algérie','Mobilis','Naftal','Cosider','Alliance Assurances'
+            'Henkel',
+            'KNAUF',
+            'MyTeamConnect',
+            'Lafarge',
+            'DIGITAL NATIVES',
+            'Beyond',
+            'Kimmco',
+            'Insersite',
+            'In Solutions',
+            'Impact design'
         ];
 
         $clients = [];
@@ -100,15 +108,33 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | DEPENSE NOMS
+        | DEPENSE NOMS (FIXED LIST)
         |--------------------------------------------------------------------------
         */
-        DB::table('depense_noms')->insert([
-            ['nom' => 'Office Rent', 'type' => 'fix', 'created_at' => now(), 'updated_at' => now()],
-            ['nom' => 'Employee Salaries', 'type' => 'fix', 'created_at' => now(), 'updated_at' => now()],
-            ['nom' => 'Marketing Ads', 'type' => 'variable', 'created_at' => now(), 'updated_at' => now()],
-            ['nom' => 'Software Licenses', 'type' => 'variable', 'created_at' => now(), 'updated_at' => now()],
-        ]);
+        $depenseNoms = [
+            'Salaire Net',
+            'IRG',
+            'Secu 35%',
+            'Abon.tel',
+            'Loyer',
+            'G50 TAP',
+            'G50 TVA',
+            'G50 ACOMPTE IBS',
+            'Achats materiels',
+            'Autres'
+        ];
+
+        $depenseData = [];
+        foreach ($depenseNoms as $name) {
+            $depenseData[] = [
+                'nom' => $name,
+                'type' => 'fix', // you can adjust if needed
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        DB::table('depense_noms')->insert($depenseData);
 
         $depenseNomIds = DB::table('depense_noms')->pluck('id');
 
@@ -134,7 +160,7 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | ENTREES (FIX UNIQUE NOTE)
+        | ENTREES
         |--------------------------------------------------------------------------
         */
         $entrees = [];
@@ -147,7 +173,7 @@ class DatabaseSeeder extends Seeder
                 'valeur' => rand(20000, 300000),
                 'date' => Carbon::now()->subDays(rand(1, 180)),
                 'type' => $isProject ? 'project' : 'autre',
-                'note' => $baseNote . " #" . $i, // ✅ UNIQUE
+                'note' => $baseNote . " #" . $i,
                 'attachment' => null,
                 'attachment_name' => null,
                 'project_id' => $isProject ? $projectIds->random() : null,
