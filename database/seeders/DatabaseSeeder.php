@@ -41,8 +41,8 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'User',
-                'email' => 'user@test.com',
+                'name' => 'HR Manager',
+                'email' => 'hr@test.com',
                 'password' => bcrypt('password'),
                 'role' => 'user',
                 'created_at' => now(),
@@ -55,10 +55,15 @@ class DatabaseSeeder extends Seeder
         | CLIENTS
         |--------------------------------------------------------------------------
         */
+        $companyNames = [
+            'Sonatrach','Djezzy','Ooredoo','Condor','Cevital',
+            'Air Algérie','Mobilis','Naftal','Cosider','Alliance Assurances'
+        ];
+
         $clients = [];
-        for ($i = 1; $i <= 5; $i++) {
+        foreach ($companyNames as $name) {
             $clients[] = [
-                'nom' => "Client $i",
+                'nom' => $name,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -72,16 +77,23 @@ class DatabaseSeeder extends Seeder
         | PROJECTS
         |--------------------------------------------------------------------------
         */
+        $projectNames = [
+            'ERP System','Mobile App','E-commerce Platform',
+            'HR Management System','Payment Gateway',
+            'Inventory System','Booking Platform'
+        ];
+
         $projects = [];
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $projects[] = [
-                'nom' => "Project $i",
-                'montant' => rand(1000, 10000),
+                'nom' => $projectNames[array_rand($projectNames)] . " v" . rand(1,3) . " #".$i,
+                'montant' => rand(50000, 500000),
                 'client_id' => $clientIds->random(),
-                'created_at' => now(),
+                'created_at' => Carbon::now()->subMonths(rand(1, 12)),
                 'updated_at' => now(),
             ];
         }
+
         DB::table('projects')->insert($projects);
 
         $projectIds = DB::table('projects')->pluck('id');
@@ -92,9 +104,10 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
         DB::table('depense_noms')->insert([
-            ['nom' => 'Rent', 'type' => 'fix', 'created_at' => now(), 'updated_at' => now()],
-            ['nom' => 'Salary', 'type' => 'fix', 'created_at' => now(), 'updated_at' => now()],
-            ['nom' => 'Marketing', 'type' => 'variable', 'created_at' => now(), 'updated_at' => now()],
+            ['nom' => 'Office Rent', 'type' => 'fix', 'created_at' => now(), 'updated_at' => now()],
+            ['nom' => 'Employee Salaries', 'type' => 'fix', 'created_at' => now(), 'updated_at' => now()],
+            ['nom' => 'Marketing Ads', 'type' => 'variable', 'created_at' => now(), 'updated_at' => now()],
+            ['nom' => 'Software Licenses', 'type' => 'variable', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
         $depenseNomIds = DB::table('depense_noms')->pluck('id');
@@ -105,11 +118,11 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
         $depenses = [];
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 0; $i < 40; $i++) {
             $depenses[] = [
-                'valeur' => rand(100, 5000),
-                'date' => Carbon::now()->subDays(rand(1, 100)),
-                'note' => "Expense $i",
+                'valeur' => rand(10000, 200000),
+                'date' => Carbon::now()->subDays(rand(1, 180)),
+                'note' => 'Expense ' . $i,
                 'attachment' => null,
                 'attachment_name' => null,
                 'depense_noms_id' => $depenseNomIds->random(),
@@ -121,19 +134,23 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | ENTREES
+        | ENTREES (FIX UNIQUE NOTE)
         |--------------------------------------------------------------------------
         */
         $entrees = [];
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 0; $i < 40; $i++) {
+            $isProject = rand(0, 100) < 80;
+
+            $baseNote = $isProject ? 'Project payment' : 'Other income';
+
             $entrees[] = [
-                'valeur' => rand(500, 10000),
-                'date' => Carbon::now()->subDays(rand(1, 100)),
-                'type' => rand(0, 1) ? 'project' : 'autre',
-                'note' => "Income $i",
+                'valeur' => rand(20000, 300000),
+                'date' => Carbon::now()->subDays(rand(1, 180)),
+                'type' => $isProject ? 'project' : 'autre',
+                'note' => $baseNote . " #" . $i, // ✅ UNIQUE
                 'attachment' => null,
                 'attachment_name' => null,
-                'project_id' => $projectIds->random(),
+                'project_id' => $isProject ? $projectIds->random() : null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -145,7 +162,7 @@ class DatabaseSeeder extends Seeder
         | SKILLS
         |--------------------------------------------------------------------------
         */
-        $skills = ['Laravel', 'React', 'Vue', 'PHP', 'MySQL', 'JavaScript', 'NodeJS'];
+        $skills = ['Laravel','React','Vue','PHP','MySQL','JavaScript','NodeJS','Docker','AWS'];
         foreach ($skills as $skill) {
             DB::table('skills')->insert([
                 'name' => $skill,
@@ -162,11 +179,8 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
         $profiles = [
-            'Frontend Developer',
-            'Backend Developer',
-            'Fullstack Developer',
-            'DevOps Engineer',
-            'UI/UX Designer'
+            'Frontend Developer','Backend Developer','Fullstack Developer',
+            'DevOps Engineer','UI/UX Designer','Mobile Developer'
         ];
 
         foreach ($profiles as $p) {
@@ -181,52 +195,54 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | CANDIDATES (NO DUPLICATES)
+        | CANDIDATES
         |--------------------------------------------------------------------------
         */
-        $firstNames = [
-            'Mohamed','Youssef','Amine','Rania','Sara','Omar','Yasmine','Karim','Nassim','Lina',
-            'Adam','Hassan','Imane','Khalil','Amina','Bilal','Salma','Nour','Reda','Zineb',
-            'Walid','Fatima','Tarek','Asma','Ilyes','Sofiane','Chiraz','Anis','Meriem','Ayoub'
-        ];
+        $firstNames = ['Mohamed','Youssef','Amine','Rania','Sara','Omar','Yasmine','Karim','Nassim','Lina'];
+        $lastNames = ['Benali','Kaci','Meziane','Bennani','Haddad','Cherif','Bouaziz','Farhi'];
 
-        $lastNames = [
-            'Ali','Benali','Kaci','Meziane','Bennani','Haddad','Cherif','Bouaziz','Farhi','Mokhtar',
-            'Hassan','Zerrouki','Belaid','Hamdi','Saidi','Khelifi','Amrani','Boudiaf','Larbi','Djaafar',
-            'Bensaid','Touati','Rebbah','Guerfi','Mansouri','Bougherra','Derradji','Belkacem','Ouahab','Khellaf'
-        ];
-
-        $used = [];
         $candidates = [];
 
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 40; $i++) {
 
-            do {
-                $first = $firstNames[array_rand($firstNames)];
-                $last = $lastNames[array_rand($lastNames)];
-                $full = $first . ' ' . $last;
-            } while (in_array($full, $used));
+            $first = $firstNames[array_rand($firstNames)];
+            $last = $lastNames[array_rand($lastNames)];
 
-            $used[] = $full;
+            $exp = rand(0, 10);
+            $salary = 40000 + ($exp * rand(5000, 12000));
+
+            $level = match(true) {
+                $exp <= 1 => 'beginner',
+                $exp <= 4 => 'intermediate',
+                $exp <= 7 => 'advanced',
+                default => 'expert'
+            };
+
+            $pipelineStates = ['new','interview','shortlisted','offer','rejected','hired'];
+            $state = $pipelineStates[array_rand($pipelineStates)];
+
+            $applicationDate = Carbon::now()->subDays(rand(1, 90));
 
             $candidates[] = [
                 'first_name' => $first,
                 'last_name' => $last,
-                'email' => strtolower(str_replace(' ', '', $full)) . $i . '@test.com',
-                'phone' => '07' . rand(10000000, 99999999),
-                'location' => 'City ' . rand(1, 10),
-                'availability' => 'immediate',
-                'exp_years' => rand(0, 10),
-                'cv' => 'cv.pdf',
-                'linkedIn' => null,
-                'github' => null,
-                'portfolio_url' => null,
-                'recruitment_pipeline' => ['new','interview','shortlisted','offer','rejected','hired'][rand(0,5)],
-                'notation' => rand(1, 10),
-                'salary' => rand(500, 5000),
-                'level' => ['beginner','intermediate','advanced','expert'][rand(0,3)],
-                'application_date' => now()->subDays(rand(1, 60)),
-                'interview_date' => null,
+                'email' => strtolower($first.'.'.$last.$i).'@gmail.com',
+                'phone' => '05' . rand(10000000, 99999999),
+                'location' => ['Algiers','Oran','Constantine','Blida'][rand(0,3)],
+                'availability' => rand(0,1) ? 'immediate' : '1 month',
+                'exp_years' => $exp,
+                'cv' => 'cv_'.$i.'.pdf',
+                'linkedIn' => rand(0,1) ? 'https://linkedin.com/in/'.$first.$last : null,
+                'github' => rand(0,1) ? 'https://github.com/'.$first.$last : null,
+                'portfolio_url' => rand(0,1) ? 'https://'.$first.$last.'.dev' : null,
+                'recruitment_pipeline' => $state,
+                'notation' => rand(5, 10),
+                'salary' => $salary,
+                'level' => $level,
+                'application_date' => $applicationDate,
+                'interview_date' => in_array($state, ['interview','shortlisted','offer','hired'])
+                    ? $applicationDate->copy()->addDays(rand(2,10))
+                    : null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -238,12 +254,12 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | PIVOT: candidate_skill
+        | PIVOTS
         |--------------------------------------------------------------------------
         */
         $pivotSkills = [];
         foreach ($candidateIds as $cid) {
-            foreach ($skillIds->random(rand(2, 4)) as $sid) {
+            foreach ($skillIds->random(rand(2, 5)) as $sid) {
                 $pivotSkills[] = [
                     'candidate_id' => $cid,
                     'skill_id' => $sid,
@@ -254,11 +270,6 @@ class DatabaseSeeder extends Seeder
         }
         DB::table('candidate_skill')->insert($pivotSkills);
 
-        /*
-        |--------------------------------------------------------------------------
-        | PIVOT: candidate_profilecv
-        |--------------------------------------------------------------------------
-        */
         $pivotProfiles = [];
         foreach ($candidateIds as $cid) {
             $pivotProfiles[] = [
