@@ -8,7 +8,7 @@
                 <h3 class="mb-0 h4 font-weight-bolder">Gestion Excel</h3>
                 <p class="mb-4">
                     Remarque : le fichier doit respecter exactement ce
-                    <a href="{{ asset('assets/excel/Exemple Gestion de tresorerie.xlsx') }}" style="font-weight: bold"
+                    <a href="{{ asset('assets/excel/example.xlsx') }}" style="font-weight: bold"
                         download>format.</a>
                 </p>
             </div>

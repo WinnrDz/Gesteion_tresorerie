@@ -18,7 +18,7 @@ class ExcelReport
 
     public function download()
     {
-        $templatePath = public_path('assets/excel/Exemple Gestion de tresorerie.xlsx');
+        $templatePath = public_path('assets/excel/example.xlsx');
         $spreadsheet = IOFactory::load($templatePath);
 
         // --- Sheet 1: Dépenses ---
