@@ -117,7 +117,9 @@ class DepenseController extends Controller
      */
     public function destroy(Depense $depense)
     {
-        //
+        $depense->delete();
+
+        return redirect()->route('depenses.index')->with('success','Depense deleted');
     }
 
     public function download($id)
