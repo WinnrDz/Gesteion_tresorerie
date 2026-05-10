@@ -74,6 +74,8 @@ class DepenseNomController extends Controller
      */
     public function destroy(DepenseNom $depensenom)
     {
-        //
+        $depensenom->delete();
+
+        return redirect()->route('depensesNoms.index')->with('success','depensenom deleted');
     }
 }

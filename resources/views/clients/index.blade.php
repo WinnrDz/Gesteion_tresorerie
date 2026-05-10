@@ -27,6 +27,9 @@
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   Projects
                                               </th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  </th>
                                           </tr>
                                       </thead>
                                       <tbody>
@@ -42,7 +45,16 @@
                                                       </h6>
                                                     @endforeach
                                                 </td>
+                                                <td><form action="{{ route('clients.destroy', $client->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            Delete
+                                                        </button>
+                                                    </form></td>
                                           </tr>
+                                          
                                           @endforeach
                                       </tbody>
                                   </table>

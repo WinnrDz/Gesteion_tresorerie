@@ -23,6 +23,9 @@
                                                       {{ request('sortNom') == 'asc' ? '▼' : '' }}
                                                       {{ request('sortNom') == 'desc' ? '▲' : '' }}</a>
                                               </th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  </th>
                                           </tr>
                                       </thead>
                                       <tbody>
@@ -32,7 +35,16 @@
                                                       <a href="{{ route('candidates.index', ['profile' => $profile->id]) }}" class="mb-0 text-sm">{{ $profile->name }}
                                                       </a>
                                                   </td>
+                                                  <td><form action="{{ route('profilecvs.destroy', $profile->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            Delete
+                                                        </button>
+                                                    </form></td>
                                                 </tr>
+                                                
                                           @endforeach
                                       </tbody>
                                   </table>

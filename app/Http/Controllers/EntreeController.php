@@ -151,7 +151,9 @@ class EntreeController extends Controller
      */
     public function destroy(Entree $entree)
     {
-        //
+        $entree->delete();
+
+        return redirect()->route('entrees.index')->with('success','entree deleted');
     }
 
     public function download($id)

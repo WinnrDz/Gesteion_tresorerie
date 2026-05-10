@@ -72,6 +72,8 @@ class SkillController extends Controller
      */
     public function destroy(Skill $skill)
     {
-        //
+        $skill->delete();
+
+        return redirect()->route('skills.index')->with('success','skill deleted');
     }
 }

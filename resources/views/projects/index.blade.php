@@ -61,6 +61,9 @@
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   Rest à payer TTC
                                               </th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  </th>
                                               <!-- <th
                                                                           class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                           note</th>
@@ -127,8 +130,16 @@
                                                           class="badge badge-sm bg-gradient-secondary">{{ $project->RestTTC }}
                                                           DA</span>
                                                   </td>
+                                                  <td><form action="{{ route('projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                        @csrf
+                                                        @method('DELETE')
 
-                                                  <!--
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            Delete
+                                                        </button>
+                                                    </form></td>
+
+                                                  {{--
                                                                           <td class="align-middle text-center">
                                                                               <span
                                                                                   class="text-secondary text-xs font-weight-bold">{{ $project->note ?? 'no note' }}
@@ -153,8 +164,8 @@
                                                                               </span>
                                                                             </td>
     @endif
+    --}}
                                                                       </tr>
-                                                                    -->
                                           @endforeach
                                       </tbody>
                                   </table>

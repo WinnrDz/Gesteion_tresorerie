@@ -45,6 +45,9 @@
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   attachment</th>
+                                                  <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  </th>
                                           </tr>
                                       </thead>
                                       <tbody>
@@ -89,7 +92,16 @@
                                                       </span>
                                                     </td>
                                                   @endif    
+                                                  <td><form action="{{ route('entrees.destroy', $entree->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            Delete
+                                                        </button>
+                                                    </form></td>
                                               </tr>
+                                              
                                           @endforeach
                                       </tbody>
                                   </table>

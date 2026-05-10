@@ -47,6 +47,9 @@
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
 
                                               </th>
+                                              <th
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  </th>
                                           </tr>
                                       </thead>
                                       <tbody>
@@ -87,6 +90,14 @@
                                                           class="text-xs font-weight-bold">Afficher plus
                                                       </a>
                                                   </td>
+                                                  <td><form action="{{ route('candidates.destroy', $candidate->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                            @csrf
+                                                            @method('DELETE')
+    
+                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                Delete
+                                                            </button>
+                                                        </form></td>
                                               </tr>
                                           @endforeach
                                       </tbody>

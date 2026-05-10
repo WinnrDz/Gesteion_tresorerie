@@ -79,6 +79,8 @@ class ProfilecvController extends Controller
      */
     public function destroy(profilecv $profilecv)
     {
-        //
+        $profilecv->delete();
+
+        return redirect()->route('profilecvs.index')->with('success','profilecv deleted');
     }
 }
