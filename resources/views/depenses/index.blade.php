@@ -16,6 +16,11 @@
                                   <table class="table align-items-center mb-0">
                                       <thead>
                                           <tr>
+                                            <th style="padding-left:0.5%;">
+                                                  <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" id="selectAll">
+                                                    </div>
+                                                  </th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   <a
@@ -52,6 +57,12 @@
                                       <tbody>
                                           @foreach ($depenses as $depense)
                                               <tr>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" id="customCheckDisabled">
+                                                        <label class="custom-control-label" for="customCheckDisabled"></label>
+                                                    </div>
+                                                </td>
                                                   <td>
                                                       <h6 class="mb-0 text-sm">{{ $depense->depensenom->nom ?? 'null' }}
                                                       </h6>

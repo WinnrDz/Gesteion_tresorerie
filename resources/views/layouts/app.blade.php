@@ -41,7 +41,7 @@
 
     <!-- rabah -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 </head>
 
@@ -156,7 +156,7 @@
                         @csrf
                     </form>
                 </li>
-                
+
             </ul>
         </div>
 
@@ -191,7 +191,8 @@
                     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                             <div class="input-group input-group-outline">
-                                <label class="form-label">{{ request()->routeIs('candidates.index') ? "rechercher des noms" : "Type here..."}}</label>
+                                <label
+                                    class="form-label">{{ request()->routeIs('candidates.index') ? 'rechercher des noms' : 'Type here...' }}</label>
                                 <input type="text" class="form-control" name="search">
                             </div>
 
@@ -950,22 +951,26 @@
                 sessionStorage.removeItem('scrollY');
             }
         });
+    </script>
+    <script type="text/javascript">
+        //rabah script
+        console.log("hi");
+        const selectAll = document.getElementById("selectAll");
 
-
-
-
-
-
-
-
-
-        /*function togglepopup() {
-            document.getElementById("popup").classList.toggle('mkhbi');
-        }
-
-        document.querySelector('.popup-button').addEventListener('click', function() {
-            this.querySelector('.popup').classList.toggle('mkhbi');
-        });*/
+        selectAll.addEventListener("change", function() {
+            const checkList = document.querySelectorAll(".form-check-input");
+            if (this.checked) {
+                console.log("checked");
+                checkList.forEach(element => {
+                    element.checked = true;
+                });
+            } else {
+                console.log("unchecked");
+                checkList.forEach(element => {
+                    element.checked = false;
+                });
+            }
+        });
     </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
