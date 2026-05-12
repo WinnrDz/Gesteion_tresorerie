@@ -15,12 +15,20 @@
                               <div class="table-responsive p-0">
                                   <table class="table align-items-center mb-0">
                                       <thead>
+                                          <tr class="bg-primary" >
+                                              <th colspan="6">
+                                                <div class="d-flex justify-content-between align-items-center px-3 pe-5">
+                                                  <label class="text-uppercase text-light font-weight-bolder fs-5">5 Selected</label>
+                                                  <i class="fa-solid fa-trash fs-5 text-light"></i>
+                                                </div>
+                                              </th>
+                                          </tr>
                                           <tr>
-                                            <th style="padding-left:0.5%;">
+                                              <th style="padding-left:0.5%;">
                                                   <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="selectAll">
-                                                    </div>
-                                                  </th>
+                                                      <input type="checkbox" class="form-check-input" id="selectAll">
+                                                  </div>
+                                              </th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   <a
@@ -46,23 +54,22 @@
                                                       {{ request('sort') == 'desc' ? '▼' : '' }}</a>
                                               </th>
                                               <th
-                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  style="width:10%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   attachment</th>
-                                              <th
-                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  </th>
 
                                           </tr>
                                       </thead>
                                       <tbody>
                                           @foreach ($depenses as $depense)
                                               <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="customCheckDisabled">
-                                                        <label class="custom-control-label" for="customCheckDisabled"></label>
-                                                    </div>
-                                                </td>
+                                                  <td>
+                                                      <div class="form-check">
+                                                          <input type="checkbox" class="form-check-input"
+                                                              id="customCheckDisabled">
+                                                          <label class="custom-control-label"
+                                                              for="customCheckDisabled"></label>
+                                                      </div>
+                                                  </td>
                                                   <td>
                                                       <h6 class="mb-0 text-sm">{{ $depense->depensenom->nom ?? 'null' }}
                                                       </h6>
@@ -98,14 +105,17 @@
                                                           </span>
                                                       </td>
                                                   @endif
-                                                  <td><form action="{{ route('depenses.destroy', $depense->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
-                                                        @csrf
-                                                        @method('DELETE')
+                                                  {{--<td>
+                                                      <form action="{{ route('depenses.destroy', $depense->id) }}"
+                                                          method="POST" onsubmit="return confirm('Are you sure?')">
+                                                          @csrf
+                                                          @method('DELETE')
 
-                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                            Delete
-                                                        </button>
-                                                    </form></td>
+                                                          <button type="submit" class="btn btn-danger btn-sm">
+                                                              Delete
+                                                          </button>
+                                                      </form>
+                                                  </td>--}}
 
 
                                               </tr>
