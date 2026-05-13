@@ -13,10 +13,10 @@
                           </div>
                           <div class="card-body px-0 pb-2">
                               <div class="table-responsive p-0">
-                                  <table class="table align-items-center mb-0">
+                                  <table class="table align-items-center mb-0" id="goofy-table">
                                       <thead>
-                                          <tr class="bg-primary" >
-                                              <th colspan="6">
+                                          <tr class="bg-primary" style="display: none;" id="selectedRow">
+                                              <th colspan="6" >
                                                 <div class="d-flex justify-content-between align-items-center px-3 pe-5">
                                                   <label class="text-uppercase text-light font-weight-bolder fs-5">5 Selected</label>
                                                   <i class="fa-solid fa-trash fs-5 text-light"></i>
@@ -59,7 +59,7 @@
 
                                           </tr>
                                       </thead>
-                                      <tbody>
+                                      <tbody >
                                           @foreach ($depenses as $depense)
                                               <tr>
                                                   <td>

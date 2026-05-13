@@ -957,21 +957,56 @@
     <script type="text/javascript">
         //rabah script
         console.log("hi");
+
+        //variables
+
         const selectAll = document.getElementById("selectAll");
+        const checkList = document.querySelectorAll(".form-check-input");
+        const selectedRow = document.getElementById("selectedRow");
+        const table = document.getElementById("goofy-table");
+
+        //select all when clicking select all
 
         selectAll.addEventListener("change", function() {
-            const checkList = document.querySelectorAll(".form-check-input");
             if (this.checked) {
-                console.log("checked");
+                console.log("checked select all");
                 checkList.forEach(element => {
                     element.checked = true;
                 });
             } else {
-                console.log("unchecked");
+                console.log("unchecked select all");
                 checkList.forEach(element => {
                     element.checked = false;
                 });
             }
+        });
+
+        /*
+                checkList.forEach(element => [
+                    element.addEventListener("change", function() {
+                        if (element.checked) {
+                            console.log("checked an item");
+                            selectedRow.style.display = "table-row";
+                        } else {
+                            console.log("unchecked an item");
+                            selectedRow.style.display = "none";
+                        }
+                    })
+                ])
+        */
+
+
+        table.addEventListener("change", function() {
+            console.log("table changed");
+
+            for (const e of checkList) {
+                if (e.checked) {
+                    selectedRow.style.display = "table-row";
+                    break;
+                }
+                selectedRow.style.display = "none";
+            }
+            
         });
     </script>
     <script>
