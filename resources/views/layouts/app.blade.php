@@ -956,25 +956,31 @@
     </script>
     <script type="text/javascript">
         //rabah script
-        console.log("hi");
+        ////console.log("hi");
 
         //variables
 
         const selectAll = document.getElementById("selectAll");
-        const checkList = document.querySelectorAll(".form-check-input");
+        const checkList = document.querySelectorAll("td div .form-check-input");
         const selectedRow = document.getElementById("selectedRow");
         const table = document.getElementById("goofy-table");
+        const label = document.querySelector("#selectedRow label");
+        let num = 0;
 
         //select all when clicking select all
 
         selectAll.addEventListener("change", function() {
             if (this.checked) {
-                console.log("checked select all");
+                //console.log("checked select all");
+                num = checkList.length;
+                label.textContent = num + " SELECTED";
                 checkList.forEach(element => {
                     element.checked = true;
                 });
             } else {
-                console.log("unchecked select all");
+                //console.log("unchecked select all");
+                num = 0;
+                label.textContent = num + " SELECTED";
                 checkList.forEach(element => {
                     element.checked = false;
                 });
@@ -985,19 +991,21 @@
                 checkList.forEach(element => [
                     element.addEventListener("change", function() {
                         if (element.checked) {
-                            console.log("checked an item");
+                            //console.log("checked an item");
                             selectedRow.style.display = "table-row";
                         } else {
-                            console.log("unchecked an item");
+                            //console.log("unchecked an item");
                             selectedRow.style.display = "none";
                         }
                     })
                 ])
         */
 
+        //make the select nav bar show up and dissapear
+
 
         table.addEventListener("change", function() {
-            console.log("table changed");
+            //console.log("table changed");
 
             for (const e of checkList) {
                 if (e.checked) {
@@ -1006,8 +1014,41 @@
                 }
                 selectedRow.style.display = "none";
             }
-            
+
+            /*
+                        for (const e of checkList) {
+                            if (e.checked) {
+                                num += 1;
+                                label.textContent = num + " SELECTED";
+                                break;
+                            }
+                        }*/
         });
+
+        //change the number of selected items
+
+        checkList.forEach(element => [
+            element.addEventListener("change", function() {
+                if (element.checked) {
+                    //console.log("checked an item");
+
+                    num += 1;
+                    label.textContent = num + " SELECTED";
+
+                } else {
+                    //console.log("unchecked an item");
+                    num -= 1;
+                    label.textContent = num + " SELECTED";
+
+                    if (num == 0) {
+                        //console.log("num is zero")
+                        selectedRow.style.display = "none";
+                        selectAll.checked = false;
+
+                    }
+                }
+            })
+        ])
     </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
