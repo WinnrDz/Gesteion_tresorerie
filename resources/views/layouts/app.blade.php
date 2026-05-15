@@ -966,24 +966,33 @@
         const table = document.getElementById("goofy-table");
         const label = document.querySelector("#selectedRow label");
         let num = 0;
+        let ids = [];
+        const deleteBtn = document.getElementById("deleteBtn");
+        
 
-        //select all when clicking select all
+        //select all when clicking select all, also add the ids to the ids array
 
         selectAll.addEventListener("change", function() {
             if (this.checked) {
                 //console.log("checked select all");
                 num = checkList.length;
                 label.textContent = num + " SELECTED";
+                ids = [];
                 checkList.forEach(element => {
                     element.checked = true;
+                    ids.push(element.value);
                 });
+                //console.log(ids);
             } else {
                 //console.log("unchecked select all");
                 num = 0;
                 label.textContent = num + " SELECTED";
+                ids = [];
+
                 checkList.forEach(element => {
                     element.checked = false;
                 });
+                //console.log(ids);
             }
         });
 
@@ -1025,18 +1034,25 @@
                         }*/
         });
 
-        //change the number of selected items
+        //change the number of selected items , and add them to ids array
 
         checkList.forEach(element => [
             element.addEventListener("change", function() {
                 if (element.checked) {
                     //console.log("checked an item");
+                    //console.log(element);
 
+                    ids.push(element.value);
+                    //console.log(ids);
                     num += 1;
                     label.textContent = num + " SELECTED";
 
                 } else {
                     //console.log("unchecked an item");
+                    //console.log(element);
+                    ids = ids.filter(num => num !== element.value);
+
+                    //console.log(ids);
                     num -= 1;
                     label.textContent = num + " SELECTED";
 
@@ -1049,6 +1065,24 @@
                 }
             })
         ])
+
+        //fetch the ids to delete them
+        deleteBtn.addEventListener("click", function() {
+            console.log("clicked");
+            fetch("/depenses/deleteMulti", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        ids: ids
+                    })
+                });
+        })
+        /*
+                
+        */
     </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;

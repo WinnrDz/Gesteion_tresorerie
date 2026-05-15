@@ -122,6 +122,13 @@ class DepenseController extends Controller
         return redirect()->route('depenses.index')->with('success','Depense deleted');
     }
 
+    public function deleteMulti(Request $request)
+    {
+        dd($request->all());
+    }
+
+
+
     public function download($id)
     {
 

@@ -19,7 +19,7 @@
                                               <th colspan="6" >
                                                 <div class="d-flex justify-content-between align-items-center px-3 pe-5">
                                                   <label class="text-uppercase text-light font-weight-bolder fs-5">5 Selected</label>
-                                                  <i class="fa-solid fa-trash fs-5 text-light"></i>
+                                                  <button id="deleteBtn" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i class="fa-solid fa-trash fs-5 text-light"  style="cursor: pointer;"></i></button>
                                                 </div>
                                               </th>
                                           </tr>
@@ -65,7 +65,8 @@
                                                   <td>
                                                       <div class="form-check">
                                                           <input type="checkbox" class="form-check-input"
-                                                              id="customCheckDisabled">
+                                                              id="customCheckDisabled" value="{{ $depense->id }}">
+
                                                           <label class="custom-control-label"
                                                               for="customCheckDisabled"></label>
                                                       </div>

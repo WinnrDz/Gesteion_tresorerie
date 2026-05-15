@@ -18,6 +18,11 @@ use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ProfilecvController;
 use App\Http\Controllers\SkillController;
 
+
+
+
+
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -31,6 +36,10 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['admin'])->group(function () {
         Route::resource('depenses', DepenseController::class);
+        Route::post('/depenses/deleteMulti', [DepenseController::class, 'deleteMulti']);
+        
+
+
         Route::get('/depenses/{id}/download', [DepenseController::class, 'download'])->name("depenses.download");
 
         Route::resource('depensesNoms', DepenseNomController::class);
