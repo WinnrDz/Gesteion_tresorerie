@@ -968,6 +968,7 @@
         let num = 0;
         let ids = [];
         const deleteBtn = document.getElementById("deleteBtn");
+        const deleteMultiInput = document.getElementById("deleteMultiInput");
         
 
         //select all when clicking select all, also add the ids to the ids array
@@ -1066,23 +1067,12 @@
             })
         ])
 
-        //fetch the ids to delete them
+        //change the value of deleteMultiInput to the ids array
         deleteBtn.addEventListener("click", function() {
             console.log("clicked");
-            fetch("/depenses/deleteMulti", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({
-                        ids: ids
-                    })
-                });
+            deleteMultiInput.value = ids;
         })
-        /*
-                
-        */
+        
     </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;

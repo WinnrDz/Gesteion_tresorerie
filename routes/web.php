@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['admin'])->group(function () {
         Route::resource('depenses', DepenseController::class);
-        Route::post('/depenses/deleteMulti', [DepenseController::class, 'deleteMulti']);
+        Route::post('/depenses/deleteMulti', [DepenseController::class, 'deleteMulti'])->name("depenses.deleteMulti");
         
 
 

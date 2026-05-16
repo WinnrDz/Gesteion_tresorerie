@@ -124,7 +124,16 @@ class DepenseController extends Controller
 
     public function deleteMulti(Request $request)
     {
-        dd($request->all());
+        $idsRaw = $request->deleteMultiInput;
+        $ids = explode(",", $idsRaw);
+   
+
+        foreach ($ids as $id) {
+            $depense = Depense::find($id);
+            $depense->delete();
+        } 
+
+        return redirect()->route('depenses.index')->with('success','Depense deleted');
     }
 
 
