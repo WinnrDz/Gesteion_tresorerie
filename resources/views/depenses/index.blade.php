@@ -16,19 +16,31 @@
                                   <table class="table align-items-center mb-0" id="goofy-table">
                                       <thead>
                                           <tr class="bg-primary" style="display: none;" id="selectedRow">
-                                              <th colspan="6" >
-                                                <div class="d-flex justify-content-between align-items-center px-3 pe-5">
-                                                  <label class="text-uppercase text-light font-weight-bolder fs-5">5 Selected</label>
-                                                  <form action="{{ route('depenses.deleteMulti') }}" method="POST" onsubmit="return confirm('Are you sure?')">@csrf <input type="text" value="5" id="deleteMultiInput" style="display: none;" name="deleteMultiInput"> <button type="submit" id="deleteBtn" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i class="fa-solid fa-trash fs-5 text-light"  style="cursor: pointer;"></i></button>
-                                                </div>
+                                              <th colspan="6">
+                                                  <div class="d-flex justify-content-between align-items-center px-3 pe-5">
+                                                      <label class="text-uppercase text-light font-weight-bolder fs-5">5
+                                                          Selected</label>
+                                                      <form action="{{ route('depenses.deleteMulti') }}" method="POST"
+                                                          onsubmit="return confirm('Are you sure?')">@csrf <input
+                                                              type="text" value="5" id="deleteMultiInput"
+                                                              style="display: none;" name="deleteMultiInput"> <button
+                                                              type="submit" id="deleteBtn"
+                                                              style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i
+                                                                  class="fa-solid fa-trash fs-5 text-light"
+                                                                  style="cursor: pointer;"></i></button>
+                                                  </div>
                                               </th>
                                           </tr>
                                           <tr>
-                                              <th style="padding-left:0.5%;">
+                                              <th style="padding-left:0.5%; width:5%">
                                                   <div class="form-check">
                                                       <input type="checkbox" class="form-check-input" id="selectAll">
+                                                      
                                                   </div>
                                               </th>
+                                              <th style="width:5%"
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  Edit</th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   <a
@@ -53,13 +65,13 @@
                                                       {{ request('sort') == 'asc' ? '▲' : '' }}
                                                       {{ request('sort') == 'desc' ? '▼' : '' }}</a>
                                               </th>
-                                              <th
-                                                  style="width:10%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                              <th style="width:10%"
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   attachment</th>
 
                                           </tr>
                                       </thead>
-                                      <tbody >
+                                      <tbody>
                                           @foreach ($depenses as $depense)
                                               <tr>
                                                   <td>
@@ -70,6 +82,9 @@
                                                           <label class="custom-control-label"
                                                               for="customCheckDisabled"></label>
                                                       </div>
+                                                  </td>
+                                                  <td style="text-align:center;"> 
+                                                      <i class="material-symbols-rounded opacity-5" >edit</i>
                                                   </td>
                                                   <td>
                                                       <h6 class="mb-0 text-sm">{{ $depense->depensenom->nom ?? 'null' }}
@@ -106,7 +121,7 @@
                                                           </span>
                                                       </td>
                                                   @endif
-                                                  {{--<td>
+                                                  {{-- <td>
                                                       <form action="{{ route('depenses.destroy', $depense->id) }}"
                                                           method="POST" onsubmit="return confirm('Are you sure?')">
                                                           @csrf
@@ -116,7 +131,7 @@
                                                               Delete
                                                           </button>
                                                       </form>
-                                                  </td>--}}
+                                                  </td> --}}
 
 
                                               </tr>
