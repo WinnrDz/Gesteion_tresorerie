@@ -101,7 +101,8 @@ class DepenseController extends Controller
      */
     public function edit(Depense $depense)
     {
-        //
+        $depensenoms = DepenseNom::all();
+        return view('depenses.edit', compact("depensenoms","depense"));
     }
 
     /**
@@ -109,7 +110,28 @@ class DepenseController extends Controller
      */
     public function update(Request $request, Depense $depense)
     {
-        //
+        dd($depense);
+        $validated = $request->validate([
+            "valeur" => "required",
+            "date" => "required",
+            "note" => "",
+            "attachment" => "",
+            "depense_noms_id" => "required"
+        ]);
+
+
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $validated['attachment'] = file_get_contents($file->getRealPath());
+            $validated['attachment_name'] = $file->getClientOriginalName();
+        } else {
+            $validated['attachment'] = null;
+        }
+
+        $depense->update($validated);
+
+        return redirect()->route('depenses.index')->with('success', 'Depense edited successfully!');
     }
 
     /**
@@ -121,6 +143,7 @@ class DepenseController extends Controller
 
         return redirect()->route('depenses.index')->with('success','Depense deleted');
     }
+
 
     public function deleteMulti(Request $request)
     {

@@ -16,7 +16,7 @@
                                   <table class="table align-items-center mb-0" id="goofy-table">
                                       <thead>
                                           <tr class="bg-primary" style="display: none;" id="selectedRow">
-                                              <th colspan="6">
+                                              <th colspan="7">
                                                   <div class="d-flex justify-content-between align-items-center px-3 pe-5">
                                                       <label class="text-uppercase text-light font-weight-bolder fs-5">5
                                                           Selected</label>
@@ -28,6 +28,7 @@
                                                               style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i
                                                                   class="fa-solid fa-trash fs-5 text-light"
                                                                   style="cursor: pointer;"></i></button>
+                                                      </form>
                                                   </div>
                                               </th>
                                           </tr>
@@ -35,7 +36,7 @@
                                               <th style="padding-left:0.5%; width:5%">
                                                   <div class="form-check">
                                                       <input type="checkbox" class="form-check-input" id="selectAll">
-                                                      
+
                                                   </div>
                                               </th>
                                               <th style="width:5%"
@@ -83,8 +84,12 @@
                                                               for="customCheckDisabled"></label>
                                                       </div>
                                                   </td>
-                                                  <td style="text-align:center;"> 
-                                                      <i class="material-symbols-rounded opacity-5" >edit</i>
+                                                  <td style="text-align:center;">
+                                                      <form action="{{ route('depenses.edit', $depense) }}" method="GET">
+                                                          <button type="submit" id="deleteBtn"
+                                                              style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i
+                                                                  class="material-symbols-rounded opacity-5">edit</i></button>
+                                                      </form>
                                                   </td>
                                                   <td>
                                                       <h6 class="mb-0 text-sm">{{ $depense->depensenom->nom ?? 'null' }}
