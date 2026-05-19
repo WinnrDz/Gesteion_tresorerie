@@ -6,8 +6,9 @@
               <div class="row">
                   <div class="col-12">
                       <div class="card my-4">
-                          <form action="{{ route('depenses.update', $depense) }}" enctype="multipart/form-data">
+                          <form action="{{ route('depenses.update', $depense->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PATCH')
                           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
                                   <h6 class="text-white text-capitalize ps-3">Modifier une dépense</h6>

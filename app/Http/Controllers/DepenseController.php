@@ -110,7 +110,7 @@ class DepenseController extends Controller
      */
     public function update(Request $request, Depense $depense)
     {
-        dd($depense);
+        //dd($depense);
         $validated = $request->validate([
             "valeur" => "required",
             "date" => "required",
