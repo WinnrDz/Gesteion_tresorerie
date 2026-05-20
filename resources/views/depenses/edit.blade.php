@@ -6,16 +6,18 @@
               <div class="row">
                   <div class="col-12">
                       <div class="card my-4">
-                          <form action="{{ route('depenses.update', $depense->id) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @method('PATCH')
-                          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                              <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                  <h6 class="text-white text-capitalize ps-3">Modifier une dépense</h6>
+                          <form action="{{ route('depenses.update', $depense->id) }}" method="POST"
+                              enctype="multipart/form-data">
+
+                              @csrf
+                              @method('PATCH')
+                              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                  <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                                      <h6 class="text-white text-capitalize ps-3">Modifier une dépense</h6>
+                                  </div>
                               </div>
-                          </div>
-                          <div class="card-body px-0 pb-2">
-                              <div class="table-responsive p-0">
+                              <div class="card-body px-0 pb-2">
+                                  <div class="table-responsive p-0">
                                       <table class="table align-items-center mb-0">
                                           <thead>
                                               <tr>
@@ -26,31 +28,42 @@
                                                   <th
                                                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                       Décaissements</th>
-                                                      <th
+                                                  <th
                                                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                       note</th>
                                                   <th
                                                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                       date
                                                   </th>
-                                                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">attachment</th>
+                                                  <th
+                                                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                      attachment</th>
                                               </tr>
                                           </thead>
                                           <tbody>
+
                                               <tr>
                                                   <td class="align-middle">
                                                       <div class="input-group input-group-outline">
+
                                                           <select name="depense_noms_id" class="form-control">
-                                                              <option value="" disabled selected>Choisir un nom
-                                                                  déepense
+
+                                                              <option value="{{ $depense->depensenom->id }}">{{ $depense->depensenom->nom }}
+                                                                  ({{ $depense->depensenom->type }})
                                                               </option>
+
+
                                                               @foreach ($depensenoms as $depensenom)
-                                                                  <option value="{{ $depensenom->id }}">
-                                                                      {{ $depensenom->nom }} ({{$depensenom->type}})</option>
+                                                                  @if ($depensenom->id !== $depense->depensenom->id)
+                                                                      <option value="{{ $depensenom->id }}">
+                                                                          {{ $depensenom->nom }} ({{ $depensenom->type }})
+                                                                      </option>
+                                                                  @endif
                                                               @endforeach
                                                           </select>
 
-                                                          <div class="align-middle" style="align-self: center; padding-left: 10px"><a
+                                                          <div class="align-middle"
+                                                              style="align-self: center; padding-left: 10px"><a
                                                                   href="{{ route('depensesNoms.create') }}"
                                                                   class=" text-secondary font-weight-bold text-xs"> Ajouter
                                                                   un nom
@@ -60,16 +73,16 @@
 
                                                   <td class="align-middle text-center">
                                                       <input type="text" name="valeur" class="form-control text-center"
-                                                          placeholder="...">
+                                                          placeholder="..." value="{{ $depense->valeur }}">
                                                   </td>
 
                                                   <td class="align-middle text-center">
                                                       <input type="text" name="note" class="form-control text-center"
-                                                          placeholder="...">
+                                                          placeholder="..." value="{{ $depense->note }}">
                                                   </td>
 
                                                   <td class="align-middle text-center">
-                                                      <input type="date" name="date" class="form-control text-center">
+                                                      <input type="date" name="date" class="form-control text-center" value="{{ $depense->date }}">
                                                   </td>
 
                                                   <td class="align-middle text-center">
@@ -80,11 +93,12 @@
                                               </tr>
                                           </tbody>
                                       </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn bg-gradient-dark mb-0" type="submit"><i class="material-symbols-rounded text-sm">edit</i>&nbsp;&nbsp;Modifier</button>
-</form>
+                                  </div>
+                              </div>
+                      </div>
+                      <button class="btn bg-gradient-dark mb-0" type="submit"><i
+                              class="material-symbols-rounded text-sm">edit</i>&nbsp;&nbsp;Modifier</button>
+                      </form>
                   </div>
               </div>
           </div>
