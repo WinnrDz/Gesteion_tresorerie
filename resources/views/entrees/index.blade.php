@@ -13,9 +13,35 @@
                           </div>
                           <div class="card-body px-0 pb-2">
                               <div class="table-responsive p-0">
-                                  <table class="table align-items-center mb-0">
+                                  <table class="table align-items-center mb-0" id="goofy-table">
                                       <thead>
+                                          <tr class="bg-primary" style="display: none;" id="selectedRow">
+                                              <th colspan="8">
+                                                  <div class="d-flex justify-content-between align-items-center px-3 pe-5">
+                                                      <label class="text-uppercase text-light font-weight-bolder fs-5">5
+                                                          Selected</label>
+                                                      <form action="{{ route('entrees.deleteMulti') }}" method="POST"
+                                                          onsubmit="return confirm('Are you sure?')">@csrf <input
+                                                              type="text" value="5" id="deleteMultiInput"
+                                                              style="display: none;" name="deleteMultiInput"> <button
+                                                              type="submit" id="deleteBtn"
+                                                              style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i
+                                                                  class="fa-solid fa-trash fs-5 text-light"
+                                                                  style="cursor: pointer;"></i></button>
+                                                      </form>
+                                                  </div>
+                                              </th>
+                                          </tr>
                                           <tr>
+                                              <th style="padding-left:0.5%; width:5%">
+                                                  <div class="form-check">
+                                                      <input type="checkbox" class="form-check-input" id="selectAll">
+
+                                                  </div>
+                                              </th>
+                                              <th style="width:5%"
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  Edit</th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   type
@@ -32,7 +58,8 @@
                                                   <a
                                                       href="{{ request('sortEnca') == 'asc' ? '?sortEnca=desc' : '?sortEnca=asc' }}">Encaissements
                                                       {{ request('sortEnca') == 'asc' ? '▲' : '' }}
-                                                      {{ request('sortEnca') == 'desc' ? '▼' : '' }}</a></th>
+                                                      {{ request('sortEnca') == 'desc' ? '▼' : '' }}</a>
+                                              </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   note</th>
@@ -45,14 +72,28 @@
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   attachment</th>
-                                                  <th
-                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  </th>
+                                              
                                           </tr>
                                       </thead>
                                       <tbody>
                                           @foreach ($entrees as $entree)
                                               <tr>
+                                                  <td>
+                                                      <div class="form-check">
+                                                          <input type="checkbox" class="form-check-input"
+                                                              id="customCheckDisabled" value="{{ $entree->id }}">
+
+                                                          <label class="custom-control-label"
+                                                              for="customCheckDisabled"></label>
+                                                      </div>
+                                                  </td>
+                                                  <td style="text-align:center;">
+                                                      <form action="{{ route('entrees.edit', $entree) }}" method="GET">
+                                                          <button type="submit" id="deleteBtn"
+                                                              style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i
+                                                                  class="material-symbols-rounded opacity-5">edit</i></button>
+                                                      </form>
+                                                  </td>
                                                   <td>
                                                       <h6 class="mb-0 text-sm">{{ $entree->type }}
                                                       </h6>
@@ -63,7 +104,8 @@
                                                       </h6>
                                                   </td>
                                                   <td class="align-middle text-center text-sm">
-                                                      <span class="badge badge-sm bg-gradient-success">{{ $entree->valeur }}
+                                                      <span
+                                                          class="badge badge-sm bg-gradient-success">{{ $entree->valeur }}
                                                           DA</span>
                                                   </td>
 
@@ -79,29 +121,21 @@
                                                       </span>
                                                   </td>
                                                   @if ($entree->attachment)
-                                                  <td class="align-middle text-center">
-                                                      <a href="{{ route("entrees.download" , $entree->id )}}" class="text-secondary font-weight-bold text-xs">
-                                                          download
-                                                      </a>
-                                                  </td>
-                                                      
+                                                      <td class="align-middle text-center">
+                                                          <a href="{{ route('entrees.download', $entree->id) }}"
+                                                              class="text-secondary font-weight-bold text-xs">
+                                                              download
+                                                          </a>
+                                                      </td>
                                                   @else
-                                                    <td class="align-middle text-center">
-                                                      <span class="text-secondary font-weight-bold text-xs">
-                                                          no piece joint
-                                                      </span>
-                                                    </td>
-                                                  @endif    
-                                                  <td><form action="{{ route('entrees.destroy', $entree->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
-                                                        @csrf
-                                                        @method('DELETE')
-
-                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                            Delete
-                                                        </button>
-                                                    </form></td>
+                                                      <td class="align-middle text-center">
+                                                          <span class="text-secondary font-weight-bold text-xs">
+                                                              no piece joint
+                                                          </span>
+                                                      </td>
+                                                  @endif
+                                                  
                                               </tr>
-                                              
                                           @endforeach
                                       </tbody>
                                   </table>

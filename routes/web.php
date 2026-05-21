@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('entrees', EntreeController::class);
         Route::get('/entrees/{id}/download', [EntreeController::class, 'download'])->name("entrees.download");
+        Route::post('/entrees/deleteMulti', [EntreeController::class, 'deleteMulti'])->name("entrees.deleteMulti");
 
         Route::resource('clients', ClientController::class);
 

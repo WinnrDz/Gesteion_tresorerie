@@ -135,7 +135,9 @@ class EntreeController extends Controller
      */
     public function edit(Entree $entree)
     {
-        //
+        $projects = Project::all();
+
+        return view("entrees.edit", compact("projects","entree"));
     }
 
     /**
@@ -143,7 +145,62 @@ class EntreeController extends Controller
      */
     public function update(Request $request, Entree $entree)
     {
-        //
+        $Entree = $request->all();
+        
+//----------------------------------------------------------------------------------------------------------------------------
+
+        if ($request->has('initial')) {
+            $entree->update([
+                "type" => 'autre',
+                'valeur' => $request->input('valeur'),
+                'date' => now(),
+                'note' => 'initial',
+            ]); 
+
+            return redirect()->route('dashboard.index');
+        }
+        
+//----------------------------------------------------------------------------------------------------------------------------
+
+        if ($Entree["type"] == "project") {
+            $validated = $request->validate([
+                "type" => "required",
+                "project_id" => "required",
+                "valeur" => "required",
+                "attachment" => "nullable",
+                "attachment_name" => "nullable",
+                "note" => "nullable",
+                "date" => "required"
+            ]);
+        }
+        if ($Entree["type"] == "autre") {
+            $validated = $request->validate([
+                "type" => "required",
+                "valeur" => "required",
+                "attachment" => "nullable",
+                "attachment_name" => "nullable",
+                "note" => "nullable",
+                "date" => "required"
+            ]);
+        }
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $validated['attachment'] = file_get_contents($file->getRealPath());
+            $validated['attachment_name'] = $file->getClientOriginalName();
+        } else {
+            $validated['attachment'] = null;
+            $validated['attachment_name'] = null;
+        }
+
+
+        $entree->update($validated);
+
+        if ($request->filled('redirect_to')) {
+            return redirect($request->input('redirect_to'));
+        }
+
+        return redirect()->route('entrees.index'); // default behavior
     }
 
     /**
@@ -155,6 +212,21 @@ class EntreeController extends Controller
 
         return redirect()->route('entrees.index')->with('success','entree deleted');
     }
+
+    public function deleteMulti(Request $request)
+    {
+        $idsRaw = $request->deleteMultiInput;
+        $ids = explode(",", $idsRaw);
+   
+
+        foreach ($ids as $id) {
+            $entree = Entree::find($id);
+            $entree->delete();
+        } 
+
+        return redirect()->route('entrees.index')->with('success','entree deleted');
+    }
+
 
     public function download($id)
     {
