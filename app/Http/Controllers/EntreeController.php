@@ -180,8 +180,10 @@ class EntreeController extends Controller
                 "attachment" => "nullable",
                 "attachment_name" => "nullable",
                 "note" => "nullable",
-                "date" => "required"
+                "date" => "required",
+                "project_id" => "nullable"
             ]);
+            $validated["project_id"] = null;
         }
 
         if ($request->hasFile('attachment')) {
