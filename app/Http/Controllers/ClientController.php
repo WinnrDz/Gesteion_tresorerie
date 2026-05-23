@@ -72,7 +72,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view("clients.edit",compact("client"));
     }
 
     /**
@@ -80,7 +80,17 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $validated = $request->validate([
+            "nom" => "required"
+        ]);
+
+        $client->update($validated);
+
+        if ($request->filled('redirect_to')) {
+            return redirect($request->input('redirect_to'));
+        }
+
+        return redirect()->route('clients.index'); // default behavior
     }
 
     /**
@@ -89,6 +99,20 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         $client->delete();
+
+        return redirect()->route('clients.index')->with('success','client deleted');
+    }
+
+    public function deleteMulti(Request $request)
+    {
+        $idsRaw = $request->deleteMultiInput;
+        $ids = explode(",", $idsRaw);
+   
+
+        foreach ($ids as $id) {
+            $client = Client::find($id);
+            $client->delete();
+        } 
 
         return redirect()->route('clients.index')->with('success','client deleted');
     }

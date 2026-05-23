@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/entrees/deleteMulti', [EntreeController::class, 'deleteMulti'])->name("entrees.deleteMulti");
 
         Route::resource('clients', ClientController::class);
+        Route::post('/clients/deleteMulti', [ClientController::class, 'deleteMulti'])->name("clients.deleteMulti");
 
         Route::resource('projects', ProjectController::class);
 
