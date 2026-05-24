@@ -13,19 +13,45 @@
                           </div>
                           <div class="card-body px-0 pb-2">
                               <div class="table-responsive p-0">
-                                  <table class="table align-items-center mb-0">
+                                  <table class="table align-items-center mb-0" id="goofy-table">
                                       <thead>
+                                          <tr class="bg-primary" style="display: none;" id="selectedRow">
+                                              <th colspan="12">
+                                                  <div class="d-flex justify-content-between align-items-center px-3 pe-5">
+                                                      <label class="text-uppercase text-light font-weight-bolder fs-5">5
+                                                          Selected</label>
+                                                      <form action="{{ route('depenses.deleteMulti') }}" method="POST"
+                                                          onsubmit="return confirm('Are you sure?')">@csrf <input
+                                                              type="text" value="5" id="deleteMultiInput"
+                                                              style="display: none;" name="deleteMultiInput"> <button
+                                                              type="submit" id="deleteBtn"
+                                                              style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i
+                                                                  class="fa-solid fa-trash fs-5 text-light"
+                                                                  style="cursor: pointer;"></i></button>
+                                                      </form>
+                                                  </div>
+                                              </th>
+                                          </tr>
                                           <tr>
+                                              <th style="padding-left:0.5%; width:5%">
+                                                  <div class="form-check">
+                                                      <input type="checkbox" class="form-check-input" id="selectAll">
+
+                                                  </div>
+                                              </th>
+                                              <th style="width:5%"
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  Edit</th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                   <a
+                                                  <a
                                                       href="{{ request('sortNom') == 'asc' ? '?sortNom=desc' : '?sortNom=asc' }}">Nom
                                                       {{ request('sortNom') == 'asc' ? '▼' : '' }}
                                                       {{ request('sortNom') == 'desc' ? '▲' : '' }}</a>
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                   <a
+                                                  <a
                                                       href="{{ request('sortClientNom') == 'asc' ? '?sortClientNom=desc' : '?sortClientNom=asc' }}">Client
                                                       {{ request('sortClientNom') == 'asc' ? '▼' : '' }}
                                                       {{ request('sortClientNom') == 'desc' ? '▲' : '' }}</a>
@@ -35,7 +61,8 @@
                                                   <a
                                                       href="{{ request('sortMontant') == 'asc' ? '?sortMontant=desc' : '?sortMontant=asc' }}">Montant
                                                       {{ request('sortMontant') == 'asc' ? '▲' : '' }}
-                                                      {{ request('sortMontant') == 'desc' ? '▼' : '' }}</a></th>
+                                                      {{ request('sortMontant') == 'desc' ? '▼' : '' }}</a>
+                                              </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   Montant Tva</th>
@@ -61,20 +88,34 @@
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   Rest à payer TTC
                                               </th>
-                                              <th
-                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  </th>
+                                              
                                               <!-- <th
-                                                                          class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                          note</th>
-                                                                      <th
-                                                                          class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                          attachment</th> -->
+                                                                                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                                      note</th>
+                                                                                  <th
+                                                                                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                                      attachment</th> -->
                                           </tr>
                                       </thead>
                                       <tbody>
                                           @foreach ($projects as $project)
                                               <tr>
+                                                  <td>
+                                                      <div class="form-check">
+                                                          <input type="checkbox" class="form-check-input"
+                                                              id="customCheckDisabled" value="{{ $project->id }}">
+
+                                                          <label class="custom-control-label"
+                                                              for="customCheckDisabled"></label>
+                                                      </div>
+                                                  </td>
+                                                  <td style="text-align:center;">
+                                                      <form action="{{ route('projects.edit', $project) }}" method="GET">
+                                                          <button type="submit" id="deleteBtn"
+                                                              style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i
+                                                                  class="material-symbols-rounded opacity-5">edit</i></button>
+                                                      </form>
+                                                  </td>
                                                   <td>
                                                       <h6 class="mb-0 text-sm">{{ $project->nom }}
                                                       </h6>
@@ -130,14 +171,6 @@
                                                           class="badge badge-sm bg-gradient-secondary">{{ $project->RestTTC }}
                                                           DA</span>
                                                   </td>
-                                                  <td><form action="{{ route('projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
-                                                        @csrf
-                                                        @method('DELETE')
-
-                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                            Delete
-                                                        </button>
-                                                    </form></td>
 
                                                   {{--
                                                                           <td class="align-middle text-center">
@@ -165,7 +198,7 @@
                                                                             </td>
     @endif
     --}}
-                                                                      </tr>
+                                              </tr>
                                           @endforeach
                                       </tbody>
                                   </table>
