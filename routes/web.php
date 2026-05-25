@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/clients/deleteMulti', [ClientController::class, 'deleteMulti'])->name("clients.deleteMulti");
 
         Route::resource('projects', ProjectController::class);
+        Route::post('/projects/deleteMulti', [ProjectController::class, 'deleteMulti'])->name("projects.deleteMulti");
 
         Route::resource('candidates', CandidateController::class);
         Route::get('candidates/show/{id}', [CandidateController::class, 'Show'])->name("candidates.show");

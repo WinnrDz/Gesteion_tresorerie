@@ -89,7 +89,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $clients = Client::all();
+
+        return view('projects.edit',compact("clients","project"));
     }
 
     /**
@@ -97,7 +99,19 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $validated = $request->validate([
+        "nom" => "required",
+        "montant" => "required",
+        "client_id" => "required"
+        ]);
+
+        $project->update($validated);
+
+        if ($request->filled('redirect_to')) {
+            return redirect($request->input('redirect_to'));
+        }
+
+        return redirect()->route('projects.index'); // default behavior
     }
 
     /**
@@ -106,6 +120,20 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
+
+        return redirect()->route('projects.index')->with('success','project deleted');
+    }
+
+    public function deleteMulti(Request $request)
+    {
+        $idsRaw = $request->deleteMultiInput;
+        $ids = explode(",", $idsRaw);
+   
+
+        foreach ($ids as $id) {
+            $project = project::find($id);
+            $project->delete();
+        } 
 
         return redirect()->route('projects.index')->with('success','project deleted');
     }

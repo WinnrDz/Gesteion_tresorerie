@@ -20,7 +20,7 @@
                                                   <div class="d-flex justify-content-between align-items-center px-3 pe-5">
                                                       <label class="text-uppercase text-light font-weight-bolder fs-5">5
                                                           Selected</label>
-                                                      <form action="{{ route('depenses.deleteMulti') }}" method="POST"
+                                                      <form action="{{ route('projects.deleteMulti') }}" method="POST"
                                                           onsubmit="return confirm('Are you sure?')">@csrf <input
                                                               type="text" value="5" id="deleteMultiInput"
                                                               style="display: none;" name="deleteMultiInput"> <button
