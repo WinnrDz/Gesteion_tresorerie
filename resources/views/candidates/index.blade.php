@@ -12,10 +12,36 @@
                               </div>
                           </div>
                           <div class="card-body px-0 pb-2">
-                              <div class="table-responsive p-0">
+                              <div class="table-responsive p-0" id="goofy-table">
                                   <table class="table align-items-center mb-0">
                                       <thead>
+                                          <tr class="bg-primary" style="display: none;" id="selectedRow">
+                                              <th colspan="9">
+                                                  <div class="d-flex justify-content-between align-items-center px-3 pe-5">
+                                                      <label class="text-uppercase text-light font-weight-bolder fs-5">5
+                                                          Selected</label>
+                                                      <form action="{{ route('candidates.deleteMulti') }}" method="POST"
+                                                          onsubmit="return confirm('Are you sure?')">@csrf <input
+                                                              type="text" value="5" id="deleteMultiInput"
+                                                              style="display: none;" name="deleteMultiInput"> <button
+                                                              type="submit" id="deleteBtn"
+                                                              style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i
+                                                                  class="fa-solid fa-trash fs-5 text-light"
+                                                                  style="cursor: pointer;"></i></button>
+                                                      </form>
+                                                  </div>
+                                              </th>
+                                          </tr>
                                           <tr>
+                                              <th style="padding-left:0.5%; width:5%">
+                                                  <div class="form-check">
+                                                      <input type="checkbox" class="form-check-input" id="selectAll">
+
+                                                  </div>
+                                              </th>
+                                              <th style="width:5%"
+                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                  Edit</th>
                                               <th
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                   Prénom
@@ -30,8 +56,7 @@
                                               </th>
                                               <th
                                                   class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  <a
-                                                      href="{{ request('sort') == 'asc' ? '?sort=desc' : '?sort=asc' }}">Notation
+                                                  <a href="{{ request('sort') == 'asc' ? '?sort=desc' : '?sort=asc' }}">Notation
                                                       {{ request('sort') == 'asc' ? '▲' : '' }}
                                                       {{ request('sort') == 'desc' ? '▼' : '' }}</a>
                                               </th>
@@ -47,14 +72,27 @@
                                                   class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
 
                                               </th>
-                                              <th
-                                                  class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                  </th>
                                           </tr>
                                       </thead>
                                       <tbody>
                                           @foreach ($candidates as $candidate)
                                               <tr>
+                                                  <td>
+                                                      <div class="form-check">
+                                                          <input type="checkbox" class="form-check-input"
+                                                              id="customCheckDisabled" value="{{ $candidate->id }}">
+
+                                                          <label class="custom-control-label"
+                                                              for="customCheckDisabled"></label>
+                                                      </div>
+                                                  </td>
+                                                  <td style="text-align:center;">
+                                                      <form action="{{ route('candidates.edit', $candidate) }}" method="GET">
+                                                          <button type="submit" id="deleteBtn"
+                                                              style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; outline: none;"><i
+                                                                  class="material-symbols-rounded opacity-5">edit</i></button>
+                                                      </form>
+                                                  </td>
                                                   <td>
                                                       <span class="text-xs font-weight-bold">{{ $candidate->first_name }}
                                                       </span>
@@ -75,12 +113,16 @@
                                                   </td>
                                                   <td>
                                                       @foreach ($candidate->skills as $skill)
-                                                          <li><a href="{{ route('candidates.index', ['skill' => $skill->id]) }}">{{ $skill->name }}</a></li>
+                                                          <li><a
+                                                                  href="{{ route('candidates.index', ['skill' => $skill->id]) }}">{{ $skill->name }}</a>
+                                                          </li>
                                                       @endforeach
                                                   </td>
                                                   <td>
                                                       @foreach ($candidate->profilecvs as $profile)
-                                                          <li><a href="{{ route('candidates.index', ['profile' => $profile->id]) }}">{{ $profile->name }}</a></li>
+                                                          <li><a
+                                                                  href="{{ route('candidates.index', ['profile' => $profile->id]) }}">{{ $profile->name }}</a>
+                                                          </li>
                                                       @endforeach
                                                   </td>
 
@@ -90,14 +132,7 @@
                                                           class="text-xs font-weight-bold">Afficher plus
                                                       </a>
                                                   </td>
-                                                  <td><form action="{{ route('candidates.destroy', $candidate->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
-                                                            @csrf
-                                                            @method('DELETE')
-    
-                                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                                Delete
-                                                            </button>
-                                                        </form></td>
+
                                               </tr>
                                           @endforeach
                                       </tbody>

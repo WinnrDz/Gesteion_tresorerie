@@ -189,4 +189,17 @@ class CandidateController extends Controller
 
         return redirect()->route('candidates.index')->with('success','Candidate deleted');
     }
+    public function deleteMulti(Request $request)
+    {
+        $idsRaw = $request->deleteMultiInput;
+        $ids = explode(",", $idsRaw);
+   
+
+        foreach ($ids as $id) {
+            $candidate = Candidate::find($id);
+            $candidate->delete();
+        } 
+
+        return redirect()->route('candidates.index')->with('success','candidate deleted');
+    }
 }

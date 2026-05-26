@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('candidates', CandidateController::class);
         Route::get('candidates/show/{id}', [CandidateController::class, 'Show'])->name("candidates.show");
+        Route::post('/candidates/deleteMulti', [CandidateController::class, 'deleteMulti'])->name("candidates.deleteMulti");
 
         Route::resource('skills', SkillController::class);
 
