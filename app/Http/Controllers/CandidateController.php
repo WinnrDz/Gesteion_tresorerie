@@ -61,7 +61,7 @@ class CandidateController extends Controller
 
     }
 
-    $candidates = $query->get();
+    $candidates = $query->paginate(6);
 
     return view('candidates.index', compact('candidates'));
 }
