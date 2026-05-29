@@ -169,7 +169,9 @@ class CandidateController extends Controller
      */
     public function edit(Candidate $candidate)
     {
-        //
+        $skills = Skill::all();
+        $profiles = Profilecv::all();
+        return view('candidates.edit', compact("skills", "profiles", "candidate"));
     }
 
     /**
