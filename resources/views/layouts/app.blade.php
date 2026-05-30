@@ -107,46 +107,7 @@
                         <span class="nav-link-text ms-1">Import Excel</span>
                     </a>
                 </li>
-                <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Gestion RH
-                    </h6>
-                </li>
-
-                <li class="nav-item">
-                    <a class="{{ request()->routeIs('candidates.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
-                        href="{{ route('candidates.index') }}">
-                        <i class="material-symbols-rounded opacity-5">person_apron</i>
-                        <span class="nav-link-text ms-1">Candidates</span>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="{{ request()->routeIs('skills.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
-                        href="{{ route('skills.index') }}">
-                        <i class="material-symbols-rounded opacity-5">handyman</i>
-                        <span class="nav-link-text ms-1">Compétences</span>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="{{ request()->routeIs('profilecvs.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
-                        href="{{ route('profilecvs.index') }}">
-                        <i class="material-symbols-rounded opacity-5">engineering</i>
-                        <span class="nav-link-text ms-1">Profils</span>
-                    </a>
-                </li>
-
-                <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages
-                    </h6>
-                </li>
-                <li class="nav-item">
-                    <a class="{{ request()->routeIs('profile.edit') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
-                        href="{{ route('profile.edit') }}">
-                        <i class="material-symbols-rounded opacity-5">person</i>
-                        <span class="nav-link-text ms-1">Profile</span>
-                    </a>
-                </li>
+               
                 <li class="nav-item">
                     <a class="nav-link text-dark"href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
