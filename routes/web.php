@@ -23,60 +23,45 @@ use App\Http\Controllers\SkillController;
 
 
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
 
-Route::resource('dashboard', DashboardController::class)->middleware(['auth', 'verified']);
+Route::resource('/dashboard', DashboardController::class);
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::middleware(['admin'])->group(function () {
-        Route::resource('depenses', DepenseController::class);
-        Route::post('/depenses/deleteMulti', [DepenseController::class, 'deleteMulti'])->name("depenses.deleteMulti");
-        
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-        Route::get('/depenses/{id}/download', [DepenseController::class, 'download'])->name("depenses.download");
+Route::resource('depenses', DepenseController::class);
+Route::post('/depenses/deleteMulti', [DepenseController::class, 'deleteMulti'])->name("depenses.deleteMulti");
 
-        Route::resource('depensesNoms', DepenseNomController::class);
 
-        Route::resource('entrees', EntreeController::class);
-        Route::get('/entrees/{id}/download', [EntreeController::class, 'download'])->name("entrees.download");
-        Route::post('/entrees/deleteMulti', [EntreeController::class, 'deleteMulti'])->name("entrees.deleteMulti");
 
-        Route::resource('clients', ClientController::class);
-        Route::post('/clients/deleteMulti', [ClientController::class, 'deleteMulti'])->name("clients.deleteMulti");
+Route::get('/depenses/{id}/download', [DepenseController::class, 'download'])->name("depenses.download");
 
-        Route::resource('projects', ProjectController::class);
-        Route::post('/projects/deleteMulti', [ProjectController::class, 'deleteMulti'])->name("projects.deleteMulti");
+Route::resource('depensesNoms', DepenseNomController::class);
 
-        Route::resource('candidates', CandidateController::class);
-        Route::get('candidates/show/{id}', [CandidateController::class, 'Show'])->name("candidates.show");
-        Route::post('/candidates/deleteMulti', [CandidateController::class, 'deleteMulti'])->name("candidates.deleteMulti");
+Route::resource('entrees', EntreeController::class);
+Route::get('/entrees/{id}/download', [EntreeController::class, 'download'])->name("entrees.download");
+Route::post('/entrees/deleteMulti', [EntreeController::class, 'deleteMulti'])->name("entrees.deleteMulti");
 
-        Route::resource('skills', SkillController::class);
+Route::resource('clients', ClientController::class);
+Route::post('/clients/deleteMulti', [ClientController::class, 'deleteMulti'])->name("clients.deleteMulti");
 
-        Route::resource('profilecvs', ProfilecvController::class);
+Route::resource('projects', ProjectController::class);
+Route::post('/projects/deleteMulti', [ProjectController::class, 'deleteMulti'])->name("projects.deleteMulti");
 
-        Route::get('/upload', [ExcelController::class, 'showForm'])->name('excel.index');
-        Route::post('/upload', [ExcelController::class, 'import'])->name('excel.import');
 
-        Route::post('/export', function (Request $request) {
-            $request->validate([
-                'year' => 'required|digits:4|integer',
-            ]);
 
-            $year = (int) $request->year;
+Route::resource('profilecvs', ProfilecvController::class);
 
-            $export = new ExcelReport($year);
+Route::post('/export', function (Request $request) {
+    $request->validate([
+        'year' => 'required|digits:4|integer',
+    ]);
 
-            return $export->download();
-        })->name('excel.export');
-    });
-});
+    $year = (int) $request->year;
 
-require __DIR__ . '/auth.php';
+    $export = new ExcelReport($year);
+
+    return $export->download();
+})->name('excel.export');

@@ -100,25 +100,9 @@
                 </li>
 
 
-                <li class="nav-item">
-                    <a class="{{ request()->routeIs('excel.index') ? 'nav-link active bg-gradient-dark text-white' : 'nav-link text-dark' }}"
-                        href="{{ route('excel.index') }}">
-                        <i class="material-symbols-rounded opacity-5">docs</i>
-                        <span class="nav-link-text ms-1">Import Excel</span>
-                    </a>
-                </li>
+                
                
-                <li class="nav-item">
-                    <a class="nav-link text-dark"href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="material-symbols-rounded opacity-5">logout</i>
-                        <span class="nav-link-text ms-1">Sign Out</span>
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </li>
+                
 
             </ul>
         </div>
